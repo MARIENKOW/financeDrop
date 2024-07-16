@@ -6,7 +6,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import userService from '../../services/UserService';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { NavLink } from 'react-router-dom';
-import InCenterAuth from '../../component/wrappers/InCenterAuth';
+import InCenterAuth from '../../component/general/wrappers/InCenterAuth';
 import { Context } from '../../index';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { LoadingButton } from '@mui/lab';
@@ -15,7 +15,7 @@ import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '../../validateConfig';
 import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from '../../validateConfig';
 import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '../../validateConfig';
 import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from '../../validateConfig';
-import RegisterSuccess from '../../component/Success/RegisterSuccess';
+import RegisterSuccess from '../../component/User/Success/RegisterSuccess';
 
 
 
@@ -54,7 +54,7 @@ const SignUp = () => {
            }
            return
         }
-         setError('root.server', { type: 'server', message: 'Упс! виникла помилка, спробуйте пізніше' })
+         setError('root.server', { type: 'server', message: 'Oops! something went wrong, try again later' })
       }
    }
    if (success) return <RegisterSuccess mail={success} />
@@ -62,76 +62,76 @@ const SignUp = () => {
    return (
          <InCenterAuth>
             <Typography sx={{ textAlign: 'center', mb: 3 }} id="transition-modal-title" variant="h6" component="h2">
-               Реєстрація
+               Sign Up
             </Typography>
             <form onChange={handleChange} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }} onSubmit={handleSubmit(onSubmit)}>
                <TextField
                   error={!!errors.username}
                   {...register('username', {
-                     required: "обов'язкове поле",
+                     required: "required field",
                      minLength: {
                         value: USERNAME_MIN_LENGTH,
-                        message: `мінімум ${USERNAME_MIN_LENGTH} символи`
+                        message: `minimum ${USERNAME_MIN_LENGTH} characters`
                      },
                      maxLength: {
                         value: USERNAME_MAX_LENGTH,
-                        message: `максимум ${USERNAME_MAX_LENGTH} символів`
+                        message: `maximum ${USERNAME_MAX_LENGTH} characters`
                      }
                   })}
-                  label="Логін"
+                  label="Username"
                   sx={{ color: blue[700] }}
-                  helperText={errors?.username && (errors?.username?.message || 'некоректні данні')}
+                  helperText={errors?.username && (errors?.username?.message || 'incorrect data')}
                   variant="filled"
                />
                <TextField
                   error={!!errors.email}
                   {...register('email', {
-                     required: "обов'язкове поле",
+                     required: "required field",
                      maxLength: {
                         value: EMAIL_MAX_LENGTH,
-                        message: `максимум ${EMAIL_MAX_LENGTH} символів`
+                        message: `maximum ${EMAIL_MAX_LENGTH} characters`
                      },
                      pattern: {
                         value: EMAIL_PATTERN,
-                        message: 'пошта має бути формату - example@mail.com'
+                        message: 'mail must be in the format - example@mail.com'
                      }
                   })}
-                  label="Пошта"
+                  label="Email"
                   sx={{ color: blue[700] }}
-                  helperText={errors?.email && (errors?.email?.message || 'некоректні данні')}
+                  helperText={errors?.email && (errors?.email?.message || 'incorrect data')}
                   variant="filled"
                />
                <TextField
                   error={!!errors.name}
                   {...register('name', {
-                     required: "обов'язкове поле",
+                     required: "required field",
                      minLength: {
                         value: NAME_MIN_LENGTH,
-                        message: `мінімум ${NAME_MIN_LENGTH} символи`
+                        message: `minimum ${NAME_MIN_LENGTH} characters`
                      },
                      maxLength: {
                         value: NAME_MAX_LENGTH,
-                        message: `максимум ${NAME_MAX_LENGTH} символів`
+                        message: `maximum ${NAME_MAX_LENGTH} characters`
                      }
                   })}
-                  label="Ім'я"
+                  label="Name"
                   sx={{ color: blue[700] }}
-                  helperText={errors?.name && (errors?.name?.message || 'некоректні данні')}
+                  helperText={errors?.name && (errors?.name?.message || 'incorrect data')}
                   variant="filled"
                />
                <FormControl error={!!errors.password} variant='filled'>
-                  <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                   <FilledInput
                      {...register('password', {
-                        required: "обов'язкове поле",
+                        required: "required field",
                         minLength: {
                            value: PASSWORD_MIN_LENGTH,
-                           message: `мінімум ${PASSWORD_MIN_LENGTH} символи`
+                           message: `minimum ${PASSWORD_MIN_LENGTH} characters`
                         },
                         deps: ['rePassword'],
                         maxLength: {
                            value: PASSWORD_MAX_LENGTH,
-                           message: `максимум ${PASSWORD_MAX_LENGTH} символів`
+                           message: `maximum ${PASSWORD_MAX_LENGTH} characters`
                         }
                      })}
                      type={showPassword['password'] ? 'text' : 'password'}
@@ -148,16 +148,16 @@ const SignUp = () => {
                         </InputAdornment>
                      }
                   />
-                  <FormHelperText>{errors?.password && (errors?.password?.message || 'некоректні данні')}</FormHelperText>
+                  <FormHelperText>{errors?.password && (errors?.password?.message || 'incorrect data')}</FormHelperText>
                </FormControl>
                <FormControl error={!!errors.rePassword} variant='filled'>
-                  <InputLabel htmlFor="outlined-adornment-rePassword">Введіть пароль ще раз</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-rePassword">Enter your password again</InputLabel>
                   <FilledInput
                      {...register('rePassword', {
-                        required: "обов'язкове поле",
+                        required: "required field",
                         maxLength: {
                            value: PASSWORD_MAX_LENGTH,
-                           message: `максимум ${PASSWORD_MAX_LENGTH} символів`
+                           message: `maximum ${PASSWORD_MAX_LENGTH} characters`
                         },
                         validate: v => getValues('password') === v
                      })}
@@ -175,14 +175,14 @@ const SignUp = () => {
                         </InputAdornment>
                      }
                   />
-                  <FormHelperText>{errors?.rePassword && (errors?.rePassword?.message || 'паролі не співпадають')}</FormHelperText>
+                  <FormHelperText>{errors?.rePassword && (errors?.rePassword?.message || 'passwords do not match')}</FormHelperText>
                </FormControl>
                {errors?.root?.server && <Alert severity='error' hidden={true} >{errors?.root?.server?.message}</Alert>}
                <LoadingButton loading={isSubmitting} endIcon={<DoubleArrowIcon />} disabled={!isValid} type='submit' variant="contained">Надіслати</LoadingButton>
                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <NavLink to={'/SignIn'}>
                      <Typography sx={{ '&:hover': { color: blue[700] }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={blue[900]} >
-                        Авторизуватися
+                        Sign In
                      </Typography>
                   </NavLink>
                </Box>

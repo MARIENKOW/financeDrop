@@ -2,7 +2,7 @@ import { useRouteError } from "react-router"
 import { Navigate } from "react-router";
 // import Header from "../components/Header/Header";
 import { grey } from "@mui/material/colors";
-import ErrorElement from "../component/ErrorElement";
+import ErrorElement from "../component/general/ErrorElement";
 
 
 const ErrorPage = () => {

@@ -11,7 +11,7 @@ const ErrorElement = ({message}) => {
    return (
       <Container sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 2, alignItems: 'center', textAlign: 'center' }} gap={2}>
          <Typography variant={'h1'}>Oops!</Typography>
-         <Typography variant={'h4'}>Something gone wrong</Typography>
+         <Typography variant={'h4'}>Something went wrong</Typography>
          <Typography variant={'body1'} color="text.secondary">{error?.message || message}</Typography>
          <ButtonGroup
             sx={{ gap: 1 }}

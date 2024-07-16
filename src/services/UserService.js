@@ -1,6 +1,6 @@
-import $UserApi, { API_URL } from '../http/index.js';
+import  {$UserApi} from '../http/index.js';
 
-export default class AuthService {
+export default class UserService {
    static async signIn(value){
       const res = await $UserApi.post('/signIn',value)
       return res

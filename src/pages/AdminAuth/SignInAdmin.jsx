@@ -6,17 +6,16 @@ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { useContext, useState } from 'react';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { NavLink } from 'react-router-dom';
 import InCenterAuth from '../../component/general/wrappers/InCenterAuth';
-import { Context } from '../../User';
+import { AdminContext } from '../../Admin';
 import { Alert } from '@mui/material';
-import { PASSWORD_MAX_LENGTH, EMAIL_MAX_LENGTH,EMAIL_PATTERN } from '../../validateConfig';
+import { ADMIN_PASSWORD_MAX_LENGTH, ADMIN_NAME_MAX_LENGTH,ADMIN_NAME_MIN_LENGTH } from '../../validateConfig';
 import { enqueueSnackbar } from 'notistack';
 
 
-const SignIn = () => {
+const SignInAdmin = () => {
 
-   const { signInUser } = useContext(Context);
+   const { signInAdmin } = useContext(AdminContext);
    const [showPassword, setShowPassword] = useState({ password: false, rePassword: false });
 
 
@@ -38,7 +37,7 @@ const SignIn = () => {
 
    const onSubmit = async (data) => {
       try {
-         await signInUser(data);
+         await signInAdmin(data);
          enqueueSnackbar(`SignIn is success!`, { variant: 'success' })
       } catch (e) {
          console.error(e);
@@ -56,25 +55,25 @@ const SignIn = () => {
    return (
          <InCenterAuth>
             <Typography sx={{ textAlign: 'center', mb: 3 }} id="transition-modal-title" variant="h6" component="h2">
-               Sign In
+               Admin Sign In
             </Typography>
             <form onChange={handleChange} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }} onSubmit={handleSubmit(onSubmit)}>
             <TextField
-                  error={!!errors.email}
-                  {...register('email', {
+                  error={!!errors.name}
+                  {...register('name', {
                      required: "required field",
-                     maxLength: {
-                        value: EMAIL_MAX_LENGTH,
-                        message: `maximum ${EMAIL_MAX_LENGTH} characters`
+                     minLength: {
+                        value: ADMIN_NAME_MIN_LENGTH,
+                        message: `minimum ${ADMIN_NAME_MIN_LENGTH} characters`
                      },
-                     pattern: {
-                        value: EMAIL_PATTERN,
-                        message: 'mail must be in the format - example@mail.com'
+                     maxLength: {
+                        value: ADMIN_NAME_MAX_LENGTH,
+                        message: `maximum ${ADMIN_NAME_MAX_LENGTH} characters`
                      }
                   })}
-                  label="Email"
+                  label="Name"
                   sx={{ color: blue[700] }}
-                  helperText={errors?.email && (errors?.email?.message || 'incorrect data')}
+                  helperText={errors?.name && (errors?.name?.message || 'incorrect data')}
                   variant="filled"
                />
                <FormControl error={!!errors.password} variant='filled'>
@@ -83,8 +82,8 @@ const SignIn = () => {
                      {...register('password', {
                         required: "required",
                         maxLength: {
-                           value: PASSWORD_MAX_LENGTH,
-                           message: `maximunm ${PASSWORD_MAX_LENGTH} characters`
+                           value: ADMIN_PASSWORD_MAX_LENGTH,
+                           message: `maximunm ${ADMIN_PASSWORD_MAX_LENGTH} characters`
                         }
                      })}
                      type={showPassword['password'] ? 'text' : 'password'}
@@ -105,22 +104,10 @@ const SignIn = () => {
                </FormControl>
                {errors?.root?.server && <Alert severity='error' hidden={true} >{errors?.root?.server?.message}</Alert>}
                <LoadingButton loading={isSubmitting} endIcon={<DoubleArrowIcon />} disabled={!isValid} type='submit' variant="contained">Submit</LoadingButton>
-               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <NavLink to={'/RememberSendMail'}>
-                     <Typography sx={{ '&:hover': { color: blue[700] }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={'text.secondary'}>
-                        Forgot password?
-                     </Typography>
-                  </NavLink>
-                  <NavLink to={'/SignUp'}>
-                     <Typography sx={{ '&:hover': { color: blue[700] }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={blue[900]} >
-                        Sign Up
-                     </Typography>
-                  </NavLink>
-               </Box>
             </form>
          </InCenterAuth>
    )
 }
 
-export default SignIn
+export default SignInAdmin
 

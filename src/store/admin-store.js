@@ -1,10 +1,11 @@
 import { makeAutoObservable } from 'mobx'
-import userService from '../services/UserService';
+// import userService from '../services/UserService';
+import adminService from '../services/AdminService';
 
-class User {
+class Admin {
    isAuth = null;
    token = null
-   user = {}
+   admin = {}
    isLoading = false;
    constructor() {
       makeAutoObservable(this)
@@ -12,14 +13,14 @@ class User {
    setAuth(value) {
       this.isAuth = value
    }
-   setUser(value) {
-      this.user = value
+   setAdmin(value) {
+      this.admin = value
    }
    setUnauthorized = ()=>{
-      this.setUser({})
+      this.setAdmin({})
       this.setAuth(false)
       this.setToken(null)
-      localStorage.removeItem('accessToken')
+      localStorage.removeItem('accessTokenAdmin')
    }
    setIsLoading = (value) => {
       this.isLoading = value;
@@ -28,34 +29,35 @@ class User {
       this.token = value
    }
 
-   signInUser = async(value) =>{
-      const {data} = await userService.signIn(value)
+   signInAdmin = async(value) =>{
+      const {data} = await adminService.signIn(value)
       this.setAuth(true)
-      this.setUser(data.user);
-      this.setToken(data.accessToken)
-      localStorage.setItem('accessToken',this.token)
+      this.setAdmin(data.admin);
+      this.setToken(data.accessTokenAdmin)
+      console.log(data);
+      localStorage.setItem('accessTokenAdmin',this.token)
    }
    logOut = async () => {
       try {
-         await userService.logOut();
+         await adminService.logOut();
       }finally{
          this.setUnauthorized()
       }
    }
-   aboutUser = async () => {
+   aboutAdmin = async () => {
       try {
          this.setIsLoading(true)
-         const accessToken =  localStorage.getItem('accessToken');
+         const accessToken =  localStorage.getItem('accessTokenAdmin');
          if(!accessToken) throw {response:{status:401}};
-         const {data} = await userService.aboutUser()
-         this.setUser(data)
+         const {data} = await adminService.aboutAdmin()
+         this.setAdmin(data)
          this.setAuth(true)
          this.setToken(accessToken)
          this.setIsLoading(false)
       }
       catch (e) {
          console.log(e);
-         if(e?.response?.status !== 401) return setTimeout(this.aboutUser,5000)
+         if(e?.response?.status !== 401) return setTimeout(this.aboutAdmin,5000)
          this.setUnauthorized()
          this.setIsLoading(false)
          
@@ -63,4 +65,4 @@ class User {
    }
 }
 
-export default User;
+export default Admin;

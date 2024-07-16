@@ -7,7 +7,7 @@ import { grey } from '@mui/material/colors';
 
 
 
-function Wrapper() {
+function UserAccountWrapper() {
 
    const { state } = useNavigation()
 
@@ -20,4 +20,4 @@ function Wrapper() {
    );
 }
 
-export default Wrapper;
+export default UserAccountWrapper;

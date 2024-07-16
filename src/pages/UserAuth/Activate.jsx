@@ -1,9 +1,9 @@
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import ErrorElement from '../../component/ErrorElement';
-import Loading from "../../component/Loading/Loading";
+import ErrorElement from '../../component/general/ErrorElement';
+import Loading from "../../component/general/Loading/Loading";
 import userService from '../../services/UserService';
-import AccountActivateSuccess from '../../component/Success/AccountActivateSuccess';
+import AccountActivateSuccess from '../../component/User/Success/AccountActivateSuccess';
 
 
 

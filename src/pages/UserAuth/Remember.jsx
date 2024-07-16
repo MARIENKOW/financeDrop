@@ -6,9 +6,9 @@ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { LoadingButton } from '@mui/lab';
 import { FilledInput, FormHelperText, InputLabel, IconButton, FormControl, Box, Typography, TextField, InputAdornment, Alert } from '@mui/material';
 import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from '../../validateConfig';
-import InCenterAuth from '../../component/wrappers/InCenterAuth';
+import InCenterAuth from '../../component/general/wrappers/InCenterAuth';
 import userService from '../../services/UserService';
-import PasswordEmailSendSuccess from '../../component/Success/PasswordEmailSendSuccess';
+import PasswordEmailSendSuccess from '../../component/User/Success/PasswordEmailSendSuccess';
 
 
 const Remember = () => {
@@ -27,7 +27,7 @@ const Remember = () => {
             if (errors) for (let key in errors) setError(key, { type: 'server', message: errors[key] })
             return
          }
-         setError('root.server', { type: 'server', message: 'Упс! виникла помилка, спробуйте пізніше' })
+         setError('root.server', { type: 'server', message: 'Oops! something went wrong, try again later' })
       }
    }
 
@@ -41,13 +41,13 @@ const Remember = () => {
          <InCenterAuth>
             <Box sx={{ textAlign: 'center', mb: 3 }}>
                <Typography id="transition-modal-title" sx={{ mb: 1 }} variant="h5" component="h2">
-                  Забули пароль?
+                  Forgot your password?
                </Typography>
                <Typography id="transition-modal-title" color={'text.secondary'} variant="body2" component="h2">
-                  Напишіть вашу електронну пошту
+                  Write your email
                </Typography>
                <Typography id="transition-modal-title" color={'text.secondary'} variant="body2" component="h2">
-                  ми надішлемо вам посилання для зміни паролю
+                  we will send you a link to change your password
                </Typography>
 
             </Box>
@@ -55,19 +55,19 @@ const Remember = () => {
                <TextField
                   error={!!errors.email}
                   {...register('email', {
-                     required: "обов'язкове поле",
+                     required: "required field",
                      pattern: {
                         value: EMAIL_PATTERN,
-                        message: 'пошта має бути формату - example@mail.com'
+                        message: 'mail must be in the format - example@mail.com'
                      },
                      maxLength: {
                         value: EMAIL_MAX_LENGTH,
-                        message: `максимум ${EMAIL_MAX_LENGTH} символів`
+                        message: `maximum ${EMAIL_MAX_LENGTH} characters`
                      }
                   })}
                   label="Пошта"
                   sx={{ color: blue[700] }}
-                  helperText={errors?.email && (errors?.email?.message || 'некоректні данні')}
+                  helperText={errors?.email && (errors?.email?.message || 'incorrect data')}
                   variant="filled"
                />
                {errors?.root?.server && <Alert severity='error' hidden={true} >{errors?.root?.server?.message}</Alert>}

@@ -7,10 +7,10 @@ const AccountActivateSuccess = ()=>{
       <Box p={1} gap={2} flex={1} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
          <DoneAllIcon sx={{ width: 70, height: 70 }} color='primary' />
          <Typography id="transition-modal-title" sx={{ mb: 1 }} variant="h5" component="h2">
-            Пошту підтверджено
+         The email has been confirmed
          </Typography>
          <NavLink to={'/SignIn'}>
-            <Button variant='contained'>Увійти</Button>
+            <Button variant='contained'>Sign In</Button>
          </NavLink>
       </Box>
    )

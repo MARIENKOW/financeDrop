@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 // import socketIo from 'socket.io-client'
 import { observer } from 'mobx-react-lite'
-import { Context } from "../../index";
+import { Context } from "../../User";
 // import config from "../../config";
 // import UserService from '../../services/UserService'
 // import styles from './Account.module.scss'
@@ -12,7 +12,7 @@ import { Context } from "../../index";
 
 // export const Users = createContext()
 
-const Account = () => {
+const User_Main = () => {
 
    const { user } = useContext(Context)
    // const usersData = useState([])
@@ -141,4 +141,4 @@ const Account = () => {
    return user.username
 }
 
-export default observer(Account);
+export default observer(User_Main);

@@ -3,7 +3,7 @@ import { LinearProgress } from "@mui/material"
 import { createContext, useEffect } from "react";
 import { useRouteError } from "react-router"
 import { useState } from "react";
-import ErrorPage from "../../pages/ErrorPage";
+import ErrorPage from "../../../pages/ErrorPage";
 import ErrorElement from "../ErrorElement";
 
 export const Data = createContext();
