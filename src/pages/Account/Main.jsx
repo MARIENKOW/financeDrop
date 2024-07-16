@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 // import socketIo from 'socket.io-client'
 import { observer } from 'mobx-react-lite'
-import { Context } from "../index";
+import { Context } from "../../index";
 // import config from "../../config";
 // import UserService from '../../services/UserService'
 // import styles from './Account.module.scss'
@@ -14,7 +14,7 @@ import { Context } from "../index";
 
 const Account = () => {
 
-   const { store } = useContext(Context)
+   const { user } = useContext(Context)
    // const usersData = useState([])
    // const [currentChat, setCurrentChat] = useState(null)
    // const [currentMessages, setCurrentMessages] = useState([]);
@@ -138,7 +138,7 @@ const Account = () => {
    //       </div >
    //    </Users.Provider>
    // )
-   return store.user.username
+   return user.username
 }
 
 export default observer(Account);

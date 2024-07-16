@@ -1,93 +1,21 @@
-// import styles from './signUp.module.scss';
-// import Form from '../../component/Form/Form'
-// import { Link } from 'react-router-dom';
-// import { useState, useEffect } from 'react';
-// import shema from '../../shema/shema.js'
-// import helper from '../../helper';
-// import userService from '../../services/UserService';
-// import EmailSending from '../../component/EmailSending/EmailSending';
-
-
-// function SignUp() {
-
-//   const defaultValue = helper.toObjec(shema.signUp);
-//   const [value, setValue] = useState(defaultValue);
-//   const [registrationOk, setRegistrationOk] = useState(false)
-//   const [error, setError] = useState({ message: '', badInputs: [] });
-//   const [email, setEmail] = useState('');
-//   const [sended,setSended] = useState(false)
-
-//   useEffect(() => {
-//     setError({ message: '', badInputs: [] })
-//   }, [value])
-
-//   async function sendInfo(e) {
-//     e.preventDefault();
-//     try {
-
-//       if (Object.values(value).includes('') || wrongValidation.length > 0 || sended) return
-//       setSended(true);
-//       const ans = await userService.signUp(value);
-//       setSended(false)
-//       if (ans.status === 400) {
-//         if (ans.data.badValidation) return alert('bad Validation check your info')
-//         if (ans.data.notUniqueEmail) return setError({ message: 'the email is already registered', badInputs: ['email'] })
-//         if (ans.data.notUniqueUsername) return setError({ message: 'username is already registered select another', badInputs: ['username'] })
-//       }
-//       setRegistrationOk(true);
-//       setEmail(ans.data)
-//     } catch (e) {
-//       console.log(e);
-//       alert('Server Error. Try  again later');
-//     }
-//   }
-
-//   const wrongValidation = []
-
-//   for (let key in value) {
-//     if (helper.checkValid(key, value)) wrongValidation.push(key)
-//   }
-
-//   if (registrationOk) return <EmailSending email={email} text={'activate your account'}/>
-
-//   return (
-//     <section className={styles.wrapper}>
-//       <section className={styles.main}>
-//         <Form
-//           shema={shema.signUp}
-//           value={value}
-//           handleInputChange={helper.inputChange(value, setValue)}
-//           onSubmit={sendInfo}
-//           wrongValidation={wrongValidation}
-//           err={error}
-//           sending={sended}
-//           button='Sign Up' />
-//         <Link to='/'>sign in</Link>
-//       </section>
-//     </section>
-//   );
-// }
-
-// export default SignUp;
-
 import { blue } from '@mui/material/colors';
 import { FilledInput, FormControl, FormHelperText, InputLabel, InputAdornment, Box, Typography, IconButton, TextField, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
 import Visibility from '@mui/icons-material/Visibility';
-import userService from '../services/UserService';
+import userService from '../../services/UserService';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { NavLink } from 'react-router-dom';
-import InCenterAuth from '../component/wrappers/InCenterAuth';
-import { Context } from '../index';
+import InCenterAuth from '../../component/wrappers/InCenterAuth';
+import { Context } from '../../index';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { LoadingButton } from '@mui/lab';
 import { Alert } from '@mui/material';
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '../validateConfig';
-import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from '../validateConfig';
-import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '../validateConfig';
-import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from '../validateConfig';
-import RegisterSuccess from '../component/RegisterSuccess';
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '../../validateConfig';
+import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from '../../validateConfig';
+import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '../../validateConfig';
+import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from '../../validateConfig';
+import RegisterSuccess from '../../component/Success/RegisterSuccess';
 
 
 
@@ -119,8 +47,8 @@ const SignUp = () => {
         setSuccess(data)
       } catch (e) {
          console.error(e);
-         if (e?.status === 400) {
-          const errors = e?.data || {};
+         if (e?.response?.status === 400) {
+          const errors = e?.response?.data || {};
           for (let key in errors) {
             setError(key, { type: 'server', message: errors[key] })
            }

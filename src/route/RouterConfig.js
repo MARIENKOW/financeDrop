@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom"
 import OnlyLogoutUser from '../component/wrappers/OnlyLogoutUser.jsx';
 import OnlyLoginUser from '../component/wrappers/OnlyLoginUser.jsx';
-import Remember from '../pages/Remember.jsx'
+import Remember from '../pages/UserAuth/Remember.jsx'
 import UndefinedPage from '../pages/404/undefinedPage.jsx'
-import ChangePass from '../pages/ChangePass.jsx'
-import Wrapper from "./Wrapper"
-import SignUp from '../pages/SignUp';
-import Account from '../pages/Account.jsx';
-import SignIn from '../pages/SignIn.jsx';
+import ChangePass from '../pages/UserAuth/ChangePass.jsx'
+import Wrapper from "../component/wrappers/AccountWrapper.jsx"
+import SignUp from '../pages/UserAuth/SignUp.jsx';
+import Main from '../pages/Account/Main.jsx';
+import SignIn from '../pages/UserAuth/SignIn.jsx';
 import ErrorPage from '../pages/ErrorPage';
-import Activate from "../pages/Activate.jsx";
+import Activate from "../pages/UserAuth/Activate.jsx";
 
 
 const RouterConfig = createBrowserRouter([
@@ -19,8 +19,9 @@ const RouterConfig = createBrowserRouter([
       errorElement: <ErrorPage />,
       children: [
          {
-            element: <Account/>,
-            path: "/Account"
+            element: <Main/>,
+            index:true,
+            // path: "/Account"
          },
       ]
    },

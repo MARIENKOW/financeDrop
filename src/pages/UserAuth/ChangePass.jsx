@@ -7,15 +7,15 @@ import { useForm } from 'react-hook-form';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { LoadingButton } from '@mui/lab';
 import { Box, Typography, TextField, Alert } from '@mui/material';
-import InCenterAuth from '../component/wrappers/InCenterAuth';
+import InCenterAuth from '../../component/wrappers/InCenterAuth';
 import { FilledInput, FormHelperText, InputLabel, IconButton, FormControl, InputAdornment } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "../validateConfig"
-import Loading from '../component/Loading/Loading';
-import userService from '../services/UserService';
-import ErrorElement from '../component/ErrorElement';
-import PasswordWasChanged from '../component/PasswordWasChanged';
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "../../validateConfig"
+import Loading from '../../component/Loading/Loading';
+import userService from '../../services/UserService';
+import ErrorElement from '../../component/ErrorElement';
+import PasswordWasChangedSuccess from '../../component/Success/PasswordWasChangedSuccess';
 
 
 const ChangePass = () => {
@@ -65,13 +65,13 @@ const ChangePass = () => {
          setSuccess(true)
       } catch (error) {
          console.log(error);
-         if (error?.status === 400) {
-            const errors = error?.data
+         if (error?.response?.status === 400) {
+            const errors = error?.response?.data
             if (errors) for (let key in errors) setError(key, { type: 'server', message: errors[key] })
             return
          }
-         if (error?.status === 403) {
-            const message = error?.data
+         if (error?.response?.status === 403) {
+            const message = error?.response?.data
             return setError('root.server', { type: 'server', message: message})
          }
          setError('root.server', { type: 'server', message: 'Упс! виникла помилка, спробуйте пізніше' })
@@ -82,7 +82,7 @@ const ChangePass = () => {
       clearErrors('root')
    }
 
-   if(success) return <PasswordWasChanged/>
+   if(success) return <PasswordWasChangedSuccess/>
 
    return (
          <InCenterAuth>

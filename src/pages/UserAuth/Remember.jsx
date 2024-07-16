@@ -5,10 +5,10 @@ import { NavLink } from 'react-router-dom';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { LoadingButton } from '@mui/lab';
 import { FilledInput, FormHelperText, InputLabel, IconButton, FormControl, Box, Typography, TextField, InputAdornment, Alert } from '@mui/material';
-import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from '../validateConfig';
-import InCenterAuth from '../component/wrappers/InCenterAuth';
-import userService from '../services/UserService';
-import PasswordSuccess from '../component/PasswordSuccess';
+import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from '../../validateConfig';
+import InCenterAuth from '../../component/wrappers/InCenterAuth';
+import userService from '../../services/UserService';
+import PasswordEmailSendSuccess from '../../component/Success/PasswordEmailSendSuccess';
 
 
 const Remember = () => {
@@ -22,8 +22,8 @@ const Remember = () => {
          setSuccess(data?.email || true)
       } catch (error) {
          console.log(error);
-         if (error?.status === 400) {
-            const errors = error?.data
+         if (error?.response?.status === 400) {
+            const errors = error?.response?.data
             if (errors) for (let key in errors) setError(key, { type: 'server', message: errors[key] })
             return
          }
@@ -35,7 +35,7 @@ const Remember = () => {
       clearErrors('root')
    }
 
-   if (success) return <PasswordSuccess mail={success} size='h6' />
+   if (success) return <PasswordEmailSendSuccess mail={success} size='h6' />
 
    return (
          <InCenterAuth>

@@ -15,6 +15,12 @@ class User {
    setUser(value) {
       this.user = value
    }
+   setUnauthorized = ()=>{
+      this.setUser({})
+      this.setAuth(false)
+      this.setToken(null)
+      localStorage.removeItem('accessToken')
+   }
    setIsLoading = (value) => {
       this.isLoading = value;
    }
@@ -27,35 +33,32 @@ class User {
       this.setAuth(true)
       this.setUser(data.user);
       this.setToken(data.accessToken)
-      localStorage.setItem('accessToken',this.accessToken)
+      localStorage.setItem('accessToken',this.token)
    }
    logOut = async () => {
       try {
          await userService.logOut();
       }finally{
-         localStorage.removeItem('accessToken')
-         this.setAuth(false)
-         this.setUser({})
-         this.setToken(null)
+         this.setUnauthorized()
       }
    }
    aboutUser = async () => {
       try {
          this.setIsLoading(true)
          const accessToken =  localStorage.getItem('accessToken');
-         if(!accessToken) throw new Error();
+         if(!accessToken) throw {status:401};
          const {data} = await userService.aboutUser()
          this.setUser(data)
          this.setAuth(true)
          this.setToken(accessToken)
+         this.setIsLoading(false)
       }
       catch (e) {
-         this.setUser({})
-         this.setAuth(false)
-         this.setToken(null)
-         return localStorage.removeItem('accessToken')
-      }finally{
+         console.log(e);
+         if(e?.status !== 401) return setTimeout(this.aboutUser,5000)
+         this.setUnauthorized()
          this.setIsLoading(false)
+         
       }
    }
 }

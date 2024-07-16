@@ -10,7 +10,7 @@ import { closeSnackbar } from 'notistack';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const store = new Store()
+export const store = new Store()
 
 export const Context = createContext(store)
 

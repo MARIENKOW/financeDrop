@@ -7,10 +7,10 @@ import { useContext, useState } from 'react';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { NavLink } from 'react-router-dom';
-import InCenterAuth from '../component/wrappers/InCenterAuth';
-import { Context } from '..';
+import InCenterAuth from '../../component/wrappers/InCenterAuth';
+import { Context } from '../..';
 import { Alert } from '@mui/material';
-import { PASSWORD_MAX_LENGTH, EMAIL_MAX_LENGTH,EMAIL_PATTERN } from '../validateConfig';
+import { PASSWORD_MAX_LENGTH, EMAIL_MAX_LENGTH,EMAIL_PATTERN } from '../../validateConfig';
 import { enqueueSnackbar } from 'notistack';
 
 
@@ -39,30 +39,30 @@ const SignIn = () => {
    const onSubmit = async (data) => {
       try {
          await signInUser(data);
-         enqueueSnackbar(`Ви успішно авторизувались!`, { variant: 'success' })
+         enqueueSnackbar(`SignIn is success!`, { variant: 'success' })
       } catch (e) {
          console.error(e);
-         if (e?.status === 400) {
-          const errors = e?.data || {};
+         if (e?.response?.status === 400) {
+          const errors = e?.response?.data || {};
           for (let key in errors) {
             setError(key, { type: 'server', message: errors[key] })
            }
            return
         }
-         setError('root.server', { type: 'server', message: 'Упс! виникла помилка, спробуйте пізніше' })
+         setError('root.server', { type: 'server', message: 'Oops! something gone wrong, спробуйте пізніше' })
       }
    }
 
    return (
          <InCenterAuth>
             <Typography sx={{ textAlign: 'center', mb: 3 }} id="transition-modal-title" variant="h6" component="h2">
-               Авторизуватися
+               SignIn
             </Typography>
             <form onChange={handleChange} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }} onSubmit={handleSubmit(onSubmit)}>
             <TextField
                   error={!!errors.email}
                   {...register('email', {
-                     required: "обов'язкове поле",
+                     required: "required",
                      maxLength: {
                         value: EMAIL_MAX_LENGTH,
                         message: `максимум ${EMAIL_MAX_LENGTH} символів`
@@ -81,7 +81,7 @@ const SignIn = () => {
                   <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
                   <FilledInput
                      {...register('password', {
-                        required: "обов'язкове поле",
+                        required: "required",
                         maxLength: {
                            value: PASSWORD_MAX_LENGTH,
                            message: `максимум ${PASSWORD_MAX_LENGTH} символів`

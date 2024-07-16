@@ -10,8 +10,8 @@ const ErrorElement = ({message}) => {
 
    return (
       <Container sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 2, alignItems: 'center', textAlign: 'center' }} gap={2}>
-         <Typography variant={'h1'}>Упс!</Typography>
-         <Typography variant={'h4'}>Щось пішло не так</Typography>
+         <Typography variant={'h1'}>Oops!</Typography>
+         <Typography variant={'h4'}>Something gone wrong</Typography>
          <Typography variant={'body1'} color="text.secondary">{error?.message || message}</Typography>
          <ButtonGroup
             sx={{ gap: 1 }}
@@ -19,12 +19,12 @@ const ErrorElement = ({message}) => {
          >
             <NavLink to={-1}>
                <Button startIcon={<ReplyIcon />} variant="contained">
-                  назад
+                  back
                </Button>
             </NavLink>
             <NavLink to={'/'}>
                <Button endIcon={<BungalowIcon />} variant="contained">
-                  на головну
+                  home
                </Button>
             </NavLink>
          </ButtonGroup>
