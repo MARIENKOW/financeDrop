@@ -63,7 +63,6 @@ const ChangePass = () => {
       try {
          await userService.changePassword({...data,rememberPassLink: link})
          setSuccess(true)
-         throw {}
       } catch (error) {
          console.log(error);
          if (error?.response?.status === 400) {

@@ -1,9 +1,9 @@
 import { Button } from "@mui/material"
-import { Context } from "../../../../User"
 import { useContext } from "react"
+import { AdminContext } from "../../../../Admin"
 
 const Header = () => {
-   const {user,logOut} = useContext(Context)
+   const {logOut} = useContext(AdminContext)
 
 
    return <Button onClick={logOut} >Logout</Button>
