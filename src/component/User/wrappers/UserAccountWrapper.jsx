@@ -1,6 +1,6 @@
 import { Outlet, useNavigation } from 'react-router-dom';
 import { useEffect } from 'react';
-import Header from '../../Admin/Account/Header/Header'
+import Header from '../Account/Header/Header';
 import { LinearProgress, Box } from '@mui/material';
 import { grey } from '@mui/material/colors';
 

@@ -10,7 +10,7 @@ const PasswordWasChanged = () => {
       The password has been changed
       </Typography>
       <NavLink to={'/SignIn'}>
-         <Button variant='contained'>SignIn</Button>
+         <Button variant='contained'>Sign In</Button>
       </NavLink>
 
    </Box>)
