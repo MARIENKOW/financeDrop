@@ -12,23 +12,16 @@ import { Context } from '../../User';
 import { Alert } from '@mui/material';
 import { PASSWORD_MAX_LENGTH, EMAIL_MAX_LENGTH,EMAIL_PATTERN } from '../../validateConfig';
 import { enqueueSnackbar } from 'notistack';
+import { StyledTextField } from '../../component/general/Form/StyledTextField';
+import { StyledPassword } from '../../component/general/Form/StyledPassword';
+import {useTheme} from '@mui/material';
 
 
 const SignIn = () => {
 
+   const theme = useTheme()
+
    const { signInUser } = useContext(Context);
-   const [showPassword, setShowPassword] = useState({ password: false, rePassword: false });
-
-
-   const handleClickShowPassword = (id) => setShowPassword((show) => {
-      const showCopy = { ...show };
-      showCopy[id] = !showCopy[id];
-      return (showCopy)
-   });
-
-   const handleMouseDownPassword = (event) => {
-      event.preventDefault();
-   };
 
    const { handleSubmit, resetField, register, setError, clearErrors, formState: { errors, isValid, isSubmitting } } = useForm({ mode: 'onChange' },)
 
@@ -55,13 +48,12 @@ const SignIn = () => {
 
    return (
          <InCenterAuth>
-            <Typography sx={{ textAlign: 'center', mb: 3 }} id="transition-modal-title" variant="h6" component="h2">
+            <Typography fontWeight={600} color={!isValid?'secondary':'primary'} sx={{ textAlign: 'center', mb: 3 }} id="transition-modal-title" variant="h6" component="h2">
                Sign In
             </Typography>
             <form onChange={handleChange} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }} onSubmit={handleSubmit(onSubmit)}>
-            <TextField
-                  error={!!errors.email}
-                  {...register('email', {
+               <StyledTextField
+                  register={register('email', {
                      required: "required field",
                      maxLength: {
                         value: EMAIL_MAX_LENGTH,
@@ -72,47 +64,30 @@ const SignIn = () => {
                         message: 'mail must be in the format - example@mail.com'
                      }
                   })}
+                  errors={errors}
                   label="Email"
-                  sx={{ color: blue[700] }}
-                  helperText={errors?.email && (errors?.email?.message || 'incorrect data')}
-                  variant="filled"
                />
-               <FormControl error={!!errors.password} variant='filled'>
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                  <FilledInput
-                     {...register('password', {
-                        required: "required",
-                        maxLength: {
-                           value: PASSWORD_MAX_LENGTH,
-                           message: `maximunm ${PASSWORD_MAX_LENGTH} characters`
-                        }
-                     })}
-                     type={showPassword['password'] ? 'text' : 'password'}
-                     id="outlined-adornment-password"
-                     endAdornment={
-                        <InputAdornment position="end">
-                           <IconButton
-                              onClick={() => handleClickShowPassword('password')}
-                              onMouseDown={handleMouseDownPassword}
-                              edge="end"
-                           >
-                              {showPassword['password'] ? <VisibilityOff /> : <Visibility />}
-                           </IconButton>
-                        </InputAdornment>
+               <StyledPassword 
+                  label={'Password'}
+                  errors={errors}
+                  register={register('password', {
+                     required: "required",
+                     maxLength: {
+                        value: PASSWORD_MAX_LENGTH,
+                        message: `maximunm ${PASSWORD_MAX_LENGTH} characters`
                      }
-                  />
-                  <FormHelperText>{errors?.password && (errors?.password?.message || 'incorrect data')}</FormHelperText>
-               </FormControl>
-               {errors?.root?.server && <Alert severity='error' hidden={true} >{errors?.root?.server?.message}</Alert>}
+                  })}
+               />
+               {errors?.root?.server && <Alert severity='error' variant='filled' hidden={true} >{errors?.root?.server?.message}</Alert>}
                <LoadingButton loading={isSubmitting} endIcon={<DoubleArrowIcon />} disabled={!isValid} type='submit' variant="contained">Submit</LoadingButton>
                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <NavLink to={'/RememberSendMail'}>
-                     <Typography sx={{ '&:hover': { color: blue[700] }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={'text.secondary'}>
+                     <Typography sx={{ '&:hover': { color: theme.palette.primary.light }, color:theme.palette.secondary.main,cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={'text.secondary'}>
                         Forgot password?
                      </Typography>
                   </NavLink>
                   <NavLink to={'/SignUp'}>
-                     <Typography sx={{ '&:hover': { color: blue[700] }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={blue[900]} >
+                     <Typography sx={{ '&:hover': { color:theme.palette.primary.light }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={theme.palette.primary.main} >
                         Sign Up
                      </Typography>
                   </NavLink>

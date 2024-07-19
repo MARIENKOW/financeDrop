@@ -11,7 +11,7 @@ const ErrorPage = () => {
    if (error?.response?.status === 401) return <Navigate to='/login' />
 
    return (
-      <div style={{ background: grey[800], minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ background: grey[800], minHeight: '100vh', display: 'flex', flexDirection: 'column',flex:1 }}>
 
          {/* <Header /> */}
          <ErrorElement message={error?.message}/>

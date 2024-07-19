@@ -11,23 +11,25 @@ import { AdminContext } from '../../Admin';
 import { Alert } from '@mui/material';
 import { ADMIN_PASSWORD_MAX_LENGTH, ADMIN_NAME_MAX_LENGTH,ADMIN_NAME_MIN_LENGTH } from '../../validateConfig';
 import { enqueueSnackbar } from 'notistack';
+import { StyledTextField } from '../../component/general/Form/StyledTextField';
+import { StyledPassword } from '../../component/general/Form/StyledPassword';
 
 
 const SignInAdmin = () => {
 
    const { signInAdmin } = useContext(AdminContext);
-   const [showPassword, setShowPassword] = useState({ password: false, rePassword: false });
+   // const [showPassword, setShowPassword] = useState({ password: false, rePassword: false });
 
 
-   const handleClickShowPassword = (id) => setShowPassword((show) => {
-      const showCopy = { ...show };
-      showCopy[id] = !showCopy[id];
-      return (showCopy)
-   });
+   // const handleClickShowPassword = (id) => setShowPassword((show) => {
+   //    const showCopy = { ...show };
+   //    showCopy[id] = !showCopy[id];
+   //    return (showCopy)
+   // });
 
-   const handleMouseDownPassword = (event) => {
-      event.preventDefault();
-   };
+   // const handleMouseDownPassword = (event) => {
+   //    event.preventDefault();
+   // };
 
    const { handleSubmit, resetField, register, setError, clearErrors, formState: { errors, isValid, isSubmitting } } = useForm({ mode: 'onChange' },)
 
@@ -54,13 +56,13 @@ const SignInAdmin = () => {
 
    return (
          <InCenterAuth>
-            <Typography sx={{ textAlign: 'center', mb: 3 }} id="transition-modal-title" variant="h6" component="h2">
+            <Typography fontWeight={600} color={!isValid?'secondary':'primary'} sx={{ textAlign: 'center', mb: 3 }} id="transition-modal-title" variant="h6" component="h2">
                Admin Sign In
             </Typography>
             <form onChange={handleChange} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }} onSubmit={handleSubmit(onSubmit)}>
-            <TextField
-                  error={!!errors.name}
-                  {...register('name', {
+            <StyledTextField
+                  errors={errors}
+                  register={register('name', {
                      required: "required field",
                      minLength: {
                         value: ADMIN_NAME_MIN_LENGTH,
@@ -72,37 +74,19 @@ const SignInAdmin = () => {
                      }
                   })}
                   label="Name"
-                  sx={{ color: blue[700] }}
-                  helperText={errors?.name && (errors?.name?.message || 'incorrect data')}
-                  variant="filled"
                />
-               <FormControl error={!!errors.password} variant='filled'>
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                  <FilledInput
-                     {...register('password', {
-                        required: "required",
-                        maxLength: {
-                           value: ADMIN_PASSWORD_MAX_LENGTH,
-                           message: `maximunm ${ADMIN_PASSWORD_MAX_LENGTH} characters`
-                        }
-                     })}
-                     type={showPassword['password'] ? 'text' : 'password'}
-                     id="outlined-adornment-password"
-                     endAdornment={
-                        <InputAdornment position="end">
-                           <IconButton
-                              onClick={() => handleClickShowPassword('password')}
-                              onMouseDown={handleMouseDownPassword}
-                              edge="end"
-                           >
-                              {showPassword['password'] ? <VisibilityOff /> : <Visibility />}
-                           </IconButton>
-                        </InputAdornment>
+               <StyledPassword
+                  label={'Password'}
+                  errors={errors}
+                  register={register('password', {
+                     required: "required",
+                     maxLength: {
+                        value: ADMIN_PASSWORD_MAX_LENGTH,
+                        message: `maximunm ${ADMIN_PASSWORD_MAX_LENGTH} characters`
                      }
-                  />
-                  <FormHelperText>{errors?.password && (errors?.password?.message || 'incorrect data')}</FormHelperText>
-               </FormControl>
-               {errors?.root?.server && <Alert severity='error' hidden={true} >{errors?.root?.server?.message}</Alert>}
+                  })}
+               />
+               {errors?.root?.server && <Alert severity='error' variant='filled' hidden={true} >{errors?.root?.server?.message}</Alert>}
                <LoadingButton loading={isSubmitting} endIcon={<DoubleArrowIcon />} disabled={!isValid} type='submit' variant="contained">Submit</LoadingButton>
             </form>
          </InCenterAuth>

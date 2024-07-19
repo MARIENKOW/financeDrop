@@ -9,9 +9,14 @@ import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from '../../validateConfig';
 import InCenterAuth from '../../component/general/wrappers/InCenterAuth';
 import userService from '../../services/UserService';
 import PasswordEmailSendSuccess from '../../component/User/Success/PasswordEmailSendSuccess';
+import { StyledTextField } from '../../component/general/Form/StyledTextField';
+import {useTheme} from '@mui/material';
 
 
 const Remember = () => {
+
+
+   const theme = useTheme()
 
    const { handleSubmit, register, getValues, setError, clearErrors, formState: { errors, isValid, isSubmitting } } = useForm({ mode: 'onChange' })
    const [success, setSuccess] = useState(false)
@@ -40,21 +45,21 @@ const Remember = () => {
    return (
          <InCenterAuth>
             <Box sx={{ textAlign: 'center', mb: 3 }}>
-               <Typography id="transition-modal-title" sx={{ mb: 1 }} variant="h5" component="h2">
+               <Typography fontWeight={600} color={!isValid?'secondary':'primary'}  sx={{ mb: 1 }} variant="h5" component="h2">
                   Forgot your password?
                </Typography>
-               <Typography id="transition-modal-title" color={'text.secondary'} variant="body2" component="h2">
+               <Typography fontWeight={600} color={'secondary.light'}  variant="body1" component="h2">
                   Write your email
                </Typography>
-               <Typography id="transition-modal-title" color={'text.secondary'} variant="body2" component="h2">
+               <Typography fontWeight={600} color={'secondary.light'}  variant="body1" component="h2">
                   we will send you a link to change your password
                </Typography>
 
             </Box>
             <form onChange={handleChange} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }} onSubmit={handleSubmit(onSubmit)}>
-               <TextField
-                  error={!!errors.email}
-                  {...register('email', {
+               <StyledTextField
+                  errors={errors}
+                  register={register('email', {
                      required: "required field",
                      pattern: {
                         value: EMAIL_PATTERN,
@@ -65,22 +70,19 @@ const Remember = () => {
                         message: `maximum ${EMAIL_MAX_LENGTH} characters`
                      }
                   })}
-                  label="Пошта"
-                  sx={{ color: blue[700] }}
-                  helperText={errors?.email && (errors?.email?.message || 'incorrect data')}
-                  variant="filled"
+                  label="Email"
                />
-               {errors?.root?.server && <Alert severity='error' hidden={true} >{errors?.root?.server?.message}</Alert>}
-               <LoadingButton loading={isSubmitting} endIcon={<DoubleArrowIcon />} disabled={!isValid} type='submit' variant="contained">Надіслати</LoadingButton>
+               {errors?.root?.server && <Alert severity='error' variant='filled' hidden={true} >{errors?.root?.server?.message}</Alert>}
+               <LoadingButton loading={isSubmitting} endIcon={<DoubleArrowIcon />} disabled={!isValid} type='submit' variant="contained">Send</LoadingButton>
                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <NavLink to={'/SignIn'}>
-                     <Typography sx={{ '&:hover': { color: blue[700] }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={blue[900]}>
-                        Авторизуватися
+                     <Typography sx={{ '&:hover': { color: theme.palette.primary.light }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={theme.palette.primary.main}>
+                        Sign In
                      </Typography>
                   </NavLink>
                   <NavLink to={'/SignUp'}>
-                     <Typography sx={{ '&:hover': { color: blue[700] }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={blue[900]} >
-                        Зареєструватися
+                     <Typography sx={{ '&:hover': { color: theme.palette.primary.light }, cursor: 'pointer', transition: '.2s', p: '1px' }} variant='body2' color={theme.palette.primary.main} >
+                        Sign Up
                      </Typography>
                   </NavLink>
                </Box>

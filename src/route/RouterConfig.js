@@ -6,17 +6,18 @@ import UndefinedPage from '../pages/404/undefinedPage.jsx'
 import ChangePass from '../pages/UserAuth/ChangePass.jsx'
 import UserAccountWrapper from "../component/User/wrappers/UserAccountWrapper.jsx"
 import SignUp from '../pages/UserAuth/SignUp.jsx';
-import User_Main from '../pages/Account/User_Main.jsx';
+import User_Main from '../pages/UserAccount/User_Main.jsx';
 import SignIn from '../pages/UserAuth/SignIn.jsx';
 import ErrorPage from '../pages/ErrorPage';
 import Activate from "../pages/UserAuth/Activate.jsx";
 import User from "../User.jsx";
 import Admin from "../Admin.jsx";
 import AdminAccountWrapper from "../component/Admin/wrappers/AdminAccountWrapper.jsx";
-import Admin_Main from "../pages/Account/Admin_Main.jsx";
+import Admin_Main from "../pages/AdminAccount/Admin_Main.jsx";
 import SignInAdmin from "../pages/AdminAuth/SignInAdmin.jsx";
 import OnlyLoginAdmin from "../component/Admin/wrappers/OnlyLoginAdmin.jsx";
 import OnlyLogoutAdmin from "../component/Admin/wrappers/OnlyLogoutAdmin.jsx";
+import User_Nft from "../pages/UserAccount/User_Nft.jsx";
 
 const RouterConfig = createBrowserRouter([
    {
@@ -29,9 +30,14 @@ const RouterConfig = createBrowserRouter([
             errorElement: <ErrorPage />,
             path:'/',
             children: [
+               // {
+               //    element: <User_Main/>,
+               //    index:true,
+               // },
                {
-                  element: <User_Main/>,
+                  element: <User_Nft/>,
                   index:true,
+                  // path:'/Nft'
                },
             ]
          },

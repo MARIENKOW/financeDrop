@@ -16,6 +16,8 @@ import Loading from '../../component/general/Loading/Loading';
 import userService from '../../services/UserService';
 import ErrorElement from '../../component/general/ErrorElement';
 import PasswordWasChangedSuccess from '../../component/User/Success/PasswordWasChangedSuccess';
+import { StyledPassword } from '../../component/general/Form/StyledPassword';
+
 
 
 const ChangePass = () => {
@@ -23,21 +25,8 @@ const ChangePass = () => {
    const { link } = useParams()
    const { handleSubmit, register, getValues, setError, clearErrors, formState: { errors, isValid, isSubmitting } } = useForm({ mode: 'onChange' })
    const [success, setSuccess] = useState(false)
-   const [showPassword, setShowPassword] = useState({ password: false, rePassword: false });
    const [isLoading, setIsLoading] = useState(true);
    const [errorElement, setErrorElement] = useState(null);
-
-
-
-   const handleClickShowPassword = (id) => setShowPassword((show) => {
-      const showCopy = { ...show };
-      showCopy[id] = !showCopy[id];
-      return (showCopy)
-   });
-
-   const handleMouseDownPassword = (event) => {
-      event.preventDefault();
-   };
 
    useEffect(() => {
     const checkLink = async () => {
@@ -74,7 +63,7 @@ const ChangePass = () => {
             const message = error?.response?.data
             return setErrorElement(message || true)
          }
-         setErrorElement(true)
+         setError('root.server', { type: 'server', message: 'Oops! something went wrong, try again later' })
       }
    }
 
@@ -87,70 +76,41 @@ const ChangePass = () => {
    return (
          <InCenterAuth>
             <Box sx={{ textAlign: 'center', mb: 3 }}>
-               <Typography id="transition-modal-title" sx={{ mb: 1 }} variant="h5" component="h2">
+               <Typography fontWeight={600} color={!isValid?'secondary':'primary'} sx={{ mb: 1 }} variant="h5" component="h2">
                   Change password
                </Typography>
             </Box>
             <form onChange={handleChange} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }} onSubmit={handleSubmit(onSubmit)}>
-               <FormControl error={!!errors.password} variant='filled'>
-                  <InputLabel htmlFor="outlined-adornment-password">New password</InputLabel>
-                  <FilledInput
-                     {...register('password', {
-                        required: "required field",
-                        minLength: {
-                           value: PASSWORD_MIN_LENGTH,
-                           message: `minimum ${PASSWORD_MIN_LENGTH} characters`
-                        },
-                        deps: ['rePassword'],
-                        maxLength: {
-                           value: PASSWORD_MAX_LENGTH,
-                           message: `maximum ${PASSWORD_MAX_LENGTH} characters`
-                        }
-                     })}
-                     type={showPassword['password'] ? 'text' : 'password'}
-                     id="outlined-adornment-password"
-                     endAdornment={
-                        <InputAdornment position="end">
-                           <IconButton
-                              onClick={() => handleClickShowPassword('password')}
-                              onMouseDown={handleMouseDownPassword}
-                              edge="end"
-                           >
-                              {showPassword['password'] ? <VisibilityOff /> : <Visibility />}
-                           </IconButton>
-                        </InputAdornment>
+               <StyledPassword 
+                  errors={errors}
+                  register={register('password', {
+                     required: "required field",
+                     minLength: {
+                        value: PASSWORD_MIN_LENGTH,
+                        message: `minimum ${PASSWORD_MIN_LENGTH} characters`
+                     },
+                     deps: ['rePassword'],
+                     maxLength: {
+                        value: PASSWORD_MAX_LENGTH,
+                        message: `maximum ${PASSWORD_MAX_LENGTH} characters`
                      }
-                  />
-                  <FormHelperText>{errors?.password && (errors?.password?.message || 'incorrect data')}</FormHelperText>
-               </FormControl>
-               <FormControl error={!!errors.rePassword} variant='filled'>
-                  <InputLabel htmlFor="outlined-adornment-rePassword">Enter your password again</InputLabel>
-                  <FilledInput
-                     {...register('rePassword', {
-                        required: "required field",
-                        maxLength: {
-                           value: PASSWORD_MAX_LENGTH,
-                           message: `maximum ${PASSWORD_MAX_LENGTH} characters`
-                        },
-                        validate: v => getValues('password') === v
-                     })}
-                     type={showPassword['rePassword'] ? 'text' : 'password'}
-                     id="outlined-adornment-rePassword"
-                     endAdornment={
-                        <InputAdornment position="end">
-                           <IconButton
-                              onClick={() => handleClickShowPassword('rePassword')}
-                              onMouseDown={handleMouseDownPassword}
-                              edge="end"
-                           >
-                              {showPassword['rePassword'] ? <VisibilityOff /> : <Visibility />}
-                           </IconButton>
-                        </InputAdornment>
-                     }
-                  />
-                  <FormHelperText>{errors?.rePassword && (errors?.rePassword?.message || 'passwords do not match')}</FormHelperText>
-               </FormControl>
-               {errors?.root?.server && <Alert severity='error' hidden={true} >{errors?.root?.server?.message}</Alert>}
+                  })}
+                  label={'New password'}
+               />
+               <StyledPassword 
+                  errors={errors}
+                  register={register('rePassword', {
+                     required: "required field",
+                     maxLength: {
+                        value: PASSWORD_MAX_LENGTH,
+                        message: `maximum ${PASSWORD_MAX_LENGTH} characters`
+                     },
+                     validate: v => getValues('password') === v
+                  })}
+                  label={'Enter your password again'}
+                  errMessage='passwords do not match'
+               />
+               {errors?.root?.server && <Alert severity='error' variant='filled' hidden={true} >{errors?.root?.server?.message}</Alert>}
                <LoadingButton loading={isSubmitting} endIcon={<DoubleArrowIcon />} disabled={!isValid} type='submit' variant="contained">Send</LoadingButton>
             </form>
          </InCenterAuth>
