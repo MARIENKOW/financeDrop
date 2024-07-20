@@ -1,0 +1,11 @@
+import { LoadingButton } from "@mui/lab";
+import { Button, styled } from "@mui/material";
+
+export const StyledLoadingButton = styled(LoadingButton)(({theme})=>({
+   ...theme,
+   '&.Mui-disabled':{
+      background:theme.palette.primary.main,
+      color:theme.palette.primary.contrastText,
+      opacity:'0.3'
+   }
+}))

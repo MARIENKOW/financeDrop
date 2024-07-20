@@ -1,26 +1,10 @@
-import { grey, blue } from "@mui/material/colors";
-import {
-   FilledInput,
-   FormControl,
-   FormHelperText,
-   InputLabel,
-   Container,
-   InputAdornment,
-   Box,
-   Typography,
-   IconButton,
-   TextField,
-   Button,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useContext, useState } from "react";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
 import { AdminContext } from "../../Admin";
-import { Alert } from "@mui/material";
 import {
    ADMIN_PASSWORD_MAX_LENGTH,
    ADMIN_NAME_MAX_LENGTH,
@@ -29,20 +13,11 @@ import {
 import { enqueueSnackbar } from "notistack";
 import { StyledTextField } from "../../component/general/Form/StyledTextField";
 import { StyledPassword } from "../../component/general/Form/StyledPassword";
+import { StyledAlert } from "../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
 
 const SignInAdmin = () => {
    const { signInAdmin } = useContext(AdminContext);
-   // const [showPassword, setShowPassword] = useState({ password: false, rePassword: false });
-
-   // const handleClickShowPassword = (id) => setShowPassword((show) => {
-   //    const showCopy = { ...show };
-   //    showCopy[id] = !showCopy[id];
-   //    return (showCopy)
-   // });
-
-   // const handleMouseDownPassword = (event) => {
-   //    event.preventDefault();
-   // };
 
    const {
       handleSubmit,
@@ -121,19 +96,20 @@ const SignInAdmin = () => {
                })}
             />
             {errors?.root?.server && (
-               <Alert severity="error" variant="filled" hidden={true}>
+               <StyledAlert severity="error" variant="filled" hidden={true}>
                   {errors?.root?.server?.message}
-               </Alert>
+               </StyledAlert>
             )}
-            <LoadingButton
+            <StyledLoadingButton
                loading={isSubmitting}
                endIcon={<DoubleArrowIcon />}
                disabled={!isValid}
                type="submit"
+               sx={{ mt: errors?.root?.server ? 0 : 3 }}
                variant="contained"
             >
                Submit
-            </LoadingButton>
+            </StyledLoadingButton>
          </form>
       </InCenterAuth>
    );

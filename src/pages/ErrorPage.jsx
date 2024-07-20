@@ -12,7 +12,7 @@ const ErrorPage = () => {
    return (
       <div
          style={{
-            background: grey[800],
+            // background: grey[800],
             minHeight: "100vh",
             display: "flex",
             flexDirection: "column",

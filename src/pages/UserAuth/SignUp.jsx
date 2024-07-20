@@ -15,6 +15,8 @@ import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from "../../validateConfig";
 import RegisterSuccess from "../../component/User/Success/RegisterSuccess";
 import { StyledTextField } from "../../component/general/Form/StyledTextField";
 import { StyledPassword } from "../../component/general/Form/StyledPassword";
+import { StyledAlert } from "../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
 
 const SignUp = () => {
    const theme = useTheme();
@@ -146,19 +148,20 @@ const SignUp = () => {
                errMessage="passwords do not match"
             />
             {errors?.root?.server && (
-               <Alert severity="error" variant="filled" hidden={true}>
+               <StyledAlert severity="error" variant="filled" hidden={true}>
                   {errors?.root?.server?.message}
-               </Alert>
+               </StyledAlert>
             )}
-            <LoadingButton
+            <StyledLoadingButton
                loading={isSubmitting}
                endIcon={<DoubleArrowIcon />}
                disabled={!isValid}
                type="submit"
+               sx={{mt:errors?.root?.server?0:3,}}
                variant="contained"
             >
                Надіслати
-            </LoadingButton>
+            </StyledLoadingButton>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                <NavLink to={"/SignIn"}>
                   <Typography

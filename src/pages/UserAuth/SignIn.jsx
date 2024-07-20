@@ -1,27 +1,11 @@
-import { grey, blue } from "@mui/material/colors";
-import {
-   FilledInput,
-   FormControl,
-   FormHelperText,
-   InputLabel,
-   Container,
-   InputAdornment,
-   Box,
-   Typography,
-   IconButton,
-   TextField,
-   Button,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useContext, useState } from "react";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { NavLink } from "react-router-dom";
 import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
 import { Context } from "../../User";
-import { Alert } from "@mui/material";
 import {
    PASSWORD_MAX_LENGTH,
    EMAIL_MAX_LENGTH,
@@ -31,6 +15,8 @@ import { enqueueSnackbar } from "notistack";
 import { StyledTextField } from "../../component/general/Form/StyledTextField";
 import { StyledPassword } from "../../component/general/Form/StyledPassword";
 import { useTheme } from "@mui/material";
+import { StyledAlert } from "../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
 
 const SignIn = () => {
    const theme = useTheme();
@@ -114,19 +100,20 @@ const SignIn = () => {
                })}
             />
             {errors?.root?.server && (
-               <Alert severity="error" variant="filled" hidden={true}>
+               <StyledAlert severity="error" variant="filled">
                   {errors?.root?.server?.message}
-               </Alert>
+               </StyledAlert>
             )}
-            <LoadingButton
+            <StyledLoadingButton
                loading={isSubmitting}
                endIcon={<DoubleArrowIcon />}
                disabled={!isValid}
+               sx={{ mt: errors?.root?.server?0:3 }}
                type="submit"
                variant="contained"
             >
                Submit
-            </LoadingButton>
+            </StyledLoadingButton>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                <NavLink to={"/RememberSendMail"}>
                   <Typography

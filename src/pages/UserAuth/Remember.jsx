@@ -1,27 +1,17 @@
 import { useEffect, useState } from "react";
-import { blue } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { LoadingButton } from "@mui/lab";
-import {
-   FilledInput,
-   FormHelperText,
-   InputLabel,
-   IconButton,
-   FormControl,
-   Box,
-   Typography,
-   TextField,
-   InputAdornment,
-   Alert,
-} from "@mui/material";
+import { Box, Typography, Alert } from "@mui/material";
 import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from "../../validateConfig";
 import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
 import userService from "../../services/UserService";
 import PasswordEmailSendSuccess from "../../component/User/Success/PasswordEmailSendSuccess";
 import { StyledTextField } from "../../component/general/Form/StyledTextField";
 import { useTheme } from "@mui/material";
+import { StyledAlert } from "../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
 
 const Remember = () => {
    const theme = useTheme();
@@ -39,7 +29,7 @@ const Remember = () => {
    const onSubmit = async ({ email }) => {
       try {
          const { data } = await userService.rememberPassword({ email });
-         setSuccess(data?.email || true);
+         setSuccess(data || true);
       } catch (error) {
          console.log(error);
          if (error?.response?.status === 400) {
@@ -75,17 +65,17 @@ const Remember = () => {
                Forgot your password?
             </Typography>
             <Typography
-               fontWeight={600}
-               color={"secondary.light"}
-               variant="body1"
+               // fontWeight={600}
+               color={"secondary"}
+               variant="body2"
                component="h2"
             >
                Write your email
             </Typography>
             <Typography
-               fontWeight={600}
-               color={"secondary.light"}
-               variant="body1"
+               // fontWeight={600}
+               color={"secondary"}
+               variant="body2"
                component="h2"
             >
                we will send you a link to change your password
@@ -112,19 +102,20 @@ const Remember = () => {
                label="Email"
             />
             {errors?.root?.server && (
-               <Alert severity="error" variant="filled" hidden={true}>
+               <StyledAlert severity="error" variant="filled" hidden={true}>
                   {errors?.root?.server?.message}
-               </Alert>
+               </StyledAlert>
             )}
-            <LoadingButton
+            <StyledLoadingButton
                loading={isSubmitting}
                endIcon={<DoubleArrowIcon />}
                disabled={!isValid}
                type="submit"
+               sx={{ mt: errors?.root?.server ? 0 : 3 }}
                variant="contained"
             >
                Send
-            </LoadingButton>
+            </StyledLoadingButton>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                <NavLink to={"/SignIn"}>
                   <Typography

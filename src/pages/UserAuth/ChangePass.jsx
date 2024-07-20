@@ -6,22 +6,14 @@ import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { LoadingButton } from "@mui/lab";
 import { Box, Typography, TextField, Alert } from "@mui/material";
 import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
-import {
-   FilledInput,
-   FormHelperText,
-   InputLabel,
-   IconButton,
-   FormControl,
-   InputAdornment,
-} from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "../../validateConfig";
 import Loading from "../../component/general/Loading/Loading";
 import userService from "../../services/UserService";
 import ErrorElement from "../../component/general/ErrorElement";
 import PasswordWasChangedSuccess from "../../component/User/Success/PasswordWasChangedSuccess";
 import { StyledPassword } from "../../component/general/Form/StyledPassword";
+import { StyledAlert } from "../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
 
 const ChangePass = () => {
    const { link } = useParams();
@@ -134,19 +126,20 @@ const ChangePass = () => {
                errMessage="passwords do not match"
             />
             {errors?.root?.server && (
-               <Alert severity="error" variant="filled" hidden={true}>
+               <StyledAlert severity="error" variant="filled" hidden={true}>
                   {errors?.root?.server?.message}
-               </Alert>
+               </StyledAlert>
             )}
-            <LoadingButton
+            <StyledLoadingButton
                loading={isSubmitting}
                endIcon={<DoubleArrowIcon />}
                disabled={!isValid}
                type="submit"
+               sx={{mt:errors?.root?.server?0:3,}}
                variant="contained"
             >
                Send
-            </LoadingButton>
+            </StyledLoadingButton>
          </form>
       </InCenterAuth>
    );
