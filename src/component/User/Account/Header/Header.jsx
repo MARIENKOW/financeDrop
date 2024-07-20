@@ -1,12 +1,11 @@
-import { Button } from "@mui/material"
-import { useContext } from "react"
-import { Context } from "../../../../User"
+import { Button } from "@mui/material";
+import { useContext } from "react";
+import { Context } from "../../../../User";
 
 const Header = () => {
-   const {logOut} = useContext(Context)
+   const { logOut } = useContext(Context);
 
+   return <Button onClick={logOut}>Logout</Button>;
+};
 
-   return <Button onClick={logOut} >Logout</Button>
-}
-
-export default Header
+export default Header;

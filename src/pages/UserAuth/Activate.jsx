@@ -1,40 +1,37 @@
-import { useParams } from 'react-router';
-import { useEffect, useState } from 'react';
-import ErrorElement from '../../component/general/ErrorElement';
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import ErrorElement from "../../component/general/ErrorElement";
 import Loading from "../../component/general/Loading/Loading";
-import userService from '../../services/UserService';
-import AccountActivateSuccess from '../../component/User/Success/AccountActivateSuccess';
-
-
-
+import userService from "../../services/UserService";
+import AccountActivateSuccess from "../../component/User/Success/AccountActivateSuccess";
 
 const Activate = () => {
-
-   const { token } = useParams()
-   const [loading, setLoading] = useState(true)
-   const [error, setError] = useState(false)
+   const { token } = useParams();
+   const [loading, setLoading] = useState(true);
+   const [error, setError] = useState(false);
 
    useEffect(() => {
       const fetchConfirmPassword = async () => {
          try {
-            await userService.activate({token})
+            await userService.activate({ token });
          } catch (error) {
             console.log(error);
-            if (error?.response?.status === 400) return setError(error?.response?.data || true)
-            setError(true)
+            if (error?.response?.status === 400)
+               return setError(error?.response?.data || true);
+            setError(true);
          } finally {
-            setLoading(false)
+            setLoading(false);
          }
-      }
+      };
 
-      fetchConfirmPassword()
-   }, [])
+      fetchConfirmPassword();
+   }, []);
 
-   if (loading) return <Loading />
+   if (loading) return <Loading />;
 
-   if (error) return <ErrorElement message={error} />
+   if (error) return <ErrorElement message={error} />;
 
-   return <AccountActivateSuccess/>
-}
+   return <AccountActivateSuccess />;
+};
 
-export default Activate
+export default Activate;

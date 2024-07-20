@@ -1,7 +1,5 @@
+const Nft = () => {
+   return "NFt";
+};
 
-const Nft = ()=>{
-
-   return 'NFt'
-}
-
-export default Nft
+export default Nft;
