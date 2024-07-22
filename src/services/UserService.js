@@ -1,44 +1,44 @@
-import { $UserApi } from "../http/index.js";
+import { $UserApi, USER_API_URL } from "../http/index.js";
 
 export default class UserService {
    static async signIn(value) {
-      const res = await $UserApi.post("/signIn", value);
+      const res = await $UserApi.post(USER_API_URL+"/signIn", value);
       return res;
    }
    static async signUp(value) {
-      const ans = await $UserApi.post("/signUp", value);
+      const ans = await $UserApi.post(USER_API_URL+"/signUp", value);
       return ans;
    }
    static async rememberPassword(value) {
-      const ans = await $UserApi.post("/rememberPassword", value);
+      const ans = await $UserApi.post(USER_API_URL+"/rememberPassword", value);
       return ans;
    }
    static async logOut() {
-      const rez = await $UserApi.post("/logOut");
+      const rez = await $UserApi.post(USER_API_URL+"/logOut");
       return rez;
    }
    static async refresh() {
-      return await $UserApi.post("/refresh");
+      return await $UserApi.post(USER_API_URL+"/refresh");
    }
    static async checkAuthUser() {
       if (!localStorage.getItem("accessToken")) return { status: 401 };
-      const response = await $UserApi.get("/checkAuthUser");
+      const response = await $UserApi.get(USER_API_URL+"/checkAuthUser");
       return response;
    }
    static async checkChangePassLink(value) {
-      const response = await $UserApi.post("/checkChangePassLink", value);
+      const response = await $UserApi.post(USER_API_URL+"/checkChangePassLink", value);
       return response;
    }
    static async activate(value) {
-      const response = await $UserApi.post("/activate", value);
+      const response = await $UserApi.post(USER_API_URL+"/activate", value);
       return response;
    }
    static async aboutUser() {
-      const ans = await $UserApi.get("/aboutUser");
+      const ans = await $UserApi.get(USER_API_URL+"/aboutUser");
       return ans;
    }
    static async changePassword(value) {
-      const ans = await $UserApi.post("/changePass", value);
+      const ans = await $UserApi.post(USER_API_URL+"/changePass", value);
       return ans;
    }
 }

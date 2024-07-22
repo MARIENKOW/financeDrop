@@ -6,7 +6,7 @@ export const USER_API_URL = config.SERVER_API + "/User";
 export const ADMIN_API_URL = config.SERVER_API + "/Admin";
 
 export const $UserApi = axios.create({
-   baseURL: USER_API_URL,
+   baseURL: config.SERVER_API,
    withCredentials: true,
    headers: {
       "Content-Type": "application/json",
@@ -33,7 +33,7 @@ $UserApi.interceptors.response.use(
             localStorage.setItem("accessToken", response.data);
             return await $UserApi.request(originalRequest);
          } catch (e) {
-            store.setUnauthorized();
+            if (e?.response?.status === 401) store.setUnauthorized()
             throw e;
          }
       }
@@ -42,7 +42,7 @@ $UserApi.interceptors.response.use(
 );
 
 export const $AdminApi = axios.create({
-   baseURL: ADMIN_API_URL,
+   baseURL: config.SERVER_API,
    withCredentials: true,
    headers: {
       "Content-Type": "application/json",
@@ -60,24 +60,19 @@ $AdminApi.interceptors.response.use(
    (config) => config,
    async (err) => {
       const originalRequest = err.config;
-      console.log("start");
       if (err?.response?.status === 401 && err.config && !err.config._isRetry) {
          originalRequest._isRetry = true;
          try {
             const response = await axios.get(`${ADMIN_API_URL}/refresh`, {
                withCredentials: true,
             });
-            console.log("refresh");
             localStorage.setItem("accessTokenAdmin", response.data);
-            console.log("again");
             return await $AdminApi.request(originalRequest);
          } catch (e) {
-            console.log("catch");
-            adminStore.setUnauthorized();
+            if (e?.response?.status === 401) adminStore.setUnauthorized()
             throw e;
          }
       }
-      console.log("end");
       throw err;
    }
 );

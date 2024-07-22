@@ -1,5 +1,4 @@
 import { makeAutoObservable } from "mobx";
-// import userService from '../services/UserService';
 import adminService from "../services/AdminService";
 
 class Admin {
@@ -20,7 +19,7 @@ class Admin {
       this.setAdmin({});
       this.setAuth(false);
       this.setToken(null);
-      localStorage.removeItem("accessTokenAdmin");
+      // localStorage.removeItem("accessTokenAdmin");
    };
    setIsLoading = (value) => {
       this.isLoading = value;
@@ -56,8 +55,7 @@ class Admin {
          this.setIsLoading(false);
       } catch (e) {
          console.log(e);
-         if (e?.response?.status !== 401)
-            return setTimeout(this.aboutAdmin, 5000);
+         if (e?.response?.status === 500) return setTimeout(this.aboutAdmin, 5000);
          this.setUnauthorized();
          this.setIsLoading(false);
       }

@@ -7,5 +7,13 @@ export const StyledLoadingButton = styled(LoadingButton)(({theme})=>({
       background:theme.palette.primary.main,
       color:theme.palette.primary.contrastText,
       opacity:'0.3'
+   },
+   '&.MuiLoadingButton-loading':{
+      background:theme.palette.primary.main,
+      color:theme.palette.primary.main,
+      opacity:'0.3',
+      '& .MuiLoadingButton-loadingIndicator':{
+         color:theme.palette.primary.contrastText,
+      }
    }
 }))

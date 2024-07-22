@@ -18,6 +18,8 @@ import SignInAdmin from "../pages/AdminAuth/SignInAdmin.jsx";
 import OnlyLoginAdmin from "../component/Admin/wrappers/OnlyLoginAdmin.jsx";
 import OnlyLogoutAdmin from "../component/Admin/wrappers/OnlyLogoutAdmin.jsx";
 import User_Nft from "../pages/UserAccount/User_Nft.jsx";
+import NftAdd from "../pages/AdminAccount/NftAdd.jsx";
+import NftNotSold from "../pages/AdminAccount/NftNotSold.jsx";
 
 const RouterConfig = createBrowserRouter([
    {
@@ -28,7 +30,6 @@ const RouterConfig = createBrowserRouter([
          {
             element: (
                <OnlyLoginUser>
-                  {" "}
                   <UserAccountWrapper />
                </OnlyLoginUser>
             ),
@@ -97,7 +98,6 @@ const RouterConfig = createBrowserRouter([
          {
             element: (
                <OnlyLoginAdmin>
-                  {" "}
                   <AdminAccountWrapper />
                </OnlyLoginAdmin>
             ),
@@ -107,6 +107,14 @@ const RouterConfig = createBrowserRouter([
                {
                   element: <Admin_Main />,
                   index: true,
+               },
+               {
+                  element: <NftAdd />,
+                  path: '/Admin/NftAdd',
+               },
+               {
+                  element: <NftNotSold />,
+                  path: '/Admin/NftNotSold',
                },
             ],
          },
