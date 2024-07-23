@@ -13,4 +13,16 @@ export default class NftService {
       const res = await $AdminApi.get(NFT_API_URL+"/getNotSold");
       return res;
    }
+   static async getById(id) {
+      const res = await $AdminApi.get(NFT_API_URL+"/"+id);
+      return res;
+   }
+   static async update(id,value) {
+      const res = await $AdminApi.post(NFT_API_URL+"/update/"+id, value,{headers: { "Content-Type": "multipart/form-data" }});
+      return res;
+   }
+   static async delete(id) {
+      const res = await $AdminApi.delete(NFT_API_URL+"/"+id);
+      return res;
+   }
 }

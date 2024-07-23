@@ -20,14 +20,14 @@ function DragAndDrop({
    control,
    rules,
    name,
-   resetField,
    setValue,
    sx,
+   imgdefault,
 }) {
    const theme = useTheme();
    const [dragOver, setDragOver] = useState(false);
    const [loading, setLoading] = useState(false);
-   const [imgPreview, setImagePreview] = useState("");
+   const [imgPreview, setImagePreview] = useState(imgdefault);
 
    const handleDragOver = (event) => {
       event.preventDefault();
@@ -64,7 +64,7 @@ function DragAndDrop({
 
    const handleDelete = async () => {
       setImagePreview(null);
-      resetField(name);
+      setValue(name, null, { shouldValidate: true });
    };
 
    return (
@@ -199,7 +199,10 @@ function DragAndDrop({
                   </>
                )}
                {error && (
-                  <FormHelperText sx={{ ml: "14px", mr: "14px" }} error={error}>
+                  <FormHelperText
+                     sx={{ ml: "14px", mr: "14px" }}
+                     error={!!error}
+                  >
                      {error && (error?.message || "incorrect data")}
                   </FormHelperText>
                )}

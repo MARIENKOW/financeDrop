@@ -20,6 +20,8 @@ import OnlyLogoutAdmin from "../component/Admin/wrappers/OnlyLogoutAdmin.jsx";
 import User_Nft from "../pages/UserAccount/User_Nft.jsx";
 import NftAdd from "../pages/AdminAccount/NftAdd.jsx";
 import NftNotSold from "../pages/AdminAccount/NftNotSold.jsx";
+import Nft from "../pages/AdminAccount/Nft.jsx";
+import NftEdit from "../pages/AdminAccount/NftEdit.jsx";
 
 const RouterConfig = createBrowserRouter([
    {
@@ -110,11 +112,19 @@ const RouterConfig = createBrowserRouter([
                },
                {
                   element: <NftAdd />,
-                  path: '/Admin/NftAdd',
+                  path: '/Admin/nft/add',
                },
                {
                   element: <NftNotSold />,
-                  path: '/Admin/NftNotSold',
+                  path: '/Admin/nft/notsold',
+               },
+               {
+                  element: <Nft />,
+                  path: '/Admin/nft/:id',
+               },
+               {
+                  element: <NftEdit />,
+                  path: '/Admin/nft/edit/:id',
                },
             ],
          },

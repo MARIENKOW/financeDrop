@@ -44,7 +44,8 @@ export const themeSettings = {
       secondary: {
          main: grey[600],
          dark: "#111",
-         light: "#363636",
+         // light: "#363636",
+         light: 'rgb(32, 32, 32)',
          contrastText: grey[50],
       },
       alert: {
