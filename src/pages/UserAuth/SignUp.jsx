@@ -17,6 +17,7 @@ import { StyledTextField } from "../../component/general/Form/StyledTextField";
 import { StyledPassword } from "../../component/general/Form/StyledPassword";
 import { StyledAlert } from "../../component/general/StyledAlert";
 import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
+import { USER_SIGN_IN_ROUTE } from "../../route/RouterConfig";
 
 const SignUp = () => {
    const theme = useTheme();
@@ -163,7 +164,7 @@ const SignUp = () => {
                Надіслати
             </StyledLoadingButton>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-               <NavLink to={"/SignIn"}>
+               <NavLink to={USER_SIGN_IN_ROUTE}>
                   <Typography
                      sx={{
                         "&:hover": { color: theme.palette.primary.light },

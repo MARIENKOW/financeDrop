@@ -1,6 +1,7 @@
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { NavLink } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
+import { USER_SIGN_IN_ROUTE } from "../../../route/RouterConfig";
 
 const AccountActivateSuccess = () => {
   return (
@@ -22,7 +23,7 @@ const AccountActivateSuccess = () => {
       >
         The email has been confirmed
       </Typography>
-      <NavLink to={"/SignIn"}>
+      <NavLink to={USER_SIGN_IN_ROUTE}>
         <Button variant="contained">Sign In</Button>
       </NavLink>
     </Box>

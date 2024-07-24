@@ -202,7 +202,7 @@ export const NftForm = ({ submit, nft }) => {
                   })}
                   options={{
                      multiline: true,
-                     rows: 3,
+                     rows: 4,
                   }}
                   label="Description"
                />

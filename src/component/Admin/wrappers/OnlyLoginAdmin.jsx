@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { observer } from "mobx-react-lite";
 import Loading from "../../general/Loading/Loading";
 import { AdminContext } from "../../../Admin";
+import { ADMIN_SIGN_IN_ROUTE } from "../../../route/RouterConfig";
 
 
 function OnlyLogoutAdmin({ children }) {
@@ -12,7 +13,7 @@ function OnlyLogoutAdmin({ children }) {
 
    if (isAuth === true) return children
 
-   return <Navigate to='/Admin/SignIn' replace />
+   return <Navigate to={ADMIN_SIGN_IN_ROUTE} replace />
 
 }
 

@@ -4,6 +4,7 @@ import { Box, Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
 import { StyledLoadingButton } from "../../general/StyledLoadingButton";
+import { ADMIN_NFT_ROUTE } from "../../../route/RouterConfig";
 
 export const NftCardAdmin = ({ nft, deleteNft }) => {
 
@@ -16,7 +17,7 @@ export const NftCardAdmin = ({ nft, deleteNft }) => {
          nft={nft}
          cardAction={
             <Box sx={{ display: "flex", overflow: "hidden" }}>
-               <NavLink style={{ flex: "50% 0 1" }} to={"/Admin/nft/" + nft.id}>
+               <NavLink style={{ flex: "50% 0 1" }} to={ADMIN_NFT_ROUTE+'/'+ nft.id}>
                   <Button
                      variant="outlined"
                      color="primary"

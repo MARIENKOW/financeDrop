@@ -13,15 +13,28 @@ import Activate from "../pages/UserAuth/Activate.jsx";
 import User from "../User.jsx";
 import Admin from "../Admin.jsx";
 import AdminAccountWrapper from "../component/Admin/wrappers/AdminAccountWrapper.jsx";
-import Admin_Main from "../pages/AdminAccount/Admin_Main.jsx";
 import SignInAdmin from "../pages/AdminAuth/SignInAdmin.jsx";
 import OnlyLoginAdmin from "../component/Admin/wrappers/OnlyLoginAdmin.jsx";
 import OnlyLogoutAdmin from "../component/Admin/wrappers/OnlyLogoutAdmin.jsx";
-import User_Nft from "../pages/UserAccount/User_Nft.jsx";
+import { User_Nft_NotSold } from "../pages/UserAccount/User_Nft_NotSold.jsx";
 import NftAdd from "../pages/AdminAccount/NftAdd.jsx";
 import NftNotSold from "../pages/AdminAccount/NftNotSold.jsx";
 import Nft from "../pages/AdminAccount/Nft.jsx";
 import NftEdit from "../pages/AdminAccount/NftEdit.jsx";
+import { User_Nft } from "../pages/UserAccount/User_Nft.jsx";
+
+export const USER_ROUTE = "/";
+export const USER_NFT_ROUTE = "/nft";
+export const USER_SIGN_IN_ROUTE = "/sign-in";
+export const USER_SIGN_UP_ROUTE = "/sign-up";
+export const USER_REMEMBER_PASSWORD_ROUTE = "/remember-password";
+export const USER_CHANGE_PASSWORD_ROUTE = "/change-password";
+export const USER_ACTIVATE_ROUTE = "/activate";
+export const ADMIN_ROUTE = "/Admin";
+export const ADMIN_SIGN_IN_ROUTE = ADMIN_ROUTE + "/sign-in";
+export const ADMIN_NFT_ROUTE = ADMIN_ROUTE + "/nft";
+export const ADMIN_NFT_ADD_ROUTE = ADMIN_NFT_ROUTE + "/add";
+export const ADMIN_NFT_EDIT_ROUTE = ADMIN_NFT_ROUTE + "/edit";
 
 const RouterConfig = createBrowserRouter([
    {
@@ -38,14 +51,17 @@ const RouterConfig = createBrowserRouter([
             errorElement: <ErrorPage />,
             path: "/",
             children: [
-               // {
-               //    element: <User_Main/>,
-               //    index:true,
-               // },
+               {
+                  element: <User_Main />,
+                  index: true,
+               },
+               {
+                  element: <User_Nft_NotSold />,
+                  path: USER_NFT_ROUTE,
+               },
                {
                   element: <User_Nft />,
-                  index: true,
-                  // path:'/Nft'
+                  path: USER_NFT_ROUTE + "/:id",
                },
             ],
          },
@@ -55,7 +71,7 @@ const RouterConfig = createBrowserRouter([
                   <SignIn />
                </OnlyLogoutUser>
             ),
-            path: "/SignIn",
+            path: USER_SIGN_IN_ROUTE,
             errorElement: <ErrorPage />,
          },
          {
@@ -64,7 +80,7 @@ const RouterConfig = createBrowserRouter([
                   <SignUp />
                </OnlyLogoutUser>
             ),
-            path: "/SignUp",
+            path: USER_SIGN_UP_ROUTE,
             errorElement: <ErrorPage />,
          },
          {
@@ -73,7 +89,7 @@ const RouterConfig = createBrowserRouter([
                   <Remember />
                </OnlyLogoutUser>
             ),
-            path: "/RememberSendMail",
+            path: USER_REMEMBER_PASSWORD_ROUTE,
             errorElement: <ErrorPage />,
          },
          {
@@ -82,18 +98,18 @@ const RouterConfig = createBrowserRouter([
                   <ChangePass />
                </OnlyLogoutUser>
             ),
-            path: "/ChangePass/:link",
+            path: USER_CHANGE_PASSWORD_ROUTE + "/:link",
             errorElement: <ErrorPage />,
          },
          {
             element: <Activate />,
-            path: "/Activate/:token",
+            path: USER_ACTIVATE_ROUTE + "/:token",
             errorElement: <ErrorPage />,
          },
       ],
    },
    {
-      path: "/Admin",
+      path: ADMIN_ROUTE,
       element: <Admin />,
       errorElement: <ErrorPage />,
       children: [
@@ -104,27 +120,24 @@ const RouterConfig = createBrowserRouter([
                </OnlyLoginAdmin>
             ),
             errorElement: <ErrorPage />,
-            path: "/Admin",
+            path: ADMIN_ROUTE,
             children: [
                {
-                  element: <Admin_Main />,
-                  index: true,
+                  element: <NftNotSold />,
+                  // index:true,
+                  path: ADMIN_NFT_ROUTE,
                },
                {
                   element: <NftAdd />,
-                  path: '/Admin/nft/add',
-               },
-               {
-                  element: <NftNotSold />,
-                  path: '/Admin/nft/notsold',
+                  path: ADMIN_NFT_ADD_ROUTE,
                },
                {
                   element: <Nft />,
-                  path: '/Admin/nft/:id',
+                  path: ADMIN_NFT_ROUTE + "/:id",
                },
                {
                   element: <NftEdit />,
-                  path: '/Admin/nft/edit/:id',
+                  path: ADMIN_NFT_EDIT_ROUTE + "/:id",
                },
             ],
          },
@@ -134,7 +147,7 @@ const RouterConfig = createBrowserRouter([
                   <SignInAdmin />
                </OnlyLogoutAdmin>
             ),
-            path: "/Admin/SignIn",
+            path: ADMIN_SIGN_IN_ROUTE,
             errorElement: <ErrorPage />,
          },
       ],

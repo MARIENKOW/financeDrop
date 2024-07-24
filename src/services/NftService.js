@@ -1,4 +1,4 @@
-import { $AdminApi } from "../http/index.js";
+import { $AdminApi, $UserApi } from "../http/index.js";
 import { ADMIN_API_URL } from "../http/index.js";
 import config from "../config.js";
 
@@ -10,11 +10,11 @@ export default class NftService {
       return res;
    }
    static async getNotSold() {
-      const res = await $AdminApi.get(NFT_API_URL+"/getNotSold");
+      const res = await $UserApi.get(NFT_API_URL+"/getNotSold");
       return res;
    }
    static async getById(id) {
-      const res = await $AdminApi.get(NFT_API_URL+"/"+id);
+      const res = await $UserApi.get(NFT_API_URL+"/"+id);
       return res;
    }
    static async update(id,value) {

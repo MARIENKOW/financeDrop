@@ -9,8 +9,9 @@ import { NavLink } from "react-router-dom";
 import BungalowIcon from "@mui/icons-material/Bungalow";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { useRouteError } from "react-router-dom";
+import { ADMIN_ROUTE, USER_ROUTE } from "../../route/RouterConfig";
 
-const ErrorElement = ({ message }) => {
+const ErrorElement = ({ message ,admin}) => {
   const thema = useTheme();
 
   const error = useRouteError();
@@ -43,7 +44,7 @@ const ErrorElement = ({ message }) => {
             back
           </Button>
         </NavLink>
-        <NavLink to={"/"}>
+        <NavLink to={admin?ADMIN_ROUTE:USER_ROUTE}>
           <Button endIcon={<BungalowIcon />} variant="contained">
             home
           </Button>

@@ -1,5 +1,6 @@
-import { useTheme } from "@mui/material";
+import { Link, useTheme } from "@mui/material";
 import {Box,Typography,Button} from "@mui/material";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export const NftFullInfo = ({nft}) => {
    const theme = useTheme()
@@ -137,7 +138,7 @@ export const NftFullInfo = ({nft}) => {
                      </Typography>
                   </Box>
                </Box>
-               <Button variant="outlined" component={"a"}>
+               <Button startIcon={<ShoppingCartIcon/>} target="_blank" href={nft?.link} variant="contained" component={'a'}>
                   Buy
                </Button>
             </Box>

@@ -7,8 +7,6 @@ import ErrorElement from "../component/general/ErrorElement";
 const ErrorPage = () => {
    const error = useRouteError();
 
-   if (error?.response?.status === 401) return <Navigate to="/login" />;
-
    return (
       <div
          style={{

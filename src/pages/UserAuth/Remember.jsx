@@ -12,6 +12,7 @@ import { StyledTextField } from "../../component/general/Form/StyledTextField";
 import { useTheme } from "@mui/material";
 import { StyledAlert } from "../../component/general/StyledAlert";
 import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
+import { USER_SIGN_IN_ROUTE, USER_SIGN_UP_ROUTE } from "../../route/RouterConfig";
 
 const Remember = () => {
    const theme = useTheme();
@@ -117,7 +118,7 @@ const Remember = () => {
                Send
             </StyledLoadingButton>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-               <NavLink to={"/SignIn"}>
+               <NavLink to={USER_SIGN_IN_ROUTE}>
                   <Typography
                      sx={{
                         "&:hover": { color: theme.palette.primary.light },
@@ -131,7 +132,7 @@ const Remember = () => {
                      Sign In
                   </Typography>
                </NavLink>
-               <NavLink to={"/SignUp"}>
+               <NavLink to={USER_SIGN_UP_ROUTE}>
                   <Typography
                      sx={{
                         "&:hover": { color: theme.palette.primary.light },

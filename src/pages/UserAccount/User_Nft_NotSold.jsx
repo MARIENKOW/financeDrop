@@ -12,34 +12,18 @@ import { NavLink } from "react-router-dom";
 import { ADMIN_NFT_ADD_ROUTE } from "../../route/RouterConfig";
 import { Empty } from "../../component/general/Empty";
 import NftCard_skeleton from "../../component/general/skeletons/NftCard_skeleton";
+import { NftCardUser } from "../../component/User/nft/NftCardUser";
 
-const NftNotSold = () => {
-   const { error, isLoading, data, refetch } = useQuery({
+export const User_Nft_NotSold = () => {
+   const { error, isLoading, data } = useQuery({
       queryKey: ["getNotSoldAdmin"],
       queryFn: NftService.getNotSold,
       select: ({ data }) => data,
    });
 
-   if (error) return <ErrorElement admin={true} message={error?.message} />;
+   if (error) return <ErrorElement message={error?.message} />;
 
-   const handleDelete = (setIsLoadingDelete) => {
-      return async (id) => {
-         try {
-            const alertAnswer = window.confirm("realy nigga?");
-            if (!alertAnswer) return;
-            setIsLoadingDelete(true);
-            await NftService.delete(id);
-            await refetch({ cancelRefetch: false });
-            enqueueSnackbar(`NFT successfully deleted`, { variant: "success" });
-         } catch (error) {
-            enqueueSnackbar(`"Oops! something went wrong, try again later"`, {
-               variant: "error",
-            });
-         } finally {
-            setIsLoadingDelete(false);
-         }
-      };
-   };
+   console.log(isLoading);
 
    return (
       <ContainerComponent>
@@ -48,13 +32,7 @@ const NftNotSold = () => {
             display={{ xs: "block", sm: "flex" }}
             mb={2}
             justifyContent={{ sm: "normal", sm: "end" }}
-         >
-            <NavLink to={ADMIN_NFT_ADD_ROUTE}>
-               <Button fullWidth color="primary" variant="outlined">
-                  add new NFT
-               </Button>
-            </NavLink>
-         </Box>
+         ></Box>
          <InCenter style={{ p: { xs: 0 } }} maxWidth="lg">
             {isLoading ? (
                <Grid container spacing={2} columns={12}>
@@ -70,7 +48,7 @@ const NftNotSold = () => {
                <Grid container spacing={2} columns={12}>
                   {data?.map((el) => (
                      <Grid xs={6} sm={4} md={4} lg={3} key={el?.id}>
-                        <NftCardAdmin nft={el} deleteNft={handleDelete} />
+                        <NftCardUser nft={el} />
                      </Grid>
                   ))}
                </Grid>
@@ -81,5 +59,3 @@ const NftNotSold = () => {
       </ContainerComponent>
    );
 };
-
-export default NftNotSold;

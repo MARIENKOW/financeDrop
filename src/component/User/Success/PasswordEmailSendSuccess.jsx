@@ -2,6 +2,7 @@ import { Box, Typography, Button } from "@mui/material";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { REMEMBER_TOKEN_TIME } from "../../../validateConfig";
 import { NavLink } from "react-router-dom";
+import { USER_SIGN_IN_ROUTE } from "../../../route/RouterConfig";
 
 const PasswordSuccess = ({ mail, size = "body2" }) => {
    return (
@@ -37,7 +38,7 @@ const PasswordSuccess = ({ mail, size = "body2" }) => {
                Check your Spam folder
             </Typography>
          </Box>
-         <NavLink to={"/SignIn"}>
+         <NavLink to={USER_SIGN_IN_ROUTE}>
             <Button variant="contained">Sign In</Button>
          </NavLink>
       </Box>

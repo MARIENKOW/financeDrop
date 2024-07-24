@@ -1,6 +1,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
+import { USER_SIGN_IN_ROUTE } from "../../../route/RouterConfig";
 
 const PasswordWasChanged = () => {
    return (
@@ -22,7 +23,7 @@ const PasswordWasChanged = () => {
          >
             The password has been changed
          </Typography>
-         <NavLink to={"/SignIn"}>
+         <NavLink to={USER_SIGN_IN_ROUTE}>
             <Button variant="contained">Sign In</Button>
          </NavLink>
       </Box>

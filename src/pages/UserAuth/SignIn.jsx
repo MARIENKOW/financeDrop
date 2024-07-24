@@ -17,6 +17,7 @@ import { StyledPassword } from "../../component/general/Form/StyledPassword";
 import { useTheme } from "@mui/material";
 import { StyledAlert } from "../../component/general/StyledAlert";
 import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
+import { USER_REMEMBER_PASSWORD_ROUTE, USER_SIGN_UP_ROUTE } from "../../route/RouterConfig";
 
 const SignIn = () => {
    const theme = useTheme();
@@ -115,7 +116,7 @@ const SignIn = () => {
                Submit
             </StyledLoadingButton>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-               <NavLink to={"/RememberSendMail"}>
+               <NavLink to={USER_REMEMBER_PASSWORD_ROUTE}>
                   <Typography
                      sx={{
                         "&:hover": { color: theme.palette.primary.light },
@@ -130,7 +131,7 @@ const SignIn = () => {
                      Forgot password?
                   </Typography>
                </NavLink>
-               <NavLink to={"/SignUp"}>
+               <NavLink to={USER_SIGN_UP_ROUTE}>
                   <Typography
                      sx={{
                         "&:hover": { color: theme.palette.primary.light },
