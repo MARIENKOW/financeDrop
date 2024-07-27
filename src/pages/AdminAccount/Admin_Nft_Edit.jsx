@@ -1,11 +1,8 @@
-import nftService from "../../services/NftService";
 import { useNavigate, useParams } from "react-router";
 import { NftForm } from "../../component/Admin/nft/NftForm";
 import { useQuery } from "@tanstack/react-query";
-import Loading from "../../component/general/Loading/Loading";
 import ErrorElement from "../../component/general/ErrorElement";
 import { Title } from "../../component/general/Title";
-import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
 import { Box, useTheme } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import { ADMIN_NFT_ROUTE } from "../../route/RouterConfig";
@@ -13,21 +10,44 @@ import { ContainerComponent } from "../../component/general/wrappers/ContainerCo
 import BreadcrumbsComponent from "../../component/general/BreadcrumbsComponent";
 import InCenter from "../../component/general/wrappers/InCenter";
 import { NftFullInfo_skeleton } from "../../component/general/skeletons/NftFullInfo_skeleton";
+import { useEffect, useState } from "react";
+import NftService from "../../services/NftService";
+import { $AdminApi } from "../../http";
 
-const NftEdit = () => {
+export const Admin_Nft_Edit = () => {
+
+   const nftServiceAdmin = new NftService($AdminApi)
+
+
    const navigate = useNavigate();
+   const [data, setData] = useState(false);
+   const [isLoading, setIsLoading] = useState(true);
+   const [error, setError] = useState(false);
 
    const { id } = useParams();
 
-   const theme = useTheme();
+   useEffect(() => {
+      const fetchData = async () => {
+         try {
+            setIsLoading(true);
+            const { data } = await nftServiceAdmin.getNftById(id);
+            setData(data);
+         } catch (error) {
+            console.log(error);
+            setError(error?.message);
+         } finally {
+            setIsLoading(false);
+         }
+      };
+      fetchData();
+   }, []);
 
-   const { data, isLoading, error } = useQuery({
-      queryKey: ["nftEdit"],
-      queryFn: () => nftService.getById(id),
-      select: ({ data }) => data,
-   });
-
-   if (isLoading) return <Box mt={6}><NftFullInfo_skeleton/></Box>;
+   if (isLoading)
+      return (
+         <Box mt={6}>
+            <NftFullInfo_skeleton />
+         </Box>
+      );
 
    if (error) return <ErrorElement admin={true} message={error?.message} />;
 
@@ -41,7 +61,7 @@ const NftEdit = () => {
                if (!dirtyFields[key]) continue;
                formData.append(key, value[key]);
             }
-            const { data: user_id } = await nftService.update(
+            const { data: user_id } = await nftServiceAdmin.updateNft(
                data.id,
                formData
             );
@@ -82,5 +102,3 @@ const NftEdit = () => {
       </ContainerComponent>
    );
 };
-
-export default NftEdit;

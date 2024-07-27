@@ -38,7 +38,7 @@ export const NFT_DAYS_MAX_VALUE = 365;
 
 export const NFT_PERCENT_MIN_VALUE = 1;
 export const NFT_PERCENT_PATTERN = /^\d+$/;
-export const NFT_PERCENT_MAX_VALUE = 100;
+export const NFT_PERCENT_MAX_VALUE = 1000;
 
 export const NFT_DESCRIPTION_MAX_LENGTH = 1000;
 

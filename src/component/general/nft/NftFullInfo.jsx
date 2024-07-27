@@ -1,9 +1,9 @@
 import { Link, useTheme } from "@mui/material";
-import {Box,Typography,Button} from "@mui/material";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Box, Typography, Button } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-export const NftFullInfo = ({nft}) => {
-   const theme = useTheme()
+export const NftFullInfo = ({ nft }) => {
+   const theme = useTheme();
    return (
       <Box style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
          <Box
@@ -29,7 +29,7 @@ export const NftFullInfo = ({nft}) => {
                   flex: "50% 0 1",
                   display: "flex",
                   flexDirection: "column",
-                  gap:'15px'
+                  gap: "15px",
                }}
             >
                <Box
@@ -42,13 +42,15 @@ export const NftFullInfo = ({nft}) => {
                   }}
                >
                   <Typography
-                     variant="h5"
+                     variant="h4"
+                     fontWeight={600}
                      color={theme.palette.secondary.contrastText}
                   >
                      {nft?.name}
                   </Typography>
                   <Typography
-                     variant="h5"
+                     fontWeight={600}
+                     variant="h4"
                      sx={{
                         pb: 1,
                         pt: 1,
@@ -74,17 +76,18 @@ export const NftFullInfo = ({nft}) => {
                            borderRadius: "10px",
                            borderWidth: "1px",
                            borderStyle: "solid",
+                           alignItems: "center",
                            borderColor: theme.palette.background.light,
                         }}
                      >
                         <Typography
-                           variant="body1"
+                           variant="h6"
                            color={theme.palette.secondary.main}
                         >
                            term:
                         </Typography>
                         <Typography
-                           variant="body1"
+                           variant="h6"
                            color={theme.palette.secondary.contrastText}
                         >
                            {nft?.days} days
@@ -96,6 +99,7 @@ export const NftFullInfo = ({nft}) => {
                            justifyContent: "center",
                            gap: 1,
                            flex: "50% 0 1",
+                           alignItems: "center",
                            background: theme.palette.background.main,
                            p: 1.5,
                            borderRadius: "10px",
@@ -105,13 +109,13 @@ export const NftFullInfo = ({nft}) => {
                         }}
                      >
                         <Typography
-                           variant="body1"
+                           variant="h6"
                            color={theme.palette.secondary.main}
                         >
                            per day:
                         </Typography>
                         <Typography
-                           variant="body1"
+                           variant="h6"
                            color={theme.palette.secondary.contrastText}
                         >
                            {nft?.percent}%
@@ -120,7 +124,7 @@ export const NftFullInfo = ({nft}) => {
                   </Box>
                   <Box
                      sx={{
-                        flex:1,
+                        flex: 1,
                         background: theme.palette.background.main,
                         p: 1.5,
                         borderRadius: "10px",
@@ -130,15 +134,24 @@ export const NftFullInfo = ({nft}) => {
                      }}
                   >
                      <Typography
-                        variant="body1"
+                        variant="h6"
+                        // fontWeight={600}
                         sx={{ whiteSpace: " pre-wrap" }}
-                        color={theme.palette.secondary.main}
+                        color={theme.palette.secondary.contrastText}
                      >
                         {nft?.description}
                      </Typography>
                   </Box>
                </Box>
-               <Button startIcon={<ShoppingCartIcon/>} target="_blank" href={nft?.link} variant="contained" component={'a'}>
+               <Button
+                  startIcon={<ShoppingCartIcon />}
+                  target="_blank"
+                  href={nft?.link}
+                  variant="contained"
+                  size="large"
+                  sx={{fontWeight:600}}
+                  component={"a"}
+               >
                   Buy
                </Button>
             </Box>

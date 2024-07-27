@@ -3,10 +3,11 @@ import { NavLink } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
-import { StyledLoadingButton } from "../../general/StyledLoadingButton";
 import { ADMIN_NFT_ROUTE } from "../../../route/RouterConfig";
 
+
 export const NftCardAdmin = ({ nft, deleteNft }) => {
+
 
    const [isLoading,setIsLoading] = useState(false)
 
@@ -22,8 +23,10 @@ export const NftCardAdmin = ({ nft, deleteNft }) => {
                      variant="outlined"
                      color="primary"
                      fullWidth
+                  // size="medium"
+
                      // size="small"
-                     sx={{ borderRadius: "0px 0px 0px 10px" }}
+                     sx={{ borderRadius: "0px 0px 0px 10px",fontWeight:600 }}
                   >
                      open
                   </Button>
@@ -33,7 +36,8 @@ export const NftCardAdmin = ({ nft, deleteNft }) => {
                   color="error"
                   loading={isLoading}
                   fullWidth
-                  sx={{ borderRadius: "0px", flex: "50% 0 1" }}
+                  // size="large"
+                  sx={{ borderRadius: "0px", flex: "50% 0 1" ,fontWeight:600}}
                   onClick={() => {
                      handleDelete(nft.id);
                   }}

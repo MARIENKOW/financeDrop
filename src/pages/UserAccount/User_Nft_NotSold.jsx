@@ -1,6 +1,5 @@
 import { Title } from "../../component/general/Title";
 import { Box, Unstable_Grid2 as Grid, Button } from "@mui/material";
-import NftService from "../../services/NftService";
 import Loading from "../../component/general/Loading/Loading";
 import ErrorElement from "../../component/general/ErrorElement";
 import { NftCardAdmin } from "../../component/Admin/nft/NftCardAdmin";
@@ -13,11 +12,20 @@ import { ADMIN_NFT_ADD_ROUTE } from "../../route/RouterConfig";
 import { Empty } from "../../component/general/Empty";
 import NftCard_skeleton from "../../component/general/skeletons/NftCard_skeleton";
 import { NftCardUser } from "../../component/User/nft/NftCardUser";
+import NftService from "../../services/NftService";
+import { $UserApi } from "../../http";
 
 export const User_Nft_NotSold = () => {
+
+   console.log(NftService);
+
+   const nftServiceUser = new NftService($UserApi)
+
+   console.log(nftServiceUser);
+
    const { error, isLoading, data } = useQuery({
-      queryKey: ["getNotSoldAdmin"],
-      queryFn: NftService.getNotSold,
+      queryKey: ["getNotSoldUser"],
+      queryFn: nftServiceUser.getNftNotSold,
       select: ({ data }) => data,
    });
 
@@ -26,16 +34,16 @@ export const User_Nft_NotSold = () => {
    console.log(isLoading);
 
    return (
-      <ContainerComponent>
+      <ContainerComponent >
          <Title label={"NFT"} />
-         <Box
+         {/* <Box
             display={{ xs: "block", sm: "flex" }}
             mb={2}
             justifyContent={{ sm: "normal", sm: "end" }}
-         ></Box>
+         ></Box> */}
          <InCenter style={{ p: { xs: 0 } }} maxWidth="lg">
             {isLoading ? (
-               <Grid container spacing={2} columns={12}>
+               <Grid container spacing={1} columns={12}>
                   {Array(4)
                      .fill("5")
                      .map((el, id) => (
@@ -45,7 +53,7 @@ export const User_Nft_NotSold = () => {
                      ))}
                </Grid>
             ) : data?.length !== 0 ? (
-               <Grid container spacing={2} columns={12}>
+               <Grid container spacing={1} columns={12}>
                   {data?.map((el) => (
                      <Grid xs={6} sm={4} md={4} lg={3} key={el?.id}>
                         <NftCardUser nft={el} />

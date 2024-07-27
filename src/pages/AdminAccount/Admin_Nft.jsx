@@ -1,17 +1,9 @@
-import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
-import { StyledTextField } from "../../component/general/Form/StyledTextField";
-import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
-import { useForm } from "react-hook-form";
-import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import { Title } from "../../component/general/Title";
-import { StyledNumberField } from "../../component/general/Form/StyledNumberField";
-import { Box, useTheme, Typography, Button, Container } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router";
 import NftService from "../../services/NftService";
 import { NftFullInfo } from "../../component/general/nft/NftFullInfo";
 import { NavLink } from "react-router-dom";
-import Loading from "../../component/general/Loading/Loading";
 import ErrorElement from "../../component/general/ErrorElement";
 import { enqueueSnackbar } from "notistack";
 import { LoadingButton } from "@mui/lab";
@@ -24,9 +16,11 @@ import {
 import { ContainerComponent } from "../../component/general/wrappers/ContainerComponent";
 import InCenter from "../../component/general/wrappers/InCenter";
 import { NftFullInfo_skeleton } from "../../component/general/skeletons/NftFullInfo_skeleton";
+import { $AdminApi } from "../../http";
 
-const Nft = () => {
-   const theme = useTheme();
+export const Admin_Nft = () => {
+
+   const nftServiceAdmin = new NftService($AdminApi)
 
    const navigate = useNavigate();
 
@@ -35,8 +29,8 @@ const Nft = () => {
    const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
    const { error, data, isLoading } = useQuery({
-      queryKey: ["nftArray"],
-      queryFn: async () => NftService.getById(id),
+      queryKey: ["NFT",id],
+      queryFn: async () => nftServiceAdmin.getNftById(id),
       select: ({ data }) => data,
    });
 
@@ -56,7 +50,7 @@ const Nft = () => {
          const alertAnswer = window.confirm("realy nigga?");
          if (!alertAnswer) return;
          setIsLoadingDelete(true);
-         await NftService.delete(data.id);
+         await nftServiceAdmin.deleteNft(data.id);
          enqueueSnackbar(`NFT successfully deleted`, { variant: "success" });
          navigate(ADMIN_NFT_ROUTE);
       } catch (error) {
@@ -99,7 +93,7 @@ const Nft = () => {
                   to={ADMIN_NFT_EDIT_ROUTE + "/" + id}
                   style={{ flex: "50% 0 1" }}
                >
-                  <Button fullWidth color="warning" variant="outlined">
+                  <Button  fullWidth color="warning" variant="outlined">
                      edit
                   </Button>
                </NavLink>
@@ -121,11 +115,8 @@ const Nft = () => {
             }}
             maxWidth="md"
          >
-            {/* <Title label={"AbyssalLegends"} /> */}
             <NftFullInfo nft={data} />
          </InCenter>
       </ContainerComponent>
    );
 };
-
-export default Nft;

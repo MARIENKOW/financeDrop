@@ -1,7 +1,6 @@
 import { Title } from "../../component/general/Title";
 import { Box, Unstable_Grid2 as Grid, Button } from "@mui/material";
 import NftService from "../../services/NftService";
-import Loading from "../../component/general/Loading/Loading";
 import ErrorElement from "../../component/general/ErrorElement";
 import { NftCardAdmin } from "../../component/Admin/nft/NftCardAdmin";
 import { useQuery } from "@tanstack/react-query";
@@ -12,11 +11,16 @@ import { NavLink } from "react-router-dom";
 import { ADMIN_NFT_ADD_ROUTE } from "../../route/RouterConfig";
 import { Empty } from "../../component/general/Empty";
 import NftCard_skeleton from "../../component/general/skeletons/NftCard_skeleton";
+import AddIcon from "@mui/icons-material/Add";
+import { $AdminApi } from "../../http";
 
-const NftNotSold = () => {
+export const Admin_Nft_NotSold = () => {
+
+   const nftServiceAdmin = new NftService($AdminApi)
+
    const { error, isLoading, data, refetch } = useQuery({
       queryKey: ["getNotSoldAdmin"],
-      queryFn: NftService.getNotSold,
+      queryFn: nftServiceAdmin.getNftNotSold,
       select: ({ data }) => data,
    });
 
@@ -28,7 +32,7 @@ const NftNotSold = () => {
             const alertAnswer = window.confirm("realy nigga?");
             if (!alertAnswer) return;
             setIsLoadingDelete(true);
-            await NftService.delete(id);
+            await nftServiceAdmin.deleteNft(id);
             await refetch({ cancelRefetch: false });
             enqueueSnackbar(`NFT successfully deleted`, { variant: "success" });
          } catch (error) {
@@ -50,14 +54,21 @@ const NftNotSold = () => {
             justifyContent={{ sm: "normal", sm: "end" }}
          >
             <NavLink to={ADMIN_NFT_ADD_ROUTE}>
-               <Button fullWidth color="primary" variant="outlined">
+               <Button
+                  startIcon={<AddIcon />}
+                  sx={{fontWeight:600}}
+                  size="large"
+                  fullWidth
+                  color="primary"
+                  variant="outlined"
+               >
                   add new NFT
                </Button>
             </NavLink>
          </Box>
          <InCenter style={{ p: { xs: 0 } }} maxWidth="lg">
             {isLoading ? (
-               <Grid container spacing={2} columns={12}>
+               <Grid container spacing={1} columns={12}>
                   {Array(4)
                      .fill("5")
                      .map((el, id) => (
@@ -67,7 +78,7 @@ const NftNotSold = () => {
                      ))}
                </Grid>
             ) : data?.length !== 0 ? (
-               <Grid container spacing={2} columns={12}>
+               <Grid container spacing={1} columns={12}>
                   {data?.map((el) => (
                      <Grid xs={6} sm={4} md={4} lg={3} key={el?.id}>
                         <NftCardAdmin nft={el} deleteNft={handleDelete} />
@@ -81,5 +92,3 @@ const NftNotSold = () => {
       </ContainerComponent>
    );
 };
-
-export default NftNotSold;

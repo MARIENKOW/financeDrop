@@ -17,11 +17,13 @@ import SignInAdmin from "../pages/AdminAuth/SignInAdmin.jsx";
 import OnlyLoginAdmin from "../component/Admin/wrappers/OnlyLoginAdmin.jsx";
 import OnlyLogoutAdmin from "../component/Admin/wrappers/OnlyLogoutAdmin.jsx";
 import { User_Nft_NotSold } from "../pages/UserAccount/User_Nft_NotSold.jsx";
-import NftAdd from "../pages/AdminAccount/NftAdd.jsx";
-import NftNotSold from "../pages/AdminAccount/NftNotSold.jsx";
-import Nft from "../pages/AdminAccount/Nft.jsx";
-import NftEdit from "../pages/AdminAccount/NftEdit.jsx";
+import { Admin_Nft_Add } from "../pages/AdminAccount/Admin_Nft_Add.jsx";
+import { Admin_Nft_NotSold } from "../pages/AdminAccount/Admin_Nft_NotSold.jsx";
+import { Admin_Nft } from "../pages/AdminAccount/Admin_Nft.jsx";
+import { Admin_Nft_Edit } from "../pages/AdminAccount/Admin_Nft_Edit.jsx";
 import { User_Nft } from "../pages/UserAccount/User_Nft.jsx";
+import { Admin_Main } from "../pages/AdminAccount/Admin_Main.jsx";
+import { Admin_User } from "../pages/AdminAccount/Admin_User.jsx";
 
 export const USER_ROUTE = "/";
 export const USER_NFT_ROUTE = "/nft";
@@ -33,6 +35,7 @@ export const USER_ACTIVATE_ROUTE = "/activate";
 export const ADMIN_ROUTE = "/Admin";
 export const ADMIN_SIGN_IN_ROUTE = ADMIN_ROUTE + "/sign-in";
 export const ADMIN_NFT_ROUTE = ADMIN_ROUTE + "/nft";
+export const ADMIN_USER_ROUTE = ADMIN_ROUTE + "/user";
 export const ADMIN_NFT_ADD_ROUTE = ADMIN_NFT_ROUTE + "/add";
 export const ADMIN_NFT_EDIT_ROUTE = ADMIN_NFT_ROUTE + "/edit";
 
@@ -123,20 +126,27 @@ const RouterConfig = createBrowserRouter([
             path: ADMIN_ROUTE,
             children: [
                {
-                  element: <NftNotSold />,
-                  // index:true,
+                  element: <Admin_Main />,
+                  index: true,
+               },
+               {
+                  element: <Admin_User />,
+                  path:ADMIN_USER_ROUTE+'/:id'
+               },
+               {
+                  element: <Admin_Nft_NotSold />,
                   path: ADMIN_NFT_ROUTE,
                },
                {
-                  element: <NftAdd />,
+                  element: <Admin_Nft_Add />,
                   path: ADMIN_NFT_ADD_ROUTE,
                },
                {
-                  element: <Nft />,
+                  element: <Admin_Nft />,
                   path: ADMIN_NFT_ROUTE + "/:id",
                },
                {
-                  element: <NftEdit />,
+                  element: <Admin_Nft_Edit />,
                   path: ADMIN_NFT_EDIT_ROUTE + "/:id",
                },
             ],

@@ -55,9 +55,11 @@ class Admin {
          this.setIsLoading(false);
       } catch (e) {
          console.log(e);
-         if (e?.response?.status === 500) return setTimeout(this.aboutAdmin, 5000);
-         this.setUnauthorized();
-         this.setIsLoading(false);
+         if (e?.response?.status === 401) {
+            this.setUnauthorized();
+            return this.setIsLoading(false);
+         }
+         setTimeout(this.aboutAdmin, 5000);
       }
    };
 }

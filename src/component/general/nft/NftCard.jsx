@@ -6,17 +6,19 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useTheme, ButtonGroup, Box } from "@mui/material";
 
-export default function NftCard({ nft, cardAction }) {
+export default function NftCard({ nft, onClick,isChecked, cardAction, sx }) {
    const theme = useTheme();
    return (
       <Card
+         onClick={onClick}
          sx={{
             borderRadius: "10px",
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
-            bgcolor: theme.palette.secondary.light,
+            bgcolor: isChecked?theme.palette.success.light:theme.palette.secondary.light,
             height: "100%",
+            ...sx,
          }}
       >
          <CardMedia
@@ -52,12 +54,15 @@ export default function NftCard({ nft, cardAction }) {
                   variant="h6"
                   textAlign={"center"}
                   color={theme.palette.secondary.contrastText}
-                  sx={{ pb: 1.2, pt: 1.2 }}
+                  sx={{
+                     // pb: 1.2,
+                     pt: 1.2,
+                  }}
                >
                   $ {nft?.price}
                </Typography>
             </Box>
-            <Box display={'flex'} flexDirection={'column'} gap={'2px'}>
+            {/* <Box display={'flex'} flexDirection={'column'} gap={'2px'}>
                <Box sx={{ display: "flex", gap: 1 }}>
                   <Typography
                      fontWeight={600}
@@ -91,7 +96,7 @@ export default function NftCard({ nft, cardAction }) {
                      {nft?.percent} %
                   </Typography>
                </Box>
-            </Box>
+            </Box> */}
          </CardContent>
          {cardAction}
       </Card>

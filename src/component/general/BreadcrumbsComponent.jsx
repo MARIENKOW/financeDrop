@@ -18,7 +18,7 @@ export const StyledLink = styled(Typography)(({ theme }) => ({
    },
 }));
 
-export default function BreadcrumbsComponent({ options, admin }) {
+export default function BreadcrumbsComponent({ main, options, admin }) {
    const theme = useTheme();
    return (
       <Breadcrumbs
@@ -26,12 +26,14 @@ export default function BreadcrumbsComponent({ options, admin }) {
          separator={<NavigateNextIcon color="secondary" fontSize="small" />}
          aria-label="breadcrumb"
       >
-         <NavLink to={admin ? ADMIN_ROUTE : USER_ROUTE}>
-            <StyledLink>
-               <HomeIcon sx={{ mr: 0.5 }} fontSize="small" />
-               Main
-            </StyledLink>
-         </NavLink>
+         {main && (
+            <NavLink to={admin ? ADMIN_ROUTE : USER_ROUTE}>
+               <StyledLink>
+                  <HomeIcon sx={{ mr: 0.5 }} fontSize="small" />
+                  Main
+               </StyledLink>
+            </NavLink>
+         )}
          {options?.map((e, i, arr) =>
             i !== arr.length - 1 ? (
                <NavLink to={e?.link} key={new Date()}>

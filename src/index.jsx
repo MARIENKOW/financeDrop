@@ -32,6 +32,7 @@ root.render(
                sx={{
                   minHeight: "100vh",
                   display: "flex",
+                  flexDirection:'column',
                   bgcolor: theme.palette.background.dark,
                }}
             >

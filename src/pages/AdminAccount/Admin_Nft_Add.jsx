@@ -1,17 +1,18 @@
-import nftService from "../../services/NftService";
 import { NftForm } from "../../component/Admin/nft/NftForm";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router";
-import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
 import { Title } from "../../component/general/Title";
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import { ADMIN_NFT_ROUTE } from "../../route/RouterConfig";
 import { ContainerComponent } from "../../component/general/wrappers/ContainerComponent";
 import BreadcrumbsComponent from "../../component/general/BreadcrumbsComponent";
 import InCenter from "../../component/general/wrappers/InCenter";
+import NftService from "../../services/NftService";
+import { $AdminApi } from "../../http";
 
-const NftAdd = () => {
-   const theme = useTheme();
+export const Admin_Nft_Add = () => {
+
+   const nftServiceAdmin = new NftService($AdminApi)
 
    const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ const NftAdd = () => {
             for (let key in data) {
                formData.append(key, data[key]);
             }
-            const { data: id } = await nftService.create(formData);
+            const { data: id } = await nftServiceAdmin.createNft(formData);
             enqueueSnackbar(`NFT successfully added`, { variant: "success" });
             navigate(ADMIN_NFT_ROUTE + "/" + id);
          } catch (error) {
@@ -59,5 +60,3 @@ const NftAdd = () => {
       </ContainerComponent>
    );
 };
-
-export default NftAdd;

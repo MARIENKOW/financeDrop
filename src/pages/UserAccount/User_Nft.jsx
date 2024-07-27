@@ -9,13 +9,18 @@ import { USER_NFT_ROUTE } from "../../route/RouterConfig";
 import { ContainerComponent } from "../../component/general/wrappers/ContainerComponent";
 import InCenter from "../../component/general/wrappers/InCenter";
 import { NftFullInfo_skeleton } from "../../component/general/skeletons/NftFullInfo_skeleton";
+import { $UserApi } from "../../http";
 
 export const User_Nft = () => {
+
+   const nftServiceUser = new NftService($UserApi)
+
+
    const { id } = useParams();
 
    const { error, data, isLoading } = useQuery({
-      queryKey: ["nftArray"],
-      queryFn: async () => NftService.getById(id),
+      queryKey: ["nft",id],
+      queryFn: async () => nftServiceUser.getNftById(id),
       select: ({ data }) => data,
    });
 

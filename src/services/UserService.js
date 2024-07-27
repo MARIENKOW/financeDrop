@@ -1,4 +1,4 @@
-import { $UserApi, USER_API_URL } from "../http/index.js";
+import { $AdminApi, $UserApi, USER_API_URL } from "../http/index.js";
 
 export default class UserService {
    static async signIn(value) {
@@ -39,6 +39,14 @@ export default class UserService {
    }
    static async changePassword(value) {
       const ans = await $UserApi.post(USER_API_URL+"/changePass", value);
+      return ans;
+   }
+   static async getAll() {
+      const ans = await $AdminApi.get(USER_API_URL+"/getAll");
+      return ans;
+   }
+   static async getById(id) {
+      const ans = await $AdminApi.get(USER_API_URL+'/'+id);
       return ans;
    }
 }
