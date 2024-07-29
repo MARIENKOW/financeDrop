@@ -20,6 +20,8 @@ $UserApi.interceptors.request.use((config) => {
    return config;
 });
 
+let userPromise = null;
+
 $UserApi.interceptors.response.use(
    (config) => config,
    async (err) => {
@@ -27,13 +29,21 @@ $UserApi.interceptors.response.use(
       if (err?.response?.status === 401 && err.config && !err.config._isRetry) {
          originalRequest._isRetry = true;
          try {
-            const response = await axios.get(`${USER_API_URL}/refresh`, {
-               withCredentials: true,
-            });
+            let promise;
+            if (userPromise) {
+               promise = userPromise;
+            } else {
+               promise = axios.get(`${USER_API_URL}/refresh`, {
+                  withCredentials: true,
+               });
+               userPromise = promise;
+            }
+            const response = await promise;
+            userPromise = null;
             localStorage.setItem("accessToken", response.data);
             return await $UserApi.request(originalRequest);
          } catch (e) {
-            if (e?.response?.status === 401) store.setUnauthorized()
+            if (e?.response?.status === 401) store.setUnauthorized();
             throw e;
          }
       }
@@ -56,6 +66,8 @@ $AdminApi.interceptors.request.use((config) => {
    return config;
 });
 
+let adminPromise = null;
+
 $AdminApi.interceptors.response.use(
    (config) => config,
    async (err) => {
@@ -63,13 +75,21 @@ $AdminApi.interceptors.response.use(
       if (err?.response?.status === 401 && err.config && !err.config._isRetry) {
          originalRequest._isRetry = true;
          try {
-            const response = await axios.get(`${ADMIN_API_URL}/refresh`, {
-               withCredentials: true,
-            });
+            let promise;
+            if (adminPromise) {
+               promise = adminPromise;
+            } else {
+               promise = axios.get(`${ADMIN_API_URL}/refresh`, {
+                  withCredentials: true,
+               });
+               adminPromise = promise;
+            }
+            const response = await promise;
+            adminPromise = null;
             localStorage.setItem("accessTokenAdmin", response.data);
             return await $AdminApi.request(originalRequest);
          } catch (e) {
-            if (e?.response?.status === 401) adminStore.setUnauthorized()
+            if (e?.response?.status === 401) adminStore.setUnauthorized();
             throw e;
          }
       }

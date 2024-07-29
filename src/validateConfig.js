@@ -14,7 +14,8 @@ export const PASSWORD_MAX_LENGTH = 30;
 export const PASSWORD_MIN_LENGTH = 6;
 
 export const EMAIL_MAX_LENGTH = 50;
-export const EMAIL_PATTERN =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+export const EMAIL_PATTERN =
+   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 export const ACTIVATE_TOKEN_TIME = 30;
 export const REMEMBER_TOKEN_TIME = 30;
@@ -44,3 +45,9 @@ export const NFT_DESCRIPTION_MAX_LENGTH = 1000;
 
 // export const NFT_LINK_MIN_LENGTH = 10;
 export const NFT_LINK_MAX_LENGTH = 255;
+
+export const OTHER_DEPOSIT_DESCRIPTION_MAX_LENGTH = 255;
+
+export const OTHER_DEPOSIT_SUM_MIN_VALUE = 1;
+export const OTHER_DEPOSIT_SUM_PATTERN = /^\d+(\.\d{2})?$/;
+export const OTHER_DEPOSIT_SUM_MAX_VALUE = 999999;

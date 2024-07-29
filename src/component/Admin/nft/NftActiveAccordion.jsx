@@ -17,7 +17,7 @@ export const NftActiveAccordion = ({ expanded, handleChange,nft }) => {
          onChange={handleChange(1)}
       >
          <AccordionSummary expandIcon={<ExpandMoreIcon color="secondary" />}>
-            <Typography color={theme.palette.secondary.contrastText}>
+            <Typography color={theme.palette.secondary.main}>
                Active NFT
             </Typography>
          </AccordionSummary>

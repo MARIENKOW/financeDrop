@@ -8,7 +8,7 @@ import {
    Typography,
 } from "@mui/material";
 
-export const UserFullInfoAdmin = ({ user }) => {
+export const UserFullInfoAdmin = ({ user,sx }) => {
    const theme = useTheme();
    return (
       <Card
@@ -23,6 +23,7 @@ export const UserFullInfoAdmin = ({ user }) => {
             borderWidth: "1px",
             borderStyle: "solid",
             borderColor: theme.palette.background.light,
+            ...sx
          }}
       >
          <CardMedia

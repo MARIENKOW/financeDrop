@@ -7,27 +7,25 @@ import { useTheme } from "@mui/material";
 import { NftCardAdminUser } from "./NftCardAdminUser";
 import { Empty } from "../../general/Empty";
 
-export const NftInactiveAccordion = ({nft,handleChange,expanded}) => {
+export const NftInactiveAccordion = ({ nft, handleChange, expanded }) => {
+   const theme = useTheme();
 
-   const theme = useTheme()
-
-   const inactive = nft?.filter(el=>el.active!==1) || [];
+   const inactive = nft?.filter((el) => el.active !== 1) || [];
 
    return (
-      <StyledAccordion
-         expanded={expanded === 2}
-         onChange={handleChange(2)}
-      >
+      <StyledAccordion expanded={expanded === 2} onChange={handleChange(2)}>
          <AccordionSummary expandIcon={<ExpandMoreIcon color="secondary" />}>
-            <Typography color={theme.palette.secondary.contrastText}>
+            <Typography color={theme.palette.secondary.main}>
                Inactive NFT
             </Typography>
          </AccordionSummary>
-         <AccordionDetails>
+         <AccordionDetails
+            sx={{ overflowX: "scroll", display: "flex", gap: 1 }}
+         >
             {inactive?.length !== 0 ? (
                inactive.map((el) => (
                   <NftCardAdminUser
-                     sx={{ width: "200px", minWidth: "200px" }}
+                     sx={{ width: "200px", minWidth: "200px", opacity: 0.3 }}
                      nft={el}
                      key={el?.nft?.id}
                   />

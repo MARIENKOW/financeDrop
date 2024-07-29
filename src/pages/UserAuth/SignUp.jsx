@@ -6,8 +6,6 @@ import userService from "../../services/UserService";
 import { NavLink } from "react-router-dom";
 import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import { LoadingButton } from "@mui/lab";
-import { Alert } from "@mui/material";
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "../../validateConfig";
 import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "../../validateConfig";
 import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from "../../validateConfig";
@@ -161,7 +159,7 @@ const SignUp = () => {
                sx={{mt:errors?.root?.server?0:3,}}
                variant="contained"
             >
-               Надіслати
+               Send
             </StyledLoadingButton>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                <NavLink to={USER_SIGN_IN_ROUTE}>

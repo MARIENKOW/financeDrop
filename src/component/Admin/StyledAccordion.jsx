@@ -16,6 +16,7 @@ export const StyledAccordion = styled(Accordion)(({ theme }) => ({
       "&::-webkit-scrollbar": {
          borderRadius: "99px",
          height: "4px",
+         width: "4px",
          overflow: "hidden",
       },
       "&::-webkit-scrollbar-button": {
@@ -33,6 +34,7 @@ export const StyledAccordion = styled(Accordion)(({ theme }) => ({
       "&::-webkit-scrollbar": {
          borderRadius: "99px",
          height: "4px",
+         width: "4px",
          overflow: "hidden",
       },
       "&::-webkit-scrollbar-button": {

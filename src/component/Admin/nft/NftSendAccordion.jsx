@@ -6,7 +6,12 @@ import NftCard from "../../general/nft/NftCard";
 import { StyledLoadingButton } from "../../general/StyledLoadingButton";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { AccordionSummary, Box, Typography } from "@mui/material";
+import {
+   AccordionSummary,
+   Box,
+   FormHelperText,
+   Typography,
+} from "@mui/material";
 import { StyledAccordion } from "../StyledAccordion";
 import { useTheme } from "@emotion/react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -17,7 +22,6 @@ import { Empty } from "../../general/Empty";
 import { useNavigate } from "react-router";
 
 export const NftSendAccordion = ({ handleChange, expanded, id }) => {
-   
    const navigate = useNavigate();
 
    const theme = useTheme();
@@ -53,7 +57,7 @@ export const NftSendAccordion = ({ handleChange, expanded, id }) => {
    return (
       <StyledAccordion expanded={expanded === 3} onChange={handleChange(3)}>
          <AccordionSummary expandIcon={<ExpandMoreIcon color="secondary" />}>
-            <Typography color={theme.palette.secondary.contrastText}>
+            <Typography color={theme.palette.secondary.main}>
                Send NFT
             </Typography>
          </AccordionSummary>
@@ -61,7 +65,7 @@ export const NftSendAccordion = ({ handleChange, expanded, id }) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                <Controller
                   control={control}
-                  rules={{ required: "rrrrrr" }}
+                  rules={{ required: "required field" }}
                   name="nft"
                   render={({
                      field: { onChange, value },
@@ -110,7 +114,10 @@ export const NftSendAccordion = ({ handleChange, expanded, id }) => {
                               ))
                            )}
                         </Box>
-                        {error?.message || error}
+
+                        <FormHelperText error={!!error}>
+                           {error?.message || error}
+                        </FormHelperText>
                      </Box>
                   )}
                />
@@ -123,7 +130,7 @@ export const NftSendAccordion = ({ handleChange, expanded, id }) => {
                   fullWidth
                   variant="contained"
                >
-                  Submit
+                  Send
                </StyledLoadingButton>
             </form>
          </AccordionDetails>
