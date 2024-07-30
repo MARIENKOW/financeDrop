@@ -8,6 +8,7 @@ export const adminStore = new AdminStore();
 export const AdminContext = createContext(adminStore);
 
 const Admin = () => {
+   console.log('sssss');
    adminStore.aboutAdmin();
    return (
       <AdminContext.Provider value={adminStore}>

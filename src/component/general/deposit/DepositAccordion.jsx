@@ -1,18 +1,13 @@
-import {
-   AccordionSummary,
-   Box,
-   Typography,
-   useTheme,
-   Grid,
-} from "@mui/material";
+import { AccordionSummary, Box, Typography, useTheme } from "@mui/material";
 import { StyledAccordion } from "../StyledAccordion";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import { Empty } from "../../general/Empty";
+import { Empty } from "../Empty";
 import { formatDate } from "../../../helper";
 import { DepositItem } from "./DepositItem";
+import { v4 } from "uuid";
 
-export const UserDepositAccordion = ({
+export const DepositAccordion = ({
    expanded,
    handleChange,
    deposit,
@@ -28,27 +23,7 @@ export const UserDepositAccordion = ({
          onChange={handleChange(expandedValue)}
       >
          <AccordionSummary expandIcon={<ExpandMoreIcon color="secondary" />}>
-            {/* <Grid container alignItems={"center"} columns={3} spacing={1}>
-               <Grid item xs={1}>
-                  <Typography
-                     sx={{ flex: "50% 0 1" }}
-                     color={theme.palette.secondary.main}
-                  >
-                     {label}
-                  </Typography>
-               </Grid>
-               <Grid item xs={1}>
-                  <Typography
-                     textAlign={"center"}
-                     variant="h6"
-                     sx={{ flex: "50% 0 1" }}
-                     color={theme.palette.secondary.contrastText}
-                  >
-                     $ {depositSum}
-                  </Typography>
-               </Grid>
-            </Grid> */}
-            <Box display={"flex"} flexDirection={"column"} gap={'5px'}>
+            <Box display={"flex"} flexDirection={"column"} gap={"5px"}>
                <Typography
                   sx={{ flex: "50% 0 1" }}
                   color={theme.palette.secondary.main}
@@ -60,7 +35,7 @@ export const UserDepositAccordion = ({
                   sx={{ flex: "50% 0 1" }}
                   color={theme.palette.secondary.contrastText}
                >
-                  $ {depositSum}
+                  $ {depositSum || "0.00"}
                </Typography>
             </Box>
          </AccordionSummary>
@@ -73,9 +48,9 @@ export const UserDepositAccordion = ({
                maxHeight: "400px",
             }}
          >
-            {deposit && deposit?.length !== 0 ? (
+            {deposit && Array.isArray(deposit) && deposit?.length !== 0 ? (
                deposit?.map((el) => (
-                  <Box>
+                  <Box key={v4()}>
                      <Typography
                         variant="body1"
                         mb={2}
@@ -86,7 +61,7 @@ export const UserDepositAccordion = ({
                      </Typography>
                      <Box display={"flex"} flexDirection={"column"} gap={1}>
                         {el[1]?.map((item) => (
-                           <DepositItem depositUp={item} />
+                           <DepositItem key={v4()} depositUp={item} />
                         ))}
                      </Box>
                   </Box>

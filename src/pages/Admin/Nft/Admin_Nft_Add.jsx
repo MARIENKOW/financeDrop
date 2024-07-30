@@ -1,14 +1,14 @@
-import { NftForm } from "../../component/Admin/nft/NftForm";
+import { NftForm } from "../../../component/Admin/nft/NftForm";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router";
-import { Title } from "../../component/general/Title";
+import { Title } from "../../../component/general/Title";
 import { Box } from "@mui/material";
-import { ADMIN_NFT_ROUTE } from "../../route/RouterConfig";
-import { ContainerComponent } from "../../component/general/wrappers/ContainerComponent";
-import BreadcrumbsComponent from "../../component/general/BreadcrumbsComponent";
-import InCenter from "../../component/general/wrappers/InCenter";
-import NftService from "../../services/NftService";
-import { $AdminApi } from "../../http";
+import { ADMIN_NFT_ROUTE } from "../../../route/RouterConfig";
+import { ContainerComponent } from "../../../component/general/wrappers/ContainerComponent";
+import BreadcrumbsComponent from "../../../component/general/BreadcrumbsComponent";
+import InCenter from "../../../component/general/wrappers/InCenter";
+import NftService from "../../../services/NftService";
+import { $AdminApi } from "../../../http";
 
 export const Admin_Nft_Add = () => {
 

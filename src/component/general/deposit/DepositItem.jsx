@@ -1,4 +1,5 @@
 import { Box, useTheme, Typography } from "@mui/material";
+import { formatDate } from "../../../helper";
 
 export const DepositItem = ({ depositUp }) => {
    const theme = useTheme();
@@ -14,19 +15,20 @@ export const DepositItem = ({ depositUp }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            background:theme.palette.secondary.light
+            background: theme.palette.secondary.light,
          }}
       >
-         <Box display={'flex'} alignItems={'center'} gap={1} >
-            <Typography variant="body2" color="secondary">
-               {depositUp?.nft_name || depositUp?.name}:
-            </Typography>
-            <Typography variant="body2" color={theme.palette.secondary.contrastText}>
-               $ {depositUp?.sum}
-            </Typography>
-         </Box>
          <Typography variant="body2" color="secondary">
-            {depositUp?.date}
+            {depositUp?.nft_name || depositUp?.name}:
+         </Typography>
+         {/* <Typography variant="body2" color="secondary">
+            {formatDate(depositUp?.date)}
+         </Typography> */}
+         <Typography
+            variant="body2"
+            color={theme.palette.secondary.contrastText}
+         >
+            $ {depositUp?.sum}
          </Typography>
       </Box>
    );

@@ -1,15 +1,15 @@
 import { Box } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
-import NftService from "../../services/NftService";
-import { NftFullInfo } from "../../component/general/nft/NftFullInfo";
-import ErrorElement from "../../component/general/ErrorElement";
-import BreadcrumbsComponent from "../../component/general/BreadcrumbsComponent";
-import { USER_NFT_ROUTE } from "../../route/RouterConfig";
-import { ContainerComponent } from "../../component/general/wrappers/ContainerComponent";
-import InCenter from "../../component/general/wrappers/InCenter";
-import { NftFullInfo_skeleton } from "../../component/general/skeletons/NftFullInfo_skeleton";
-import { $UserApi } from "../../http";
+import NftService from "../../../services/NftService";
+import { NftFullInfo } from "../../../component/general/nft/NftFullInfo";
+import ErrorElement from "../../../component/general/ErrorElement";
+import BreadcrumbsComponent from "../../../component/general/BreadcrumbsComponent";
+import { USER_NFT_ROUTE } from "../../../route/RouterConfig";
+import { ContainerComponent } from "../../../component/general/wrappers/ContainerComponent";
+import InCenter from "../../../component/general/wrappers/InCenter";
+import { NftFullInfo_skeleton } from "../../../component/general/skeletons/NftFullInfo_skeleton";
+import { $UserApi } from "../../../http";
 
 export const User_Nft = () => {
 

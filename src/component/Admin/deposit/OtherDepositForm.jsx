@@ -11,16 +11,12 @@ import { StyledAlert } from "../../general/StyledAlert";
 import { StyledLoadingButton } from "../../general/StyledLoadingButton";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { StyledNumberField } from "../../general/Form/StyledNumberField";
-import OtherUpService from "../../../services/OtherUpService";
-import { $AdminApi } from "../../../http";
 import { enqueueSnackbar } from "notistack";
 import { useQueryClient } from "@tanstack/react-query";
+import UserService from "../../../services/UserService";
 
 export const OtherDepositForm = ({ id }) => {
-
-   const queryClient = useQueryClient()
-
-   const otherDeposit = new OtherUpService($AdminApi);
+   const queryClient = useQueryClient();
 
    const theme = useTheme();
 
@@ -39,13 +35,13 @@ export const OtherDepositForm = ({ id }) => {
 
    const onSubmit = async (data) => {
       try {
-         await otherDeposit.createOtherUp({ ...data, user_id:id });
+         await UserService.createOtherDepositEvent({ ...data, user_id: id });
          enqueueSnackbar(`money was successfully sent!`, {
             variant: "success",
          });
          await queryClient.invalidateQueries({ queryKey: ["user", id] });
          await queryClient.invalidateQueries({ queryKey: ["getNotSoldAdmin"] });
-         reset()
+         reset();
       } catch (error) {
          console.log(error);
          setError("root.server", {

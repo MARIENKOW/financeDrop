@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import { LoadingButton } from "@mui/lab";
-import { Box, Typography, Alert } from "@mui/material";
-import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from "../../validateConfig";
-import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
-import userService from "../../services/UserService";
-import PasswordEmailSendSuccess from "../../component/User/Success/PasswordEmailSendSuccess";
-import { StyledTextField } from "../../component/general/Form/StyledTextField";
+import { Box, Typography } from "@mui/material";
+import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from "../../../validateConfig";
+import InCenterAuth from "../../../component/general/wrappers/InCenterAuth";
+import userService from "../../../services/UserService";
+import PasswordEmailSendSuccess from "../../../component/User/Success/PasswordEmailSendSuccess";
+import { StyledTextField } from "../../../component/general/Form/StyledTextField";
 import { useTheme } from "@mui/material";
-import { StyledAlert } from "../../component/general/StyledAlert";
-import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
-import { USER_SIGN_IN_ROUTE, USER_SIGN_UP_ROUTE } from "../../route/RouterConfig";
+import { StyledAlert } from "../../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
+import { USER_SIGN_IN_ROUTE, USER_SIGN_UP_ROUTE } from "../../../route/RouterConfig";
 
 const Remember = () => {
    const theme = useTheme();

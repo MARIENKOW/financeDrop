@@ -1,18 +1,18 @@
 import { useNavigate, useParams } from "react-router";
-import { NftForm } from "../../component/Admin/nft/NftForm";
+import { NftForm } from "../../../component/Admin/nft/NftForm";
 import { useQuery } from "@tanstack/react-query";
-import ErrorElement from "../../component/general/ErrorElement";
-import { Title } from "../../component/general/Title";
+import ErrorElement from "../../../component/general/ErrorElement";
+import { Title } from "../../../component/general/Title";
 import { Box, useTheme } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
-import { ADMIN_NFT_ROUTE } from "../../route/RouterConfig";
-import { ContainerComponent } from "../../component/general/wrappers/ContainerComponent";
-import BreadcrumbsComponent from "../../component/general/BreadcrumbsComponent";
-import InCenter from "../../component/general/wrappers/InCenter";
-import { NftFullInfo_skeleton } from "../../component/general/skeletons/NftFullInfo_skeleton";
+import { ADMIN_NFT_ROUTE } from "../../../route/RouterConfig";
+import { ContainerComponent } from "../../../component/general/wrappers/ContainerComponent";
+import BreadcrumbsComponent from "../../../component/general/BreadcrumbsComponent";
+import InCenter from "../../../component/general/wrappers/InCenter";
+import { NftFullInfo_skeleton } from "../../../component/general/skeletons/NftFullInfo_skeleton";
 import { useEffect, useState } from "react";
-import NftService from "../../services/NftService";
-import { $AdminApi } from "../../http";
+import NftService from "../../../services/NftService";
+import { $AdminApi } from "../../../http";
 
 export const Admin_Nft_Edit = () => {
 

@@ -11,7 +11,7 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import { useRouteError } from "react-router-dom";
 import { ADMIN_ROUTE, USER_ROUTE } from "../../route/RouterConfig";
 
-const ErrorElement = ({ message ,admin}) => {
+const ErrorElement = ({ message ,admin,buttons = true}) => {
   const thema = useTheme();
 
   const error = useRouteError();
@@ -38,7 +38,7 @@ const ErrorElement = ({ message ,admin}) => {
       <Typography variant={"body1"} color="secondary.light">
         {error?.message || message}
       </Typography>
-      <ButtonGroup sx={{ gap: 1 }} size="large">
+      {buttons && <ButtonGroup sx={{ gap: 1 }} size="large">
         <NavLink to={-1}>
           <Button startIcon={<ReplyIcon />} variant="contained">
             back
@@ -49,7 +49,7 @@ const ErrorElement = ({ message ,admin}) => {
             home
           </Button>
         </NavLink>
-      </ButtonGroup>
+      </ButtonGroup>}
     </Container>
   );
 };

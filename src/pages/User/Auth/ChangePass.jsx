@@ -1,19 +1,17 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { blue } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import { LoadingButton } from "@mui/lab";
-import { Box, Typography, TextField, Alert } from "@mui/material";
-import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "../../validateConfig";
-import Loading from "../../component/general/Loading/Loading";
-import userService from "../../services/UserService";
-import ErrorElement from "../../component/general/ErrorElement";
-import PasswordWasChangedSuccess from "../../component/User/Success/PasswordWasChangedSuccess";
-import { StyledPassword } from "../../component/general/Form/StyledPassword";
-import { StyledAlert } from "../../component/general/StyledAlert";
-import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
+import { Box, Typography } from "@mui/material";
+import InCenterAuth from "../../../component/general/wrappers/InCenterAuth";
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "../../../validateConfig";
+import Loading from "../../../component/general/Loading/Loading";
+import userService from "../../../services/UserService";
+import ErrorElement from "../../../component/general/ErrorElement";
+import PasswordWasChangedSuccess from "../../../component/User/Success/PasswordWasChangedSuccess";
+import { StyledPassword } from "../../../component/general/Form/StyledPassword";
+import { StyledAlert } from "../../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
 
 const ChangePass = () => {
    const { link } = useParams();

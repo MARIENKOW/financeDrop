@@ -5,7 +5,7 @@ class User {
    isAuth = null;
    token = null;
    user = {};
-   isLoading = false;
+   isLoading = true;
    constructor() {
       makeAutoObservable(this);
    }

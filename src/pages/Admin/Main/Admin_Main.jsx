@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import UserService from "../../services/UserService";
-import Loading from "../../component/general/Loading/Loading";
-import ErrorElement from "../../component/general/ErrorElement";
-import { ContainerComponent } from "../../component/general/wrappers/ContainerComponent";
-import { Title } from "../../component/general/Title";
+import UserService from "../../../services/UserService";
+import Loading from "../../../component/general/Loading/Loading";
+import ErrorElement from "../../../component/general/ErrorElement";
+import { ContainerComponent } from "../../../component/general/wrappers/ContainerComponent";
+import { Title } from "../../../component/general/Title";
 import Grid from "@mui/material/Grid";
-import { UserCard } from "../../component/Admin/user/UserCard";
-import { UserCard_skeleton } from "../../component/Admin/skeletons/UserCard_skeleton";
-import { Empty } from "../../component/general/Empty";
+import { UserCard } from "../../../component/Admin/user/UserCard";
+import { UserCard_skeleton } from "../../../component/Admin/skeletons/UserCard_skeleton";
+import { Empty } from "../../../component/general/Empty";
 
 export const Admin_Main = () => {
    const { isLoading, data, error } = useQuery({

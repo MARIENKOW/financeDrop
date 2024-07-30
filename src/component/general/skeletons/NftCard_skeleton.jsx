@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import { useTheme, Box } from "@mui/material";
 import { Skeleton } from "@mui/material";
 
-export default function NftCard_skeleton() {
+export default function NftCard_skeleton({sx}) {
    const theme = useTheme();
    return (
       <Card
@@ -14,6 +14,7 @@ export default function NftCard_skeleton() {
             flexDirection: "column",
             bgcolor: theme.palette.secondary.light,
             height: "100%",
+            ...sx
          }}
       >
          <Skeleton

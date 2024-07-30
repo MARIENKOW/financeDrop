@@ -5,7 +5,7 @@ class Admin {
    isAuth = null;
    token = null;
    admin = {};
-   isLoading = false;
+   isLoading = true;
    constructor() {
       makeAutoObservable(this);
    }

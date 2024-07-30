@@ -8,7 +8,7 @@ import { ContainerComponent } from "../../../general/wrappers/ContainerComponent
 import LogoutIcon from "@mui/icons-material/Logout";
 import { StyledLink } from "../../../general/BreadcrumbsComponent";
 import { NavLink } from "react-router-dom";
-import { USER_NFT_ROUTE, USER_ROUTE } from "../../../../route/RouterConfig";
+import { USER_NFT_ROUTE, USER_ROUTE, USER_SETTINGS_ROUTE } from "../../../../route/RouterConfig";
 import Home from "@mui/icons-material/Home";
 
 const Header = () => {
@@ -36,9 +36,9 @@ const Header = () => {
                      <NavLink to={USER_NFT_ROUTE}>
                         <StyledLink>NFT</StyledLink>
                      </NavLink>
-                     {/* <NavLink to={ADMIN_NFT_ROUTE}>
-                        <StyledLink>Pupil</StyledLink>
-                     </NavLink> */}
+                     <NavLink to={USER_SETTINGS_ROUTE}>
+                        <StyledLink>Settings</StyledLink>
+                     </NavLink>
                   </Box>
                   <Button startIcon={<LogoutIcon />} onClick={logOut}>
                      Logout

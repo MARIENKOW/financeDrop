@@ -12,24 +12,26 @@ import {
    FormHelperText,
    Typography,
 } from "@mui/material";
-import { StyledAccordion } from "../StyledAccordion";
+import { StyledAccordion } from "../../general/StyledAccordion";
 import { useTheme } from "@emotion/react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AccordionDetails } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import NftCard_skeleton from "../../general/skeletons/NftCard_skeleton";
 import { Empty } from "../../general/Empty";
-import { useNavigate } from "react-router";
+import ErrorElement from "../../general/ErrorElement";
 
 export const NftSendAccordion = ({ handleChange, expanded, id }) => {
-   const navigate = useNavigate();
-
    const theme = useTheme();
 
    const queryClient = useQueryClient();
    const nftServiceAdmin = new NftService($AdminApi);
 
-   const { data, isLoading, error } = useQuery({
+   const {
+      data,
+      isLoading,
+      error: queryError,
+   } = useQuery({
       queryKey: ["getNotSoldAdmin"],
       queryFn: nftServiceAdmin.getNftNotSold,
       select: ({ data }) => data,
@@ -37,6 +39,9 @@ export const NftSendAccordion = ({ handleChange, expanded, id }) => {
 
    const {
       handleSubmit,
+      getValues,
+      getFieldState,
+
       formState: { isValid, errors, isSubmitting },
       control,
    } = useForm({ mode: "all", defaultValues: { nft: [] } });
@@ -57,9 +62,18 @@ export const NftSendAccordion = ({ handleChange, expanded, id }) => {
    return (
       <StyledAccordion expanded={expanded === 3} onChange={handleChange(3)}>
          <AccordionSummary expandIcon={<ExpandMoreIcon color="secondary" />}>
-            <Typography color={theme.palette.secondary.main}>
-               Send NFT
-            </Typography>
+            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+               <Typography color={theme.palette.secondary.main}>
+                  Send NFT
+               </Typography>
+               {/* <Typography
+                  fontWeight={600}
+                  variant="body1"
+                  color={theme.palette.secondary.contrastText}
+               >
+                  ({getValues('nft').length || 0})
+               </Typography> */}
+            </Box>
          </AccordionSummary>
          <AccordionDetails>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -73,12 +87,22 @@ export const NftSendAccordion = ({ handleChange, expanded, id }) => {
                   }) => (
                      <Box>
                         <Box
-                           sx={{ overflowX: "scroll", display: "flex", gap: 1 }}
+                           sx={{ alignItems:'end',overflowX: "scroll", display: "flex", gap: 1 }}
                         >
                            {isLoading ? (
                               Array(4)
                                  .fill(4)
-                                 .map((el, id) => <NftCard_skeleton key={id} />)
+                                 .map((el, id) => (
+                                    <NftCard_skeleton
+                                       sx={{ minWidth: "200px" }}
+                                       key={id}
+                                    />
+                                 ))
+                           ) : queryError ? (
+                              <ErrorElement
+                                 buttons={false}
+                                 message={queryError?.message}
+                              />
                            ) : !data || data.length === 0 ? (
                               <Empty />
                            ) : (
@@ -103,8 +127,11 @@ export const NftSendAccordion = ({ handleChange, expanded, id }) => {
                                     }}
                                     sx={{
                                        width: "200px",
+                                       minWidth: "200px",
                                        cursor: "pointer",
-                                       "&:hover": {
+                                       "&:hover": !value.find(
+                                          (val) => val === el.id
+                                       ) && {
                                           background:
                                              theme.palette.background.main,
                                        },

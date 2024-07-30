@@ -1,21 +1,27 @@
 import { blue } from "@mui/material/colors";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, InputAdornment, Typography, useTheme } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import userService from "../../services/UserService";
+import userService from "../../../services/UserService";
 import { NavLink } from "react-router-dom";
-import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
+import InCenterAuth from "../../../component/general/wrappers/InCenterAuth";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "../../validateConfig";
-import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "../../validateConfig";
-import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from "../../validateConfig";
-import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from "../../validateConfig";
-import RegisterSuccess from "../../component/User/Success/RegisterSuccess";
-import { StyledTextField } from "../../component/general/Form/StyledTextField";
-import { StyledPassword } from "../../component/general/Form/StyledPassword";
-import { StyledAlert } from "../../component/general/StyledAlert";
-import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
-import { USER_SIGN_IN_ROUTE } from "../../route/RouterConfig";
+import {
+   PASSWORD_MAX_LENGTH,
+   PASSWORD_MIN_LENGTH,
+} from "../../../validateConfig";
+import {
+   USERNAME_MAX_LENGTH,
+   USERNAME_MIN_LENGTH,
+} from "../../../validateConfig";
+import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from "../../../validateConfig";
+import { EMAIL_PATTERN, EMAIL_MAX_LENGTH } from "../../../validateConfig";
+import RegisterSuccess from "../../../component/User/Success/RegisterSuccess";
+import { StyledTextField } from "../../../component/general/Form/StyledTextField";
+import { StyledPassword } from "../../../component/general/Form/StyledPassword";
+import { StyledAlert } from "../../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
+import { USER_SIGN_IN_ROUTE } from "../../../route/RouterConfig";
 
 const SignUp = () => {
    const theme = useTheme();
@@ -74,6 +80,15 @@ const SignUp = () => {
          >
             <StyledTextField
                errors={errors}
+               options={{
+                  InputProps: {
+                     startAdornment: (
+                        <InputAdornment sx={{ mr: '1px' }} position="start">
+                           @
+                        </InputAdornment>
+                     ),
+                  },
+               }}
                register={register("username", {
                   required: "required field",
                   minLength: {
@@ -156,7 +171,7 @@ const SignUp = () => {
                endIcon={<DoubleArrowIcon />}
                disabled={!isValid}
                type="submit"
-               sx={{mt:errors?.root?.server?0:3,}}
+               sx={{ mt: errors?.root?.server ? 0 : 3 }}
                variant="contained"
             >
                Send

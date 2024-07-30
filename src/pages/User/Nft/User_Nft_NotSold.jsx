@@ -1,19 +1,14 @@
-import { Title } from "../../component/general/Title";
-import { Box, Unstable_Grid2 as Grid, Button } from "@mui/material";
-import Loading from "../../component/general/Loading/Loading";
-import ErrorElement from "../../component/general/ErrorElement";
-import { NftCardAdmin } from "../../component/Admin/nft/NftCardAdmin";
+import { Title } from "../../../component/general/Title";
+import {  Unstable_Grid2 as Grid, Button } from "@mui/material";
+import ErrorElement from "../../../component/general/ErrorElement";
 import { useQuery } from "@tanstack/react-query";
-import { enqueueSnackbar } from "notistack";
-import { ContainerComponent } from "../../component/general/wrappers/ContainerComponent";
-import InCenter from "../../component/general/wrappers/InCenter";
-import { NavLink } from "react-router-dom";
-import { ADMIN_NFT_ADD_ROUTE } from "../../route/RouterConfig";
-import { Empty } from "../../component/general/Empty";
-import NftCard_skeleton from "../../component/general/skeletons/NftCard_skeleton";
-import { NftCardUser } from "../../component/User/nft/NftCardUser";
-import NftService from "../../services/NftService";
-import { $UserApi } from "../../http";
+import { ContainerComponent } from "../../../component/general/wrappers/ContainerComponent";
+import InCenter from "../../../component/general/wrappers/InCenter";
+import { Empty } from "../../../component/general/Empty";
+import NftCard_skeleton from "../../../component/general/skeletons/NftCard_skeleton";
+import { NftCardUser } from "../../../component/User/nft/NftCardUser";
+import NftService from "../../../services/NftService";
+import { $UserApi } from "../../../http";
 
 export const User_Nft_NotSold = () => {
 

@@ -2,8 +2,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { StyledAccordion } from "../StyledAccordion";
-import { useTheme } from "@mui/material";
+import { StyledAccordion } from "../../general/StyledAccordion";
+import { Box, useTheme } from "@mui/material";
 import { NftCardAdminUser } from "./NftCardAdminUser";
 import { Empty } from "../../general/Empty";
 
@@ -15,14 +15,23 @@ export const NftInactiveAccordion = ({ nft, handleChange, expanded }) => {
    return (
       <StyledAccordion expanded={expanded === 2} onChange={handleChange(2)}>
          <AccordionSummary expandIcon={<ExpandMoreIcon color="secondary" />}>
-            <Typography color={theme.palette.secondary.main}>
-               Inactive NFT
-            </Typography>
+            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+               <Typography color={theme.palette.secondary.main}>
+                  Inactive NFT
+               </Typography>
+               <Typography
+                  fontWeight={600}
+                  variant="body1"
+                  color={theme.palette.secondary.contrastText}
+               >
+                  ({inactive?.length || 0})
+               </Typography>
+            </Box>
          </AccordionSummary>
          <AccordionDetails
-            sx={{ overflowX: "scroll", display: "flex", gap: 1 }}
+            sx={{ overflowX: "scroll", display: "flex", gap: 1 ,alignItems:'end'}}
          >
-            {inactive?.length !== 0 ? (
+            {inactive && inactive?.length !== 0 ? (
                inactive.map((el) => (
                   <NftCardAdminUser
                      sx={{ width: "200px", minWidth: "200px", opacity: 0.3 }}

@@ -1,9 +1,9 @@
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import ErrorElement from "../../component/general/ErrorElement";
-import Loading from "../../component/general/Loading/Loading";
-import userService from "../../services/UserService";
-import AccountActivateSuccess from "../../component/User/Success/AccountActivateSuccess";
+import ErrorElement from "../../../component/general/ErrorElement";
+import Loading from "../../../component/general/Loading/Loading";
+import userService from "../../../services/UserService";
+import AccountActivateSuccess from "../../../component/User/Success/AccountActivateSuccess";
 
 const Activate = () => {
    const { token } = useParams();

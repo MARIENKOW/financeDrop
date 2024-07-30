@@ -4,20 +4,20 @@ import { LoadingButton } from "@mui/lab";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
-import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
-import { Context } from "../../User";
+import InCenterAuth from "../../../component/general/wrappers/InCenterAuth";
+import { Context } from "../../../User";
 import {
    PASSWORD_MAX_LENGTH,
    EMAIL_MAX_LENGTH,
    EMAIL_PATTERN,
-} from "../../validateConfig";
+} from "../../../validateConfig";
 import { enqueueSnackbar } from "notistack";
-import { StyledTextField } from "../../component/general/Form/StyledTextField";
-import { StyledPassword } from "../../component/general/Form/StyledPassword";
+import { StyledTextField } from "../../../component/general/Form/StyledTextField";
+import { StyledPassword } from "../../../component/general/Form/StyledPassword";
 import { useTheme } from "@mui/material";
-import { StyledAlert } from "../../component/general/StyledAlert";
-import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
-import { USER_REMEMBER_PASSWORD_ROUTE, USER_SIGN_UP_ROUTE } from "../../route/RouterConfig";
+import { StyledAlert } from "../../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
+import { USER_REMEMBER_PASSWORD_ROUTE, USER_SIGN_UP_ROUTE } from "../../../route/RouterConfig";
 
 const SignIn = () => {
    const theme = useTheme();

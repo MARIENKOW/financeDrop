@@ -37,6 +37,19 @@ export const STF = styled(TextField)(({ theme, error }) => ({
       },
       "&.Mui-focused": {
          background: theme.palette.secondary.light,
+
+         "& .MuiInputAdornment-root": {
+            "& p": {
+               color: error
+                  ? theme.palette.error.main
+                  : theme.palette.primary.main,
+            },
+            "& .MuiSvgIcon-root": {
+               color: error
+                  ? theme.palette.error.main
+                  : theme.palette.primary.main,
+            },
+         },
       },
    },
    "& .MuiFilledInput-input": {

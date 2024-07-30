@@ -3,18 +3,18 @@ import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useContext, useState } from "react";
-import InCenterAuth from "../../component/general/wrappers/InCenterAuth";
-import { AdminContext } from "../../Admin";
+import InCenterAuth from "../../../component/general/wrappers/InCenterAuth";
+import { AdminContext } from "../../../Admin";
 import {
    ADMIN_PASSWORD_MAX_LENGTH,
    ADMIN_NAME_MAX_LENGTH,
    ADMIN_NAME_MIN_LENGTH,
-} from "../../validateConfig";
+} from "../../../validateConfig";
 import { enqueueSnackbar } from "notistack";
-import { StyledTextField } from "../../component/general/Form/StyledTextField";
-import { StyledPassword } from "../../component/general/Form/StyledPassword";
-import { StyledAlert } from "../../component/general/StyledAlert";
-import { StyledLoadingButton } from "../../component/general/StyledLoadingButton";
+import { StyledTextField } from "../../../component/general/Form/StyledTextField";
+import { StyledPassword } from "../../../component/general/Form/StyledPassword";
+import { StyledAlert } from "../../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
 
 const SignInAdmin = () => {
    const { signInAdmin } = useContext(AdminContext);

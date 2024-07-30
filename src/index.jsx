@@ -9,13 +9,10 @@ import RouterConfig from "./route/RouterConfig";
 import { RouterProvider } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { themeSettings } from "./theme";
-import {
-   QueryClient,
-   QueryClientProvider,
- } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const theme = createTheme(themeSettings);
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -32,7 +29,7 @@ root.render(
                sx={{
                   minHeight: "100vh",
                   display: "flex",
-                  flexDirection:'column',
+                  flexDirection: "column",
                   bgcolor: theme.palette.background.dark,
                }}
             >

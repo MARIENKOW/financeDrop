@@ -4,9 +4,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useTheme, ButtonGroup, Box } from "@mui/material";
+import { useTheme, Box } from "@mui/material";
 
-export default function NftCard({ nft, onClick,isChecked, cardAction, sx }) {
+export default function NftCard({ nft, onClick, isChecked, cardAction, sx }) {
    const theme = useTheme();
    return (
       <Card
@@ -16,7 +16,9 @@ export default function NftCard({ nft, onClick,isChecked, cardAction, sx }) {
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
-            bgcolor: isChecked?theme.palette.success.light:theme.palette.secondary.light,
+            bgcolor: isChecked
+               ? theme.palette.success.main
+               : theme.palette.secondary.light,
             height: "100%",
             ...sx,
          }}
@@ -35,7 +37,14 @@ export default function NftCard({ nft, onClick,isChecked, cardAction, sx }) {
                p: "16px !important",
             }}
          >
-            <Box flex={1}>
+            <Box
+               sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "end",
+               }}
+               flex={1}
+            >
                <Typography
                   sx={{
                      whiteSpace: "nowrap",
