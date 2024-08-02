@@ -3,7 +3,7 @@ import { Box, InputAdornment, Typography, useTheme } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import userService from "../../../services/UserService";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import InCenterAuth from "../../../component/general/wrappers/InCenterAuth";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import {
@@ -26,6 +26,10 @@ import { USER_SIGN_IN_ROUTE } from "../../../route/RouterConfig";
 const SignUp = () => {
    const theme = useTheme();
 
+   const { token } = useParams();
+
+   console.log(token);
+
    const {
       handleSubmit,
       register,
@@ -42,7 +46,10 @@ const SignUp = () => {
 
    const onSubmit = async (values) => {
       try {
-         const { data } = await userService.signUp(values);
+         const { data } = await userService.signUp({
+            ...values,
+            referralToken: token,
+         });
          setSuccess(data);
       } catch (e) {
          console.error(e);
@@ -83,7 +90,7 @@ const SignUp = () => {
                options={{
                   InputProps: {
                      startAdornment: (
-                        <InputAdornment sx={{ mr: '1px' }} position="start">
+                        <InputAdornment sx={{ mr: "1px" }} position="start">
                            @
                         </InputAdornment>
                      ),

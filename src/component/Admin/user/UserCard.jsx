@@ -35,7 +35,7 @@ export const UserCard = ({ user }) => {
                <Avatar
                   sx={{ width: "70px", height: "70px" }}
                   alt="Remy Sharp"
-                  src={user?.avatar?.path}
+                  src={user?.img?.path}
                />
             </CardMedia>
             <CardContent

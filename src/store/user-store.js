@@ -9,10 +9,10 @@ class User {
    constructor() {
       makeAutoObservable(this);
    }
-   setAuth(value) {
+   setAuth = (value) => {
       this.isAuth = value;
    }
-   setUser(value) {
+   setUser = (value) => {
       this.user = value;
    }
    setUnauthorized = () => {
@@ -34,6 +34,26 @@ class User {
       this.setUser(data.user);
       this.setToken(data.accessToken);
       localStorage.setItem("accessToken", this.token);
+   };
+   deleteImg = async () => {
+      const { data } = await userService.deleteImg();
+      this.setUser(data);
+   };
+   createImg = async (value) => {
+      const { data } = await userService.createImg(value);
+      this.setUser(data);
+   };
+   updateName = async (value) => {
+      const { data } = await userService.updateName(value);
+      this.setUser(data);
+   };
+   updateAddressMatic = async (value) => {
+      const { data } = await userService.updateAddressMatic(value);
+      this.setUser(data);
+   };
+   updateUsername = async (value) => {
+      const { data } = await userService.updateUsername(value);
+      this.setUser(data);
    };
    logOut = async () => {
       try {

@@ -54,6 +54,12 @@ export const themeSettings = {
          light: "rgb(244, 67, 54)",
          contrastText: "rgb(244, 199, 199)",
       },
+      success: {
+         main: "rgb(34, 100, 43)",
+         dark: "rgb(12, 19, 13)",
+         light: "rgb(28, 46, 31)",
+         contrastText: "rgb(204, 232, 205)",
+      },
       background: {
          main: "rgb(37, 37, 37)",
          dark: "#111",

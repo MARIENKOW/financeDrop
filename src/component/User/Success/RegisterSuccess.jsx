@@ -18,7 +18,7 @@ const RegisterSuccess = ({ mail }) => {
          alignItems={"center"}
       >
          <DoneAllIcon sx={{ width: 70, height: 70 }} color="primary" />
-         <Typography color={"secondary"} textAlign={"center"} variant="h5">
+         <Typography color={"secondary.contrastText"} textAlign={"center"} variant="h5">
             We have sent the link to the mail{mail && `: "${mail}"`} to activate
             the account.
          </Typography>
@@ -26,14 +26,14 @@ const RegisterSuccess = ({ mail }) => {
             <Typography
                textAlign={"center"}
                variant="body1"
-               color={"secondary.light"}
+               color={"secondary.main"}
             >
                The link will be active for {ACTIVATE_TOKEN_TIME} minutes
             </Typography>
             <Typography
                textAlign={"center"}
                variant="body1"
-               color={"secondary.light"}
+               color={"secondary.main"}
             >
                Check your Spam folder
             </Typography>

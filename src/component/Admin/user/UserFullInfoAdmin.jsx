@@ -2,13 +2,16 @@ import { useTheme } from "@emotion/react";
 import {
    Avatar,
    Box,
+   Button,
    Card,
    CardContent,
    CardMedia,
    Typography,
 } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { USER_SETTINGS_ADDRESS_MATTIC_ROUTE } from "../../../route/RouterConfig";
 
-export const UserFullInfoAdmin = ({ user, sx }) => {
+export const UserFullInfoAdmin = ({ user, sx, userMode = true }) => {
    const theme = useTheme();
    return (
       <Card
@@ -17,9 +20,10 @@ export const UserFullInfoAdmin = ({ user, sx }) => {
             display: "flex",
             background: "transparent",
             borderRadius: "10px",
-            gap: {xs:4,md:2},
+            gap: { xs: 4, md: 2 },
             flexDirection: "row",
             flexDirection: { xs: "column", md: "row" },
+            alignItems: { xs: "normal", md: "center" },
             ...sx,
          }}
       >
@@ -36,7 +40,7 @@ export const UserFullInfoAdmin = ({ user, sx }) => {
             <Avatar
                sx={{ width: "70px", height: "70px" }}
                alt="Remy Sharp"
-               src={user?.avatar?.path}
+               src={user?.img?.path}
             />
             <Typography
                variant="body1"
@@ -86,6 +90,24 @@ export const UserFullInfoAdmin = ({ user, sx }) => {
                   color={theme.palette.secondary.contrastText}
                >
                   {user?.email}
+               </Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+               <Typography variant="body1" color={theme.palette.secondary.main}>
+                  address Matic:
+               </Typography>
+               <Typography
+                  variant="body1"
+                  color={theme.palette.secondary.contrastText}
+               >
+                  {user?.addressMatic ||
+                     (userMode ? (
+                        <NavLink to={USER_SETTINGS_ADDRESS_MATTIC_ROUTE}>
+                           <Button>add address</Button>
+                        </NavLink>
+                     ) : (
+                        ""
+                     ))}
                </Typography>
             </Box>
 

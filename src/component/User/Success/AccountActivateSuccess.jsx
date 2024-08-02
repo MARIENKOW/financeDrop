@@ -16,7 +16,7 @@ const AccountActivateSuccess = () => {
     >
       <DoneAllIcon sx={{ width: 70, height: 70 }} color="primary" />
       <Typography
-        color={"secondary"}
+        color={"secondary.contrastText"}
         sx={{ mb: 1 }}
         variant="h5"
         component="h2"

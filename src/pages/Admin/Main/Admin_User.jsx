@@ -15,13 +15,14 @@ import { NftInactiveAccordion } from "../../../component/Admin/nft/NftInactiveAc
 import { DepositAccordion } from "../../../component/general/deposit/DepositAccordion";
 import { OtherDepositForm } from "../../../component/Admin/deposit/OtherDepositForm";
 import { AdminUser_skeleton } from "../../../component/Admin/skeletons/AdminUser_skeleton";
+import { CashOutForm } from "../../../component/Admin/deposit/CashOutForm";
 
 export const Admin_User = () => {
    const theme = useTheme();
 
    const { id } = useParams();
 
-   const [expanded, setExpanded] = useState(3);
+   const [expanded, setExpanded] = useState();
 
    const handleChange = (panel) => (event, isExpanded) => {
       setExpanded(isExpanded ? panel : false);
@@ -50,13 +51,7 @@ export const Admin_User = () => {
          {isLoading ? (
             <AdminUser_skeleton />
          ) : (
-            <Grid
-               direction={{ xs: "column-reverse", md: "row" }}
-               container
-               mt={4}
-               spacing={{ xs: 3, md: 2 }}
-               columns={2}
-            >
+            <Grid container mt={4} spacing={{ xs: 3, md: 2 }} columns={2}>
                <Grid
                   display={"flex"}
                   flexDirection={"column"}
@@ -64,10 +59,7 @@ export const Admin_User = () => {
                   xs={2}
                   md={1}
                >
-                  <UserFullInfoAdmin
-                     sx={{ display: { xs: "none", md: "flex" } }}
-                     user={data}
-                  />
+                  <UserFullInfoAdmin user={data} userMode={false} />
                   <Box
                      sx={{
                         display: "flex",
@@ -75,41 +67,10 @@ export const Admin_User = () => {
                         gap: 1,
                      }}
                   >
-                     <NftActiveAccordion
-                        handleChange={handleChange}
-                        nft={data?.nft}
-                        expanded={expanded}
-                     />
-                     <NftInactiveAccordion
-                        handleChange={handleChange}
-                        nft={data?.nft}
-                        expanded={expanded}
-                     />
-                     <NftSendAccordion
-                        handleChange={handleChange}
-                        expanded={expanded}
-                        id={id}
-                     />
-                  </Box>
-               </Grid>
-               <Grid
-                  display={"flex"}
-                  flexDirection={"column"}
-                  gap={{ xs: 3, md: 2 }}
-                  // item
-                  xs={2}
-                  md={1}
-               >
-                  <Box>
-                     <UserFullInfoAdmin
-                        sx={{ display: { xs: "flex", md: "none" } }}
-                        user={data}
-                     />
-
                      <Box
                         mb={2}
                         ml={1}
-                        mt={{ xs: 3, md: 0 }}
+                        mt={2}
                         display={"flex"}
                         gap={1}
                         alignItems={"center"}
@@ -126,37 +87,65 @@ export const Admin_User = () => {
                            variant="h5"
                            color={theme.palette.secondary.contrastText}
                         >
-                           $ {data?.totalDeposit || '0.00'}
+                           $ {data?.totalDeposit || "0.00"}
                         </Typography>
                      </Box>
-                     <Box display={"flex"} flexDirection={"column"} gap={1}>
-                        <DepositAccordion
-                           deposit={data?.nftDepositEvents}
-                           expanded={expandedDeposit}
-                           handleChange={handleChangeDeposit}
-                           depositSum={data?.nftDeposit}
-                           label={"NFT Deposit"}
-                           expandedValue={1}
-                        />
-                        <DepositAccordion
-                           deposit={data?.referralDepositEvents}
-                           expanded={expandedDeposit}
-                           handleChange={handleChangeDeposit}
-                           expandedValue={2}
-                           depositSum={data?.referralDeposit}
-                           label={"Referral Deposit"}
-                        />
-                        <DepositAccordion
-                           deposit={data?.otherDepositEvents}
-                           expanded={expandedDeposit}
-                           expandedValue={3}
-                           handleChange={handleChangeDeposit}
-                           depositSum={data?.otherDeposit}
-                           label={"Other Deposit"}
-                        />
-                        <OtherDepositForm id={id} />
-                     </Box>
+                     <DepositAccordion
+                        deposit={data?.nftDepositEvents}
+                        expanded={expanded}
+                        handleChange={handleChange}
+                        depositSum={data?.nftDeposit}
+                        label={"NFT Deposit"}
+                        expandedValue={6}
+                     />
+                     <DepositAccordion
+                        deposit={data?.referralDepositEvents}
+                        expanded={expanded}
+                        handleChange={handleChange}
+                        expandedValue={5}
+                        depositSum={data?.referralDeposit}
+                        label={"Referral Deposit"}
+                     />
+                     <DepositAccordion
+                        deposit={data?.otherDepositEvents}
+                        expanded={expanded}
+                        expandedValue={4}
+                        handleChange={handleChange}
+                        depositSum={data?.otherDeposit}
+                        label={"Other Deposit"}
+                     />
+                     <NftActiveAccordion
+                        handleChange={handleChange}
+                        nft={data?.nft}
+                        expanded={expanded}
+                     />
+                     <NftInactiveAccordion
+                        handleChange={handleChange}
+                        nft={data?.nft}
+                        expanded={expanded}
+                     />
                   </Box>
+               </Grid>
+               <Grid
+                  display={"flex"}
+                  flexDirection={"column"}
+                  gap={3}
+                  // item
+                  xs={2}
+                  md={1}
+               >
+                  <OtherDepositForm id={id} />
+                  <CashOutForm
+                     nftDeposit={data?.nftDeposit}
+                     referralDeposit={data?.referralDeposit}
+                     otherDeposit={data?.otherDeposit}
+                     id={id}
+                  />
+                  <NftSendAccordion
+                     handleChange={handleChangeDeposit}
+                     expanded={expandedDeposit}
+                     id={id}
+                  />
                </Grid>
             </Grid>
          )}

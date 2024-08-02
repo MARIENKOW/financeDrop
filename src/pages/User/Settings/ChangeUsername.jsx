@@ -1,6 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { TextField, Typography, Box, InputAdornment, colors, useTheme } from "@mui/material";
+import {
+   TextField,
+   Typography,
+   Box,
+   InputAdornment,
+   colors,
+   useTheme,
+} from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
@@ -17,38 +24,41 @@ import {
 } from "../../../validateConfig";
 import { Title } from "../../../component/general/Title";
 import { StyledAlert } from "../../../component/general/StyledAlert";
+import { enqueueSnackbar } from "notistack";
 
 const ChangeUsername = () => {
+   const theme = useTheme();
 
-   const theme = useTheme()
+   const { user, updateUsername } = useContext(Context);
+
+   const { username } = user;
 
    const {
       handleSubmit,
       register,
       setError,
       clearErrors,
+      reset,
       setValue,
       formState: { errors, isValid, isSubmitting, isDirty },
-   } = useForm({ mode: "all" });
-   const { user, changeLogin } = useContext(Context);
-   const [success, setSuccess] = useState(false);
+   } = useForm({ mode: "all", defaultValues: { username } });
+
+   useEffect(() => {
+      reset({ username });
+   }, [username]);
 
    const onSubmit = async (data) => {
       try {
-         // await changeLogin(data.username)
-         setSuccess(true);
-         setError("root.server", {
-            type: "server",
-            message: "Упс! виникла помилка, спробуйте пізніше",
-         });
+         await updateUsername(data);
+         enqueueSnackbar(`Name change was a success!`, { variant: "success" });
       } catch (error) {
          console.log(error);
 
          if (error?.response?.status === 400) {
-            const errors = error?.response?.data?.error;
-            if (errors)
-               for (let key in errors)
-                  setError(key, { type: "server", message: errors[key][0] });
+            const errors = error?.response?.data || {};
+            for (let key in errors) {
+               setError(key, { type: "server", message: errors[key] });
+            }
             return;
          }
          setError("root.server", {
@@ -57,13 +67,6 @@ const ChangeUsername = () => {
          });
       }
    };
-
-   const handleRepeat = () => {
-      setValue("username", user.login);
-      setSuccess(false);
-   };
-
-   // if (success) return <Success handleCLick={handleRepeat} />
 
    const handleChange = () => {
       clearErrors("root");
@@ -90,7 +93,10 @@ const ChangeUsername = () => {
                gap: 1,
             }}
          >
-            <Title sx={{ mb: 3 ,color:theme.palette.secondary.contrastText}} label={"Change username"} />
+            <Title
+               sx={{ mb: 3, color: theme.palette.secondary.contrastText }}
+               label={"Change username"}
+            />
             <StyledTextField
                options={{
                   fullWidth: true,
@@ -101,25 +107,21 @@ const ChangeUsername = () => {
                         </InputAdornment>
                      ),
                   },
-                  defaultValue: user.username,
-                  helperText:
-                     errors?.username &&
-                     (errors?.username?.message || "некоректні данні"),
                }}
                errors={errors}
                register={register("username", {
                   required: "обов'язкове поле",
                   minLength: {
                      value: USERNAME_MIN_LENGTH,
-                     message: `мінімум ${USERNAME_MIN_LENGTH} символи`,
+                     message: `minimum ${USERNAME_MIN_LENGTH} characters`,
                   },
                   maxLength: {
                      value: USERNAME_MAX_LENGTH,
-                     message: `максимум ${USERNAME_MAX_LENGTH} символів`,
+                     message: `maximunm ${USERNAME_MAX_LENGTH} characters`,
                   },
                   validate: (value) =>
                      value === user.login
-                        ? "Новий логін повинен відрізнятись"
+                        ? "new login must be different"
                         : null,
                })}
                label="Username"
@@ -135,7 +137,7 @@ const ChangeUsername = () => {
                disabled={!isValid || !isDirty}
                type="submit"
                variant="contained"
-               sx={{mt:errors?.root?.server?0:3}}
+               sx={{ mt: errors?.root?.server ? 0 : 3 }}
             >
                Send
             </StyledLoadingButton>

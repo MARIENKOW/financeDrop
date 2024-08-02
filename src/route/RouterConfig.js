@@ -29,18 +29,26 @@ import ChangeUsername from "../pages/User/Settings/ChangeUsername.jsx";
 import ChangeName from "../pages/User/Settings/ChangeName.jsx";
 import ChangePassword from "../pages/User/Settings/ChangePassword.jsx";
 import ChangeImage from "../pages/User/Settings/ChangeImage.jsx";
+import ConfirmChangePassword from "../pages/User/Settings/ConfirmChangePassword.jsx";
+import ChangeAdressMatic from "../pages/User/Settings/ChangeAdressMatic.jsx";
 
 export const USER_ROUTE = "/";
 export const USER_NFT_ROUTE = "/nft";
 export const USER_SETTINGS_ROUTE = "/settings";
-export const USER_SETTINGS_NAME_ROUTE = USER_SETTINGS_ROUTE+"/change-name";
-export const USER_SETTINGS_IMG_ROUTE = USER_SETTINGS_ROUTE+"/change-img";
-export const USER_SETTINGS_USERNAME_ROUTE = USER_SETTINGS_ROUTE+"/change-username";
-export const USER_SETTINGS_PASSWORD_ROUTE = USER_SETTINGS_ROUTE+"/change-password";
+export const USER_SETTINGS_NAME_ROUTE = USER_SETTINGS_ROUTE + "/change-name";
+export const USER_SETTINGS_IMG_ROUTE = USER_SETTINGS_ROUTE + "/change-img";
+export const USER_SETTINGS_USERNAME_ROUTE =
+   USER_SETTINGS_ROUTE + "/change-username";
+export const USER_SETTINGS_PASSWORD_ROUTE =
+   USER_SETTINGS_ROUTE + "/change-password";
+export const USER_SETTINGS_ADDRESS_MATTIC_ROUTE =
+   USER_SETTINGS_ROUTE + "/change-address-matic";
 export const USER_SIGN_IN_ROUTE = "/sign-in";
 export const USER_SIGN_UP_ROUTE = "/sign-up";
 export const USER_REMEMBER_PASSWORD_ROUTE = "/remember-password";
 export const USER_CHANGE_PASSWORD_ROUTE = "/change-password";
+export const USER_CONFIRM_SETTINGS_PASSWORD_ROUTE =
+   "/change-password-settings/confirm";
 export const USER_ACTIVATE_ROUTE = "/activate";
 export const ADMIN_ROUTE = "/Admin";
 export const ADMIN_SIGN_IN_ROUTE = ADMIN_ROUTE + "/sign-in";
@@ -82,13 +90,13 @@ const RouterConfig = createBrowserRouter([
                   children: [
                      {
                         element: <ChangeImage />,
-                        index:true
+                        index: true,
                         // path: USER_SETTINGS_IMG_ROUTE,
                      },
                      {
                         element: <ChangeUsername />,
                         // index: true,
-                        path:USER_SETTINGS_USERNAME_ROUTE
+                        path: USER_SETTINGS_USERNAME_ROUTE,
                      },
                      {
                         element: <ChangeName />,
@@ -98,7 +106,10 @@ const RouterConfig = createBrowserRouter([
                         element: <ChangePassword />,
                         path: USER_SETTINGS_PASSWORD_ROUTE,
                      },
-
+                     {
+                        element: <ChangeAdressMatic />,
+                        path: USER_SETTINGS_ADDRESS_MATTIC_ROUTE,
+                     },
                   ],
                },
             ],
@@ -124,6 +135,15 @@ const RouterConfig = createBrowserRouter([
          {
             element: (
                <OnlyLogoutUser>
+                  <SignUp />
+               </OnlyLogoutUser>
+            ),
+            path: USER_SIGN_UP_ROUTE+'/:token',
+            errorElement: <ErrorPage />,
+         },
+         {
+            element: (
+               <OnlyLogoutUser>
                   <Remember />
                </OnlyLogoutUser>
             ),
@@ -142,6 +162,15 @@ const RouterConfig = createBrowserRouter([
          {
             element: <Activate />,
             path: USER_ACTIVATE_ROUTE + "/:token",
+            errorElement: <ErrorPage />,
+         },
+         {
+            element: (
+               <OnlyLoginUser>
+                  <ConfirmChangePassword />
+               </OnlyLoginUser>
+            ),
+            path: USER_CONFIRM_SETTINGS_PASSWORD_ROUTE + "/:link",
             errorElement: <ErrorPage />,
          },
       ],

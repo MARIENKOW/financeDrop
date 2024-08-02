@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import InCenterAuth from "../../../component/general/wrappers/InCenterAuth";
 import { Context } from "../../../User";
 import {
@@ -17,7 +17,10 @@ import { StyledPassword } from "../../../component/general/Form/StyledPassword";
 import { useTheme } from "@mui/material";
 import { StyledAlert } from "../../../component/general/StyledAlert";
 import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
-import { USER_REMEMBER_PASSWORD_ROUTE, USER_SIGN_UP_ROUTE } from "../../../route/RouterConfig";
+import {
+   USER_REMEMBER_PASSWORD_ROUTE,
+   USER_SIGN_UP_ROUTE,
+} from "../../../route/RouterConfig";
 
 const SignIn = () => {
    const theme = useTheme();
@@ -93,7 +96,7 @@ const SignIn = () => {
                label={"Password"}
                errors={errors}
                register={register("password", {
-                  required: "required",
+                  required: "required field",
                   maxLength: {
                      value: PASSWORD_MAX_LENGTH,
                      message: `maximunm ${PASSWORD_MAX_LENGTH} characters`,
@@ -109,7 +112,7 @@ const SignIn = () => {
                loading={isSubmitting}
                endIcon={<DoubleArrowIcon />}
                disabled={!isValid}
-               sx={{ mt: errors?.root?.server?0:3 }}
+               sx={{ mt: errors?.root?.server ? 0 : 3 }}
                type="submit"
                variant="contained"
             >

@@ -8,10 +8,15 @@ import { NftActiveAccordion } from "../../../component/Admin/nft/NftActiveAccord
 import { NftInactiveAccordion } from "../../../component/Admin/nft/NftInactiveAccordion";
 import { DepositAccordion } from "../../../component/general/deposit/DepositAccordion";
 import { Context } from "../../../User";
+import { Title } from "../../../component/general/Title";
+import { SiteContext } from "../../..";
+import CopyToClipboard from "../../../component/general/CopyToClipboard";
+import config from "../../../config";
+import { USER_SIGN_IN_ROUTE, USER_SIGN_UP_ROUTE } from "../../../route/RouterConfig";
 
 const User_Main = () => {
-
-   const {user} = useContext(Context)
+   const { user } = useContext(Context);
+   const { data } = useContext(SiteContext);
 
    console.log(user);
 
@@ -65,6 +70,37 @@ const User_Main = () => {
                      nft={user?.nft}
                      expanded={expanded}
                   />
+                  {/* <Box display={'flex'} flexDirection={'column'} alignItems={'center'} mt={4}>
+                     <Title
+                        sx={{ color: theme.palette.secondary.contrastText }}
+                        label={"Referral program"}
+                     />
+                     <Typography
+                        color="secondary"
+                        variant="h6"
+                        textAlign={"center"}
+                     >
+                        you can get{" "}
+                        <Typography
+                           ml={"3px"}
+                           mr={"3px"}
+                           component={"span"}
+                           color={theme.palette.secondary.contrastText}
+                           variant="h6"
+                        >
+                           {data?.referralPercent || 15}%
+                        </Typography>{" "}
+                        of every person who registers through your link.
+                     </Typography>
+                     <Box pr={2} pl={2} m={3} maxWidth={'400px'} >
+                        
+                        <CopyToClipboard
+                           text={
+                              "https://github.com/MARIENKOW/financeDrop-server"
+                           }
+                        />
+                     </Box>
+                  </Box> */}
                </Box>
             </Grid>
             <Grid
@@ -100,7 +136,7 @@ const User_Main = () => {
                         variant="h5"
                         color={theme.palette.secondary.contrastText}
                      >
-                        $ {user?.totalDeposit || '0.00'}
+                        $ {user?.totalDeposit || "0.00"}
                      </Typography>
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} gap={1}>
@@ -128,6 +164,41 @@ const User_Main = () => {
                         depositSum={user?.otherDeposit}
                         label={"Other Deposit"}
                      />
+                     <Box
+                        display={"flex"}
+                        flexDirection={"column"}
+                        alignItems={"center"}
+                        mt={4}
+                     >
+                        <Title
+                           sx={{ color: theme.palette.secondary.contrastText }}
+                           label={"Referral program"}
+                        />
+                        <Typography
+                           color="secondary"
+                           variant="h6"
+                           textAlign={"center"}
+                        >
+                           you can get{" "}
+                           <Typography
+                              ml={"3px"}
+                              mr={"3px"}
+                              component={"span"}
+                              color={theme.palette.secondary.contrastText}
+                              variant="h6"
+                           >
+                              {data?.referralPercent || 15}%
+                           </Typography>{" "}
+                           of every person who registers through your link.
+                        </Typography>
+                        <Box m={3} width={'100%'} maxWidth={"400px"}>
+                           <CopyToClipboard
+                              text={
+                                 config.CLIENT_API+USER_SIGN_UP_ROUTE+'/'+user?.uuid
+                              }
+                           />
+                        </Box>
+                     </Box>
                   </Box>
                </Box>
             </Grid>
@@ -136,5 +207,4 @@ const User_Main = () => {
    );
 };
 
-
-export default User_Main
+export default User_Main;

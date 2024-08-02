@@ -4,6 +4,7 @@ import PasswordIcon from "@mui/icons-material/Password";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { ContainerComponent } from "../../component/general/wrappers/ContainerComponent";
 import SettingsInner from "../../component/general/Settings/SettingsInner";
+import PaymentsIcon from '@mui/icons-material/Payments';
 
 const changeArray = [
    {
@@ -30,11 +31,17 @@ const changeArray = [
       icon: <PasswordIcon />,
       selected: false,
    },
+   {
+      name: "Address Matic",
+      link: "change-address-matic",
+      icon: <PaymentsIcon />,
+      selected: false,
+   },
 ];
 
 const Settings = () => {
    return (
-      <ContainerComponent>
+      <ContainerComponent sx={{ p: { xs: 0, sm: 2 } }}>
          <SettingsInner links={[changeArray]} />
       </ContainerComponent>
    );

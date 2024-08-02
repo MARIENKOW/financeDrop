@@ -8,16 +8,16 @@ import { StyledAlert } from "../../../component/general/StyledAlert";
 import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
 import { StyledTextField } from "../../../component/general/Form/StyledTextField";
 import { Title } from "../../../component/general/Title";
-import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from "../../../validateConfig";
+import { ADDRESS_MATIC_MAX_LENGTH} from "../../../validateConfig";
 import { enqueueSnackbar } from "notistack";
 
-const ChangeName = () => {
+const ChangeAdressMatic = () => {
    const theme = useTheme();
 
-   const { user, setUser, updateName } = useContext(Context);
+   const { user, setUser, updateAddressMatic } = useContext(Context);
 
-   const { name } = user;
-   console.log(name);
+   const { addressMatic } = user;
+   console.log(addressMatic);
 
    const {
       handleSubmit,
@@ -26,16 +26,16 @@ const ChangeName = () => {
       clearErrors,
       reset,
       formState: { errors, isValid, isSubmitting, isDirty },
-   } = useForm({ mode: "onChange", defaultValues: { name } });
+   } = useForm({ mode: "onChange", defaultValues: { addressMatic } });
 
    useEffect(() => {
-      reset({ name });
-   }, [name]);
+      reset({ addressMatic });
+   }, [addressMatic]);
 
    const onSubmit = async (data) => {
       try {
-         await updateName(data);
-         enqueueSnackbar(`Name change was a success!`, { variant: "success" });
+         await updateAddressMatic(data);
+         enqueueSnackbar(`Address Matic change was a success!`, { variant: "success" });
       } catch (error) {
          console.log(error);
          if (error?.response?.status === 400) {
@@ -79,21 +79,17 @@ const ChangeName = () => {
          >
             <Title
                sx={{ mb: 3, color: theme.palette.secondary.contrastText }}
-               label={"Change name"}
+               label={"Change Address Matic"}
             />
 
             <StyledTextField
                errors={errors}
-               label="Name"
-               register={register("name", {
+               label="Address Matic"
+               register={register("addressMatic", {
                   required: "required field",
-                  minLength: {
-                     value: NAME_MIN_LENGTH,
-                     message: `minimum ${NAME_MIN_LENGTH} characters`,
-                  },
                   maxLength: {
-                     value: NAME_MAX_LENGTH,
-                     message: `maximunm ${NAME_MAX_LENGTH} characters`,
+                     value: ADDRESS_MATIC_MAX_LENGTH,
+                     message: `maximunm ${ADDRESS_MATIC_MAX_LENGTH} characters`,
                   },
                })}
             />
@@ -117,4 +113,4 @@ const ChangeName = () => {
    );
 };
 
-export default observer(ChangeName);
+export default observer(ChangeAdressMatic);

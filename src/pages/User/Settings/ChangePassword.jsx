@@ -13,6 +13,8 @@ import { StyledPassword } from "../../../component/general/Form/StyledPassword";
 import { Title } from "../../../component/general/Title";
 import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
 import { StyledAlert } from "../../../component/general/StyledAlert";
+import UserService from "../../../services/UserService";
+import PasswordSuccess from "../../../component/User/Success/PasswordEmailSendSuccess";
 // import PasswordSuccess from "../../../components/PasswordSuccess";
 // import PasswordTime from "../../../components/Settings/ChangePassword/PasswordTime";
 
@@ -28,27 +30,24 @@ const ChangePassword = () => {
       formState: { errors, isValid, isSubmitting },
    } = useForm({ mode: "all" });
    const [success, setSuccess] = useState(false);
-   const [time, setTime] = useState(false);
 
    const onSubmit = async (obj) => {
       try {
-         // const { data } = await userController.changePassword(obj);
+         const { data } = await UserService.changePasswordSettings(obj);
          // setSuccess(data?.email || true);
          setError("root.server", {
             type: "server",
             message: "Упс! виникла помилка, спробуйте пізніше",
          });
+         setSuccess(data);
       } catch (error) {
          console.log(error);
          if (error?.response?.status === 400) {
-            const errors = error?.response?.data?.error;
+            const errors = error?.response?.data;
             if (errors)
                for (let key in errors)
-                  setError(key, { type: "server", message: errors[key][0] });
+                  setError(key, { type: "server", message: errors[key] });
             return;
-         }
-         if (error?.response?.status === 403) {
-            return setTime(error?.response?.data?.time || true);
          }
          setError("root.server", {
             type: "server",
@@ -61,9 +60,7 @@ const ChangePassword = () => {
       clearErrors("root");
    };
 
-   // if (success) return <PasswordSuccess mail={success} />;
-
-   // if (time) return <PasswordTime time={time} />;
+   if (success) return <PasswordSuccess button={false} mail={success} />;
 
    return (
       <Box
@@ -91,7 +88,7 @@ const ChangePassword = () => {
                label={"Change password"}
             />
             <StyledPassword
-               label={"currentPassword"}
+               label={"Current Password"}
                register={register("currentPassword", {
                   required: "required field",
                   maxLength: {

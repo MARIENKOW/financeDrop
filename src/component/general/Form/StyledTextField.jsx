@@ -6,6 +6,12 @@ export const STF = styled(TextField)(({ theme, error }) => ({
    "& label": {
       color: theme.palette.secondary.main,
    },
+   "& .MuiFormHelperText-root": {
+      color: theme.palette.secondary.main,
+      "&.Mui-error": {
+         color: theme.palette.error.main,
+      },
+   },
    "& .MuiFilledInput-root": {
       background: theme.palette.secondary.light,
       borderBottomColor: theme.palette.secondary.main,
@@ -63,6 +69,7 @@ export const StyledTextField = ({
    label,
    options,
    errMessage = "incorrect data",
+   helper = false,
 }) => {
    return (
       <STF
@@ -71,8 +78,9 @@ export const StyledTextField = ({
          label={label}
          {...options}
          helperText={
-            errors?.[register.name] &&
-            (errors?.[register.name]?.message || errMessage)
+            errors?.[register.name]
+               ? errors?.[register.name]?.message || errMessage
+               : helper && errMessage
          }
          variant="filled"
       />

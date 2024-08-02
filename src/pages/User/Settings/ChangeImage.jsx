@@ -25,7 +25,7 @@ const ChangeImage = () => {
    const [src, setSrc] = useState(null);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState(false);
-   const { user, deleteAvatar, saveAvatar } = useContext(Context);
+   const { user, deleteImg, createImg } = useContext(Context);
 
    const handleImgChange = (e) => {
       setSrc(URL.createObjectURL(e.target.files[0]));
@@ -44,13 +44,12 @@ const ChangeImage = () => {
                );
          });
          const formData = new FormData();
-         formData.append("file", file);
-         console.log(file);
-         // await saveAvatar(formData)
+         formData.append("img", file);
+         await createImg(formData);
       } catch (error) {
          console.log(error);
-         if (error?.response?.status === 400)
-            return setError("завантажено невірний тип даних");
+         // if (error?.response?.status === 400)
+         //    return setError("завантажено невірний тип даних");
          setError("Упс! Щоось пішло не так. Спробуйте пізніше");
          enqueueSnackbar(`Упс! Фото не було додано. Спробуйте пізніше`, {
             variant: "error",
@@ -63,7 +62,7 @@ const ChangeImage = () => {
    const handleDelete = async () => {
       try {
          setLoading(true);
-         // await deleteAvatar()
+         await deleteImg();
       } catch (error) {
          console.log(error);
          setError("Упс! Щоось пішло не так. Спробуйте пізніше");
@@ -106,7 +105,7 @@ const ChangeImage = () => {
             </Paper>
          ) : src ? (
             <AvatarEditor saveImg={handleSave} src={src} setSrc={setSrc} />
-         ) : user.human_avatar ? (
+         ) : user?.img ? (
             <Box sx={{ position: "relative", width: 200, height: 200 }}>
                <CardMedia
                   sx={{
@@ -115,7 +114,7 @@ const ChangeImage = () => {
                      borderRadius: 99,
                      overflow: "hidden",
                   }}
-                  image={user.human_avatar}
+                  image={user?.img?.path}
                   title="avatar"
                />
                <Button

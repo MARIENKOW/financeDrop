@@ -18,9 +18,18 @@ export const StyledFormControl = styled(FormControl)(({ theme, error }) => ({
    "& label": {
       color: theme.palette.secondary.main,
    },
-   "& .MuiFilledInput-root": {
+
+   "& .MuiInputBase-root": {
       background: theme.palette.secondary.light,
       borderBottomColor: theme.palette.secondary.main,
+      "& .MuiSvgIcon-root": {
+         color: error ? theme.palette.error.main : theme.palette.secondary.main,
+      },
+      "& .MuiOutlinedInput-notchedOutline": {
+         borderColor: error
+            ? theme.palette.error.main
+            : theme.palette.secondary.main,
+      },
       "& .MuiInputAdornment-root": {
          "& p": {
             color: error
@@ -41,14 +50,37 @@ export const StyledFormControl = styled(FormControl)(({ theme, error }) => ({
       "&:hover": {
          background: theme.palette.background.light,
          borderBottomColor: theme.palette.secondary.main,
+         "& .MuiSvgIcon-root": {
+            color: error
+               ? theme.palette.error.main
+               : theme.palette.secondary.main,
+         },
+         "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: error
+               ? theme.palette.error.main
+               : theme.palette.secondary.main,
+         },
          "&:before": {
             borderBottomColor: error
+               ? theme.palette.error.main
+               : theme.palette.secondary.main,
+            borderColor: error
                ? theme.palette.error.main
                : theme.palette.secondary.main,
          },
       },
       "&.Mui-focused": {
          background: theme.palette.secondary.light,
+         "& .MuiSvgIcon-root": {
+            color: error
+               ? theme.palette.error.main
+               : theme.palette.primary.main,
+         },
+         "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: error
+               ? theme.palette.error.main
+               : theme.palette.primary.main,
+         },
          "& .MuiInputAdornment-root": {
             "& p": {
                color: error
@@ -63,7 +95,7 @@ export const StyledFormControl = styled(FormControl)(({ theme, error }) => ({
          },
       },
    },
-   "& .MuiFilledInput-input": {
+   "& .MuiInputBase-input": {
       color: theme.palette.secondary.contrastText,
    },
 }));
