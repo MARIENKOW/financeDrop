@@ -81,7 +81,10 @@ export default class UserService {
       return res;
    }
    static async updateAddressMatic(value) {
-      const res = await $UserApi.post(USER_API_URL + "/updateAddressMatic", value);
+      const res = await $UserApi.post(
+         USER_API_URL + "/updateAddressMatic",
+         value
+      );
       return res;
    }
    static async updateUsername(value) {
@@ -101,5 +104,60 @@ export default class UserService {
          { changePassLink }
       );
       return response;
+   }
+   static async cashOutRequest(value) {
+      const res = await $UserApi.post(
+         USER_API_URL + "/cash-out/request",
+         value,
+         {
+            headers: { "Content-Type": "multipart/form-data" },
+         }
+      );
+      return res;
+   }
+   static async getCashOutRequestPending() {
+      const res = await $UserApi.get(
+         USER_API_URL + "/cash-out/request/pending"
+      );
+      return res;
+   }
+   static async getAdminCashOutRequestPending(id) {
+      const res = await $AdminApi.get(
+         USER_API_URL + "/cash-out/request/pending/" + id
+      );
+      return res;
+   }
+   static async getCashOutRequestHistory() {
+      const res = await $UserApi.get(
+         USER_API_URL + "/cash-out/request/history"
+      );
+      return res;
+   }
+   static async getAdminCashOutRequestHistory(id) {
+      const res = await $AdminApi.get(
+         USER_API_URL + "/cash-out/request/history/" + id
+      );
+      console.log(res);
+      return res;
+   }
+   static async checkCashOutRequest(value) {
+      const res = await $UserApi.post(
+         USER_API_URL + "/cash-out/request/check",
+         value
+      );
+      return res;
+   }
+   static async rejectCashOut(id, value) {
+      const res = await $AdminApi.post(
+         USER_API_URL + "/cash-out/request/reject/" + id,
+         value
+      );
+      return res;
+   }
+   static async confirmCashOut(id) {
+      const res = await $AdminApi.put(
+         USER_API_URL + "/cash-out/request/confirm/" + id
+      );
+      return res;
    }
 }

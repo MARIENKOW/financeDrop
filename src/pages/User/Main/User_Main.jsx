@@ -1,5 +1,5 @@
 import { ContainerComponent } from "../../../component/general/wrappers/ContainerComponent";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import BreadcrumbsComponent from "../../../component/general/BreadcrumbsComponent";
 import { UserFullInfoAdmin } from "../../../component/Admin/user/UserFullInfoAdmin";
@@ -12,13 +12,16 @@ import { Title } from "../../../component/general/Title";
 import { SiteContext } from "../../..";
 import CopyToClipboard from "../../../component/general/CopyToClipboard";
 import config from "../../../config";
-import { USER_SIGN_IN_ROUTE, USER_SIGN_UP_ROUTE } from "../../../route/RouterConfig";
+import {
+   USER_CASH_OUT_ROUTE,
+   USER_SIGN_IN_ROUTE,
+   USER_SIGN_UP_ROUTE,
+} from "../../../route/RouterConfig";
+import { NavLink } from "react-router-dom";
 
 const User_Main = () => {
    const { user } = useContext(Context);
    const { data } = useContext(SiteContext);
-
-   console.log(user);
 
    const theme = useTheme();
 
@@ -117,27 +120,32 @@ const User_Main = () => {
                   />
 
                   <Box
-                     mb={2}
-                     ml={1}
                      mt={{ xs: 3, md: 0 }}
+                     mb={3}
                      display={"flex"}
-                     gap={1}
+                     justifyContent={"space-between"}
+                     gap={2}
                      alignItems={"center"}
                   >
-                     <Typography
-                        fontWeight={"600"}
-                        variant="h6"
-                        color={theme.palette.secondary.contrastText}
-                     >
-                        Total:
-                     </Typography>
-                     <Typography
-                        fontWeight={"600"}
-                        variant="h5"
-                        color={theme.palette.secondary.contrastText}
-                     >
-                        $ {user?.totalDeposit || "0.00"}
-                     </Typography>
+                     <Box ml={1} display={"flex"} gap={1} alignItems={"center"}>
+                        <Typography
+                           fontWeight={"600"}
+                           variant="h6"
+                           color={theme.palette.secondary.contrastText}
+                        >
+                           Total:
+                        </Typography>
+                        <Typography
+                           fontWeight={"600"}
+                           variant="h5"
+                           color={theme.palette.secondary.contrastText}
+                        >
+                           $ {user?.totalDeposit || "0.00"}
+                        </Typography>
+                     </Box>
+                     <NavLink to={USER_CASH_OUT_ROUTE}>
+                        <Button variant={"contained"}>cash out</Button>
+                     </NavLink>
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} gap={1}>
                      <DepositAccordion
@@ -164,41 +172,46 @@ const User_Main = () => {
                         depositSum={user?.otherDeposit}
                         label={"Other Deposit"}
                      />
-                     <Box
-                        display={"flex"}
-                        flexDirection={"column"}
-                        alignItems={"center"}
-                        mt={4}
+                  </Box>
+               </Box>
+               <Box
+                  display={"flex"}
+                  flexDirection={"column"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  flex={1}
+                  mt={4}
+               >
+                  <Title
+                     sx={{ color: theme.palette.secondary.contrastText }}
+                     label={"Referral program"}
+                  />
+                  <Typography
+                     color="secondary"
+                     variant="h6"
+                     textAlign={"center"}
+                  >
+                     you can get{" "}
+                     <Typography
+                        ml={"3px"}
+                        mr={"3px"}
+                        component={"span"}
+                        color={theme.palette.secondary.contrastText}
+                        variant="h6"
                      >
-                        <Title
-                           sx={{ color: theme.palette.secondary.contrastText }}
-                           label={"Referral program"}
-                        />
-                        <Typography
-                           color="secondary"
-                           variant="h6"
-                           textAlign={"center"}
-                        >
-                           you can get{" "}
-                           <Typography
-                              ml={"3px"}
-                              mr={"3px"}
-                              component={"span"}
-                              color={theme.palette.secondary.contrastText}
-                              variant="h6"
-                           >
-                              {data?.referralPercent || 15}%
-                           </Typography>{" "}
-                           of every person who registers through your link.
-                        </Typography>
-                        <Box m={3} width={'100%'} maxWidth={"400px"}>
-                           <CopyToClipboard
-                              text={
-                                 config.CLIENT_API+USER_SIGN_UP_ROUTE+'/'+user?.uuid
-                              }
-                           />
-                        </Box>
-                     </Box>
+                        {data?.referralPercent || 15}%
+                     </Typography>{" "}
+                     of every person who registers through your link.
+                  </Typography>
+                  <Box m={3} width={"100%"} maxWidth={"400px"}>
+                     <CopyToClipboard
+                        text={
+                           config.CLIENT_API +
+                           USER_SIGN_UP_ROUTE +
+                           "/" +
+                           user?.uuid
+                        }
+                     />
                   </Box>
                </Box>
             </Grid>

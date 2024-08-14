@@ -50,7 +50,7 @@ export const themeSettings = {
       },
       alert: {
          main: "rgb(22, 11, 11)",
-         dark: "rgb(244, 67, 54)",
+         dark: "#391010",
          light: "rgb(244, 67, 54)",
          contrastText: "rgb(244, 199, 199)",
       },
@@ -59,6 +59,12 @@ export const themeSettings = {
          dark: "rgb(12, 19, 13)",
          light: "rgb(28, 46, 31)",
          contrastText: "rgb(204, 232, 205)",
+      },
+      error: {
+         main: "#d32f2f",
+         dark: "#3c0c0c",
+         light: "#3c0c0c",
+         contrastText: "#ffffff",
       },
       background: {
          main: "rgb(37, 37, 37)",

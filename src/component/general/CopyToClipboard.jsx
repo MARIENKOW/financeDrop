@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 
-export const CopyToClipboard = ({ text }) => {
+export const CopyToClipboard = ({ text ,type='link'}) => {
    const theme = useTheme();
    const textRef = useRef();
 
@@ -21,7 +21,7 @@ export const CopyToClipboard = ({ text }) => {
             console.log(textRef);
             textRef.current.select();
             document.execCommand("copy");
-            enqueueSnackbar('link copy to clipboard',{variant:'success'})
+            enqueueSnackbar(`${type} copy to clipboard`,{variant:'success'})
          }
       } catch (err) {
          console.error("Failed to copy text: ", err);

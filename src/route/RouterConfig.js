@@ -31,9 +31,11 @@ import ChangePassword from "../pages/User/Settings/ChangePassword.jsx";
 import ChangeImage from "../pages/User/Settings/ChangeImage.jsx";
 import ConfirmChangePassword from "../pages/User/Settings/ConfirmChangePassword.jsx";
 import ChangeAdressMatic from "../pages/User/Settings/ChangeAdressMatic.jsx";
+import { User_CashOut } from "../pages/User/Main/User_CashOut.jsx";
 
 export const USER_ROUTE = "/";
 export const USER_NFT_ROUTE = "/nft";
+export const USER_CASH_OUT_ROUTE = "/cash-out";
 export const USER_SETTINGS_ROUTE = "/settings";
 export const USER_SETTINGS_NAME_ROUTE = USER_SETTINGS_ROUTE + "/change-name";
 export const USER_SETTINGS_IMG_ROUTE = USER_SETTINGS_ROUTE + "/change-img";
@@ -75,6 +77,10 @@ const RouterConfig = createBrowserRouter([
                {
                   element: <User_Main />,
                   index: true,
+               },
+               {
+                  element: <User_CashOut />,
+                  path: USER_CASH_OUT_ROUTE,
                },
                {
                   element: <User_Nft_NotSold />,
