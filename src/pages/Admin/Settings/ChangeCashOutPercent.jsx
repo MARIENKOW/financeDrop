@@ -1,37 +1,26 @@
 import { useContext, useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import {
-   TextField,
-   Typography,
-   Box,
-   InputAdornment,
-   colors,
-   useTheme,
-} from "@mui/material";
-import { blue } from "@mui/material/colors";
+import { Button, Box, useTheme } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { LoadingButton } from "@mui/lab";
-import { Alert } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-// import Success from "../../../components/Settings/Success"
-// import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "../../../validateConfig"
-import { Context } from "../../../User";
-import { StyledTextField } from "../../../component/general/Form/StyledTextField";
-import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
-import {
-   USERNAME_MAX_LENGTH,
-   USERNAME_MIN_LENGTH,
-} from "../../../validateConfig";
-import { Title } from "../../../component/general/Title";
 import { StyledAlert } from "../../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
+import { StyledTextField } from "../../../component/general/Form/StyledTextField";
+import { Title } from "../../../component/general/Title";
+import {
+   ADDRESS_MATIC_MAX_LENGTH,
+   NFT_PERCENT_PATTERN,
+} from "../../../validateConfig";
 import { enqueueSnackbar } from "notistack";
+import { SiteContext } from "../../..";
+import { StyledNumberField } from "../../../component/general/Form/StyledNumberField";
 
-const ChangeUsername = () => {
+const ChangeCashOutPercent = () => {
    const theme = useTheme();
 
-   const { user, updateUsername } = useContext(Context);
+   const { data, changeCashOutPercent } = useContext(SiteContext);
 
-   const { username } = user;
+   const { cashOutPercent } = data;
 
    const {
       handleSubmit,
@@ -39,21 +28,21 @@ const ChangeUsername = () => {
       setError,
       clearErrors,
       reset,
-      setValue,
       formState: { errors, isValid, isSubmitting, isDirty },
-   } = useForm({ mode: "all", defaultValues: { username } });
+   } = useForm({ mode: "onChange", defaultValues: { cashOutPercent } });
 
    useEffect(() => {
-      reset({ username });
-   }, [username]);
+      reset({ cashOutPercent });
+   }, [cashOutPercent]);
 
    const onSubmit = async (data) => {
       try {
-         await updateUsername(data);
-         enqueueSnackbar(`Name change was a success!`, { variant: "success" });
+         await changeCashOutPercent(data);
+         enqueueSnackbar(`Cash Out percent change was a success!`, {
+            variant: "success",
+         });
       } catch (error) {
          console.log(error);
-
          if (error?.response?.status === 400) {
             const errors = error?.response?.data || {};
             for (let key in errors) {
@@ -95,36 +84,28 @@ const ChangeUsername = () => {
          >
             <Title
                sx={{ mb: 3, color: theme.palette.secondary.contrastText }}
-               label={"Change username"}
+               label={"Change Cash Out percent"}
             />
-            <StyledTextField
-               options={{
-                  fullWidth: true,
-                  InputProps: {
-                     startAdornment: (
-                        <InputAdornment sx={{ mr: "1px" }} position="start">
-                           @
-                        </InputAdornment>
-                     ),
+
+            <StyledNumberField
+               register={register("cashOutPercent", {
+                  required: "required field",
+                  pattern: {
+                     value: NFT_PERCENT_PATTERN,
+                     message: "value must be in the format - 99",
                   },
-               }}
-               errors={errors}
-               register={register("username", {
-                  required: "обов'язкове поле",
-                  minLength: {
-                     value: USERNAME_MIN_LENGTH,
-                     message: `minimum ${USERNAME_MIN_LENGTH} characters`,
+                  min: {
+                     value: 1,
+                     message: `minimum ${1}`,
                   },
-                  maxLength: {
-                     value: USERNAME_MAX_LENGTH,
-                     message: `maximunm ${USERNAME_MAX_LENGTH} characters`,
+                  max: {
+                     value: 100,
+                     message: `maximum ${100}`,
                   },
-                  validate: (value) =>
-                     value === user.login
-                        ? "new login must be different"
-                        : null,
                })}
-               label="Username"
+               label="Percent"
+               errors={errors}
+               startAdornment={"%"}
             />
             {errors?.root?.server && (
                <StyledAlert severity="error" variant="filled" hidden={true}>
@@ -146,4 +127,4 @@ const ChangeUsername = () => {
    );
 };
 
-export default observer(ChangeUsername);
+export default observer(ChangeCashOutPercent);

@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { LoadingButton } from "@mui/lab";
-import { Alert } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-// import userController from "../../../controllers/user-controller";
 import {
    PASSWORD_MAX_LENGTH,
    PASSWORD_MIN_LENGTH,
@@ -14,11 +11,10 @@ import { Title } from "../../../component/general/Title";
 import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
 import { StyledAlert } from "../../../component/general/StyledAlert";
 import UserService from "../../../services/UserService";
-import PasswordSuccess from "../../../component/User/Success/PasswordEmailSendSuccess";
-// import PasswordSuccess from "../../../components/PasswordSuccess";
-// import PasswordTime from "../../../components/Settings/ChangePassword/PasswordTime";
+import { enqueueSnackbar } from "notistack";
+import AdminService from "../../../services/AdminService";
 
-const ChangePassword = () => {
+const AdminChangePassword = () => {
    const theme = useTheme();
 
    const {
@@ -26,16 +22,18 @@ const ChangePassword = () => {
       register,
       getValues,
       setError,
+      reset,
       clearErrors,
       formState: { errors, isValid, isSubmitting },
    } = useForm({ mode: "all" });
-   const [success, setSuccess] = useState(false);
 
    const onSubmit = async (obj) => {
       try {
-         const { data } = await UserService.changePasswordSettings(obj);
-         // setSuccess(data?.email || true);
-         setSuccess(data);
+         await AdminService.changePassword(obj);
+         reset()
+         enqueueSnackbar(`Password change was a success!`, {
+            variant: "success",
+         });
       } catch (error) {
          console.log(error);
          if (error?.response?.status === 400) {
@@ -55,8 +53,6 @@ const ChangePassword = () => {
    const handleChange = () => {
       clearErrors("root");
    };
-
-   if (success) return <PasswordSuccess button={false} mail={success} />;
 
    return (
       <Box
@@ -143,4 +139,4 @@ const ChangePassword = () => {
    );
 };
 
-export default ChangePassword;
+export default AdminChangePassword;

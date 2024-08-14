@@ -43,6 +43,7 @@ $UserApi.interceptors.response.use(
             localStorage.setItem("accessToken", response.data);
             return await $UserApi.request(originalRequest);
          } catch (e) {
+            console.log('object',e);
             if (e?.response?.status === 401) store.setUnauthorized();
             throw e;
          }

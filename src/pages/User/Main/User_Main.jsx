@@ -18,6 +18,7 @@ import {
    USER_SIGN_UP_ROUTE,
 } from "../../../route/RouterConfig";
 import { NavLink } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
 const User_Main = () => {
    const { user } = useContext(Context);
@@ -220,4 +221,4 @@ const User_Main = () => {
    );
 };
 
-export default User_Main;
+export default observer(User_Main);

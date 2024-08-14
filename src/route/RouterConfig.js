@@ -32,6 +32,12 @@ import ChangeImage from "../pages/User/Settings/ChangeImage.jsx";
 import ConfirmChangePassword from "../pages/User/Settings/ConfirmChangePassword.jsx";
 import ChangeAdressMatic from "../pages/User/Settings/ChangeAdressMatic.jsx";
 import { User_CashOut } from "../pages/User/Main/User_CashOut.jsx";
+import AdminSettings from "../pages/Admin/Settings.jsx";
+import AdminChangePassword from "../pages/Admin/Settings/ChangePassword.jsx";
+import AdminChangeName from "../pages/Admin/Settings/ChangeName.jsx";
+import ChangeWallet from "../pages/Admin/Settings/ChangeWallet.jsx";
+import ChangeReferralPercent from "../pages/Admin/Settings/ChangeReferralPercent.jsx";
+import ChangeCashOutPercent from "../pages/Admin/Settings/ChangeCashOutPercent.jsx";
 
 export const USER_ROUTE = "/";
 export const USER_NFT_ROUTE = "/nft";
@@ -53,6 +59,11 @@ export const USER_CONFIRM_SETTINGS_PASSWORD_ROUTE =
    "/change-password-settings/confirm";
 export const USER_ACTIVATE_ROUTE = "/activate";
 export const ADMIN_ROUTE = "/Admin";
+export const ADMIN_SETTINGS_ROUTE = ADMIN_ROUTE + "/settings";
+export const ADMIN_SETTINGS_NAME_ROUTE = ADMIN_SETTINGS_ROUTE + "/change-name";
+export const ADMIN_SETTINGS_WALLET_ROUTE = ADMIN_SETTINGS_ROUTE + "/change-wallet";
+export const ADMIN_SETTINGS_REFERRAL_ROUTE = ADMIN_SETTINGS_ROUTE + "/change-referral-percent";
+export const ADMIN_SETTINGS_CASH_OUT_ROUTE = ADMIN_SETTINGS_ROUTE + "/change-cash-out-percent";
 export const ADMIN_SIGN_IN_ROUTE = ADMIN_ROUTE + "/sign-in";
 export const ADMIN_NFT_ROUTE = ADMIN_ROUTE + "/nft";
 export const ADMIN_USER_ROUTE = ADMIN_ROUTE + "/user";
@@ -144,7 +155,7 @@ const RouterConfig = createBrowserRouter([
                   <SignUp />
                </OnlyLogoutUser>
             ),
-            path: USER_SIGN_UP_ROUTE+'/:token',
+            path: USER_SIGN_UP_ROUTE + "/:token",
             errorElement: <ErrorPage />,
          },
          {
@@ -198,6 +209,33 @@ const RouterConfig = createBrowserRouter([
                {
                   element: <Admin_Main />,
                   index: true,
+               },
+               {
+                  element: <AdminSettings />,
+                  path: ADMIN_SETTINGS_ROUTE,
+                  children: [
+                     {
+                        element: <AdminChangePassword />,
+                        index: true,
+                        // path: USER_SETTINGS_IMG_ROUTE,
+                     },
+                     {
+                        element: <AdminChangeName />,
+                        path: ADMIN_SETTINGS_NAME_ROUTE,
+                     },
+                     {
+                        element: <ChangeReferralPercent />,
+                        path: ADMIN_SETTINGS_REFERRAL_ROUTE,
+                     },
+                     {
+                        element: <ChangeCashOutPercent />,
+                        path: ADMIN_SETTINGS_CASH_OUT_ROUTE,
+                     },
+                     {
+                        element: <ChangeWallet />,
+                        path: ADMIN_SETTINGS_WALLET_ROUTE,
+                     },
+                  ],
                },
                {
                   element: <Admin_User />,

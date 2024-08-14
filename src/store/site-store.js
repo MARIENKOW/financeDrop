@@ -26,6 +26,19 @@ class Site {
          setTimeout(this.getData, 5000);
       }
    };
+   changeWallet = async (value) =>{
+      const {data} =await SiteService.changeWallet(value)
+      console.log(data);
+      this.setData(data)
+   }
+   changeReferralPercent = async (value) =>{
+      const {data} = await SiteService.changeReferralPercent(value)
+      this.setData(data)
+   }
+   changeCashOutPercent = async (value) =>{
+      const {data} = await SiteService.changeCashOutPercent(value)
+      this.setData(data)
+   }
 }
 
 export default Site;

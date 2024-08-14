@@ -50,8 +50,8 @@ const ChangeImage = () => {
          console.log(error);
          // if (error?.response?.status === 400)
          //    return setError("завантажено невірний тип даних");
-         setError("Упс! Щоось пішло не так. Спробуйте пізніше");
-         enqueueSnackbar(`Упс! Фото не було додано. Спробуйте пізніше`, {
+         setError("Oops! something went wrong, try again later");
+         enqueueSnackbar(`Oops! something went wrong, try again later`, {
             variant: "error",
          });
       } finally {
@@ -65,8 +65,8 @@ const ChangeImage = () => {
          await deleteImg();
       } catch (error) {
          console.log(error);
-         setError("Упс! Щоось пішло не так. Спробуйте пізніше");
-         enqueueSnackbar(`Упс! Фото не було видалено. Спробуйте пізніше`, {
+         setError("Oops! something went wrong, try again later");
+         enqueueSnackbar(`Oops! something went wrong, try again later`, {
             variant: "error",
          });
       } finally {

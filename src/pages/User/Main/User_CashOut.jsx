@@ -19,6 +19,7 @@ import { CashOutAccordion } from "../../../component/general/cashOut/CashOutAcco
 import { UserCashOutPendingItem } from "../../../component/User/cashOut/UserCashOutPendingItem";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { CashOutHistoryItem } from "../../../component/general/cashOut/CashOutHistoryItem";
+import { observer } from "mobx-react-lite";
 
 const steps = [
    { name: "Create a request", icon: <RequestQuoteIcon fontSize="small" /> },
@@ -27,7 +28,7 @@ const steps = [
    { name: "End", icon: <RecommendIcon fontSize="small" /> },
 ];
 
-export const User_CashOut = () => {
+export const User_CashOut = observer(() => {
    const theme = useTheme();
 
    const { user } = useContext(Context);
@@ -70,12 +71,15 @@ export const User_CashOut = () => {
       setActiveStep(0);
    };
 
+   const { otherDeposit, referralDeposit, nftDeposit } = user;
+   console.log(otherDeposit);
+
    const StepperBoxArray = [
       <UserCashOutForm
          handleNext={handleNext}
-         otherDeposit={user?.otherDeposit}
-         referralDeposit={user?.referralDeposit}
-         nftDeposit={user?.nftDeposit}
+         otherDeposit={otherDeposit}
+         referralDeposit={referralDeposit}
+         nftDeposit={nftDeposit}
          setCashOutData={setCashOutData}
       />,
       <AdressMatic
@@ -158,4 +162,4 @@ export const User_CashOut = () => {
          </InCenter>
       </ContainerComponent>
    );
-};
+});

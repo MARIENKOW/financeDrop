@@ -1,37 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import {
-   TextField,
-   Typography,
-   Box,
-   InputAdornment,
-   colors,
-   useTheme,
-} from "@mui/material";
-import { blue } from "@mui/material/colors";
+import { Button, Box, useTheme } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { LoadingButton } from "@mui/lab";
-import { Alert } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-// import Success from "../../../components/Settings/Success"
-// import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "../../../validateConfig"
 import { Context } from "../../../User";
-import { StyledTextField } from "../../../component/general/Form/StyledTextField";
-import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
-import {
-   USERNAME_MAX_LENGTH,
-   USERNAME_MIN_LENGTH,
-} from "../../../validateConfig";
-import { Title } from "../../../component/general/Title";
 import { StyledAlert } from "../../../component/general/StyledAlert";
+import { StyledLoadingButton } from "../../../component/general/StyledLoadingButton";
+import { StyledTextField } from "../../../component/general/Form/StyledTextField";
+import { Title } from "../../../component/general/Title";
+import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from "../../../validateConfig";
 import { enqueueSnackbar } from "notistack";
+import { AdminContext } from "../../../Admin";
 
-const ChangeUsername = () => {
+const AdminChangeName = () => {
    const theme = useTheme();
 
-   const { user, updateUsername } = useContext(Context);
+   const { admin, changeName } = useContext(AdminContext);
 
-   const { username } = user;
+   const { name } = admin;
 
    const {
       handleSubmit,
@@ -39,21 +25,19 @@ const ChangeUsername = () => {
       setError,
       clearErrors,
       reset,
-      setValue,
       formState: { errors, isValid, isSubmitting, isDirty },
-   } = useForm({ mode: "all", defaultValues: { username } });
+   } = useForm({ mode: "onChange", defaultValues: { name } });
 
    useEffect(() => {
-      reset({ username });
-   }, [username]);
+      reset({ name });
+   }, [name]);
 
    const onSubmit = async (data) => {
       try {
-         await updateUsername(data);
+         await changeName(data);
          enqueueSnackbar(`Name change was a success!`, { variant: "success" });
       } catch (error) {
          console.log(error);
-
          if (error?.response?.status === 400) {
             const errors = error?.response?.data || {};
             for (let key in errors) {
@@ -95,36 +79,23 @@ const ChangeUsername = () => {
          >
             <Title
                sx={{ mb: 3, color: theme.palette.secondary.contrastText }}
-               label={"Change username"}
+               label={"Change name"}
             />
+
             <StyledTextField
-               options={{
-                  fullWidth: true,
-                  InputProps: {
-                     startAdornment: (
-                        <InputAdornment sx={{ mr: "1px" }} position="start">
-                           @
-                        </InputAdornment>
-                     ),
-                  },
-               }}
                errors={errors}
-               register={register("username", {
-                  required: "обов'язкове поле",
+               label="Name"
+               register={register("name", {
+                  required: "required field",
                   minLength: {
-                     value: USERNAME_MIN_LENGTH,
-                     message: `minimum ${USERNAME_MIN_LENGTH} characters`,
+                     value: NAME_MIN_LENGTH,
+                     message: `minimum ${NAME_MIN_LENGTH} characters`,
                   },
                   maxLength: {
-                     value: USERNAME_MAX_LENGTH,
-                     message: `maximunm ${USERNAME_MAX_LENGTH} characters`,
+                     value: NAME_MAX_LENGTH,
+                     message: `maximunm ${NAME_MAX_LENGTH} characters`,
                   },
-                  validate: (value) =>
-                     value === user.login
-                        ? "new login must be different"
-                        : null,
                })}
-               label="Username"
             />
             {errors?.root?.server && (
                <StyledAlert severity="error" variant="filled" hidden={true}>
@@ -146,4 +117,4 @@ const ChangeUsername = () => {
    );
 };
 
-export default observer(ChangeUsername);
+export default observer(AdminChangeName);

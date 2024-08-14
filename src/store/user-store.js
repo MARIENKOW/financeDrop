@@ -11,10 +11,10 @@ class User {
    }
    setAuth = (value) => {
       this.isAuth = value;
-   }
+   };
    setUser = (value) => {
       this.user = value;
-   }
+   };
    setUnauthorized = () => {
       this.setUser({});
       this.setAuth(false);
@@ -62,6 +62,7 @@ class User {
          this.setUnauthorized();
       }
    };
+
    aboutUser = async () => {
       try {
          this.setIsLoading(true);

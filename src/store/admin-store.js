@@ -62,6 +62,10 @@ class Admin {
          setTimeout(this.aboutAdmin, 5000);
       }
    };
+   changeName = async (value) => {
+      const { data } = await adminService.changeName(value);
+      this.setAdmin(data);
+   };
 }
 
 export default Admin;

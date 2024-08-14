@@ -8,7 +8,7 @@ import { ContainerComponent } from "../../../general/wrappers/ContainerComponent
 import LogoutIcon from "@mui/icons-material/Logout";
 import { StyledLink } from "../../../general/BreadcrumbsComponent";
 import { NavLink } from "react-router-dom";
-import { ADMIN_NFT_ROUTE, ADMIN_ROUTE } from "../../../../route/RouterConfig";
+import { ADMIN_NFT_ROUTE, ADMIN_ROUTE, ADMIN_SETTINGS_ROUTE } from "../../../../route/RouterConfig";
 import Home from "@mui/icons-material/Home";
 
 const Header = () => {
@@ -23,7 +23,7 @@ const Header = () => {
                      display: "flex",
                      justifyContent: "space-between",
                      alignItems: "center",
-                     gap:3
+                     gap: 3,
                   }}
                >
                   <Box display={"flex"} gap={3} alignItems="center">
@@ -36,9 +36,9 @@ const Header = () => {
                      <NavLink to={ADMIN_NFT_ROUTE}>
                         <StyledLink>NFT</StyledLink>
                      </NavLink>
-                     {/* <NavLink to={ADMIN_NFT_ROUTE}>
-                        <StyledLink>Pupil</StyledLink>
-                     </NavLink> */}
+                     <NavLink to={ADMIN_SETTINGS_ROUTE}>
+                        <StyledLink>Settings</StyledLink>
+                     </NavLink>
                   </Box>
                   <Button startIcon={<LogoutIcon />} onClick={logOut}>
                      Logout

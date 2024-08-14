@@ -92,8 +92,8 @@ export const UserFullInfoAdmin = ({ user, sx, userMode = true }) => {
                   {user?.email}
                </Typography>
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-               <Typography variant="body1" color={theme.palette.secondary.main}>
+            <Box sx={{ display: "flex",flexWrap:'wrap',  alignItems: "center", gap: 1 }}>
+               <Typography variant="body1" sx={{whiteSpace:'nowrap'}} color={theme.palette.secondary.main}>
                   address Matic:
                </Typography>
                <Typography
